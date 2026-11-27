@@ -31,6 +31,20 @@ class SkillPolicyTest {
     }
 
     @Test
+    void 새_사용자는_Lv1이고_가장_쉬운_문제를_맞힐_확률이_약_70퍼센트() {
+        assertThat(SkillPolicy.level(SkillPolicy.THETA_START)).isEqualTo(1);
+        assertThat(SkillPolicy.pCorrect(SkillPolicy.THETA_START, SkillPolicy.initialDifficulty(1))).isCloseTo(0.7, within(0.02));
+    }
+
+    @Test
+    void 새_사용자가_쉬운_문제를_두_번_맞히면_Lv2() {
+        double d = SkillPolicy.initialDifficulty(1);
+        double t = SkillPolicy.nextTheta(SkillPolicy.THETA_START, d, true, 0);
+        t = SkillPolicy.nextTheta(t, d, true, 1);
+        assertThat(SkillPolicy.level(t)).isEqualTo(2);
+    }
+
+    @Test
     void 레벨_경계() {
         assertThat(SkillPolicy.level(-1.5)).isEqualTo(1);
         assertThat(SkillPolicy.level(0)).isEqualTo(3);

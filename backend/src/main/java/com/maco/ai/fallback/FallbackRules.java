@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class FallbackRules {
 
-    /** 가정값: 루브릭 채점 통과 점수 (프로토타입 75, docs/01 70 → docs/07 4장에서 확정) */
+    /** 가정값(확정): 루브릭 채점 통과 점수 70 = SkillPolicy.REWRITE_PASS_SCORE (docs/07 4장) */
     public static final int PASS_SCORE = 70;
     /** 가정값: 너무 짧은 답은 어느 항목도 통과로 치지 않는다 */
     private static final int MIN_LENGTH = 8;

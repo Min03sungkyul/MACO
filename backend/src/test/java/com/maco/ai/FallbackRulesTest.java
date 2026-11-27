@@ -72,6 +72,22 @@ class FallbackRulesTest {
     }
 
     @Test
+    void 사진은_해상도와_상관없이_가로_160px로_줄여서_잰다() {
+        java.awt.image.BufferedImage big = new java.awt.image.BufferedImage(1600, 1200, java.awt.image.BufferedImage.TYPE_INT_RGB);
+        java.awt.Graphics2D g = big.createGraphics();
+        g.setColor(java.awt.Color.WHITE);
+        g.fillRect(0, 0, 1600, 1200);
+        g.setColor(java.awt.Color.BLACK);
+        for (int x = 0; x < 1600; x += 80) g.fillRect(x, 0, 40, 1200);
+        g.dispose();
+
+        PhotoMetrics.Measured m = PhotoMetrics.measure(big);
+
+        assertThat(m.brightness()).isBetween(100.0, 160.0);
+        assertThat(m.sharpness()).isGreaterThan(PhotoMetrics.MIN_SHARPNESS);
+    }
+
+    @Test
     void 사진은_어둡거나_흔들리면_통과하지_못한다() {
         assertThat(PhotoMetrics.judge(120, 10).pass()).isTrue();
         assertThat(PhotoMetrics.judge(40, 10).fix()).contains("어두워요");

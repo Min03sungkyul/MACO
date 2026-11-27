@@ -11,7 +11,8 @@ import java.util.List;
  */
 public final class PhotoMetrics {
 
-    // 가정값: 통과 기준 (docs/07 4장)
+    // 가정값(확정): 통과 기준은 프로토타입 값. 반드시 가로 160px로 줄인 뒤 잰다 (프로토타입과 같은 크기, docs/07 4장)
+    public static final int MEASURE_WIDTH = 160;
     public static final double MIN_BRIGHTNESS = 85;
     public static final double MAX_BRIGHTNESS = 215;
     public static final double MIN_SHARPNESS = 6;
@@ -22,7 +23,9 @@ public final class PhotoMetrics {
     public record Measured(double brightness, double sharpness) {
     }
 
-    public static Measured measure(BufferedImage img) {
+    /** 가로 160px로 줄여서 잰다. 선명도(라플라시안 평균)는 해상도에 따라 값이 달라지기 때문이다. */
+    public static Measured measure(BufferedImage original) {
+        BufferedImage img = resizeToWidth(original, MEASURE_WIDTH);
         int w = img.getWidth();
         int h = img.getHeight();
         double[] lum = new double[w * h];
@@ -44,6 +47,16 @@ public final class PhotoMetrics {
         }
         double sharp = (w > 2 && h > 2) ? edge / ((double) (w - 2) * (h - 2)) : 0;
         return new Measured(sum / (w * (double) h), sharp);
+    }
+
+    static BufferedImage resizeToWidth(BufferedImage src, int width) {
+        int height = Math.max(1, (int) Math.round(src.getHeight() * (width / (double) src.getWidth())));
+        BufferedImage out = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        java.awt.Graphics2D g = out.createGraphics();
+        g.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g.drawImage(src, 0, 0, width, height, null);
+        g.dispose();
+        return out;
     }
 
     public static GradeOutput judge(double brightness, double sharpness) {

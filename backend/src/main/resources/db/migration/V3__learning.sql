@@ -3,7 +3,7 @@
 CREATE TABLE user_skill (
     user_id       BIGINT      NOT NULL,
     skill_code    VARCHAR(10) NOT NULL,
-    theta         DOUBLE      NOT NULL DEFAULT 0,
+    theta         DOUBLE      NOT NULL DEFAULT -1.2,
     level         TINYINT     NOT NULL DEFAULT 1,
     attempt_count INT         NOT NULL DEFAULT 0,
     correct_count INT         NOT NULL DEFAULT 0,
