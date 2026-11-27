@@ -14,11 +14,12 @@
 | GET 🔒 | `/me` | 내 정보, 모드, 목표, 지역, `today`(가상 날짜) | 전체 |
 | PATCH 🔒 | `/me/settings` | 모드, 업종, 일일 목표, 습관 고리, 지역, 공개 범위, 리그 끄기 | S2, S5, S26 |
 | GET 🔒 | `/me/status` | 상단 바용: 오늘 XP, 목표, 스트릭 | 상단 바 |
+| POST 🔒 | `/streak/busy-review` | 바쁜 날 2분 복습을 마침 → 오늘 스트릭 유지 (기획서 C3) | S6 |
 | GET | `/regions?sido=` | 지역 목록 | S5 |
 | GET 🔒 | `/placement` | 배치 테스트 10문제 | S4 |
 | POST 🔒 | `/placement/submit` | 답 제출 → 스킬별 시작 실력 | S4 |
 | POST 🔒✨ | `/attempts` | **문제 하나 풀이 기록·채점** (SkillService.record). 레슨·쪽지시험·오답 노트가 모두 사용 | S8, S12, S13 |
-| POST 🔒🤖 | `/items/{itemId}/explain` | "왜 틀렸어요?" 오답 설명 (누를 때만) | S9 |
+| POST 🔒🤖 | `/items/{itemId}/explain` | "왜 틀렸어요?" 오답 설명 (누를 때만). 본문 `{ "answer": "A" }` | S9 |
 
 ## 📚 트레이닝 (주승준)
 
@@ -56,7 +57,7 @@
 | PUT 🔒 | `/captures/{id}/confirm` | 사장님이 확인·수정한 값 → 관문 진단 생성 | S16 |
 | GET 🔒 | `/gate-checks/latest` | 찾게·믿게·알리게 점수, 진단 카드, 광고 잠금 | S17, S21 |
 | POST 🔒 | `/spot-games` | 틀린 곳 찾기 시작 (내 캡처 또는 연습 가게 화면) → 이미지, 찾을 개수 | S18 |
-| POST 🔒✨ | `/spot-games/{id}/taps` | 탭한 좌표 → 맞음/아님, 이유 카드, XP | S18 |
+| POST 🔒✨ | `/spot-games/{id}/taps` | 탭한 줄 `{ "key": "menuPrice" }` → 맞음/아님, 진단 카드 문장, XP (좌표 대신 줄 단위, docs/07 3-1) | S18 |
 | GET 🔒 | `/missions` | 미션 목록·해금 상태 | S15 |
 | POST 🔒🤖✨ | `/missions/{id}/submissions` | 제출(multipart) → 항목별 채점, 고칠 점, 통과 시 XP | S19 |
 | POST 🔒 | `/review-cards` | 리뷰 요청 QR 카드 만들기 | S20 |
@@ -87,6 +88,10 @@
 |---|---|---|
 | POST 🔒 | `/demo/skip-days` | `{ "days": 7 }` 가상 날짜 넘기기 (시연 계정만). 넘긴 기간의 예시 기록을 함께 채움 |
 | POST 🔒 | `/demo/reset` | 시연 계정을 처음 상태로 |
+
+## 뼈대 현황 (2026-11-27)
+
+위 주소는 모두 서버에 controller·DTO가 있고, 화면에는 `frontend/src/lib/api/<탭>.ts`·`lib/types/<탭>.ts`가 있다. 아직 저장하지 않는 스텁은 서버 코드의 `TODO(이름)`으로 표시했다. 목록은 `docs/07` 6장.
 
 ## 첫 주에 먼저 만들 스텁 (다른 사람이 막히지 않게)
 
