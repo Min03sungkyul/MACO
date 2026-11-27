@@ -12,7 +12,7 @@ const STYLE: Record<Variant, string> = {
 };
 
 export function buttonClass(variant: Variant = 'primary', full = true) {
-  return `${full ? 'w-full' : ''} inline-flex min-h-12 items-center justify-center gap-2 rounded-button px-5 text-base font-semibold transition active:scale-[.98] ${STYLE[variant]}`;
+  return `${full ? 'w-full' : ''} inline-flex min-h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-button px-5 text-base font-semibold transition active:scale-[.98] ${STYLE[variant]}`;
 }
 
 /** 기본 버튼. 한 화면에 accent는 한 곳만 (디자인 원칙) */

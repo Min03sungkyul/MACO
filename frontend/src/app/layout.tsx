@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { AppShell, Providers } from '@/components/ui';
+import { THEME_COLOR } from '@/styles/meta';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -11,7 +12,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: '#ffffff',
+  themeColor: THEME_COLOR,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
