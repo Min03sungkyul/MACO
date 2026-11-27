@@ -39,7 +39,7 @@ function Body() {
       </div>
       <h2 className="ob-h2">언제 할까요?</h2>
       <p className="ob-note">이미 매일 하는 일 뒤에 붙이면 잊지 않아요 (습관 고리).</p>
-      <div className="chips" role="group" aria-label="훈련 시간">
+      <div className="chips" role="group" aria-label="트레이닝 시간">
         {HABITS.map((h) => <button key={h} type="button" className="chip" aria-pressed={habit === h} onClick={() => setHabit(h)}>{h}</button>)}
       </div>
       <h2 className="ob-h2">랭킹 지역</h2>

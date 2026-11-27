@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import { Avatar, WhenReady } from '@/components/ui';
@@ -90,7 +89,6 @@ function Body() {
         <button className="row" type="button" onClick={() => { const i = GOALS.findIndex((g) => g.xp === t.goal); setTrain((s) => ({ ...s, goal: GOALS[(i + 1) % GOALS.length].xp })); }}>하루 목표<em>{GOALS.find((g) => g.xp === t.goal)?.label} · {t.goal} XP</em></button>
         <button className="row" type="button" onClick={() => setProg({ privacy: p.privacy === 'all' ? 'friends' : p.privacy === 'friends' ? 'none' : 'all' })}>랭킹 공개 범위<em>{{ all: '전체', friends: '친구만', none: '비공개' }[p.privacy]}</em></button>
         <button className="row" type="button" onClick={() => setProg({ leagueOn: !p.leagueOn })}>리그 참여<em>{p.leagueOn ? '켜짐' : '꺼짐'}</em></button>
-        <Link className="row" href="/report">게시 루틴 주간 리포트<em>BCT 실전 루프</em></Link>
         <button className="row quiet" type="button" onClick={() => { reset(); signOut({ redirectTo: '/' }); }}>로그아웃 · 이 기기의 기록 지우기<em /></button>
       </div>
 

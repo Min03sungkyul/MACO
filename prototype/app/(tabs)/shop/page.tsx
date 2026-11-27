@@ -61,12 +61,6 @@ function Body() {
         <div><b>광고 관문</b><span>{adsUnlocked(g?.scores ?? null) ? '2주 실험 카드로 작게 시작해요' : '찾게·믿게 관문을 통과하면 열려요'}</span></div>
       </Link>
 
-      {!learn && (
-        <Link className="t-test-card" href="/routine">
-          <span className="ic">{TI.target}</span>
-          <div><b>이번 주 게시 루틴</b><span>BCT 실전 루프 · 오늘 할 일 → 촬영 → 게시 → 기록</span></div>
-        </Link>
-      )}
     </main>
   );
 }

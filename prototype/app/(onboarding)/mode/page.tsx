@@ -29,7 +29,7 @@ function Body() {
     <main className="screen ob fade">
       <div className="ob-step">1 / 4</div>
       <h1 className="title">가게가 있으세요?</h1>
-      <p className="body-text">같은 훈련을 하되, 문제의 배경이 달라져요. 나중에 언제든 바꿀 수 있고 실력은 그대로 이어져요.</p>
+      <p className="body-text">같은 트레이닝을 하되, 문제의 배경이 달라져요. 나중에 언제든 바꿀 수 있고 실력은 그대로 이어져요.</p>
       <div className="ob-modes">
         <button type="button" onClick={() => choose('shop')}>
           <b>네, 운영 중이에요</b><span>내 가게 모드 · 내 가게 화면과 리뷰로 연습하고 실제로 적용해요</span>

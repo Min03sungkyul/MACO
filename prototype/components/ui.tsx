@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { DAY_NAMES, type WeekRow } from '@/lib/maco';
 import { useStore } from '@/lib/store';
 
 export const AVATAR = '/maco-avatar.jpg';
@@ -70,26 +69,12 @@ export function CoachLine({ children }: { children: React.ReactNode }) {
   return <div className="coachline"><Avatar size={32} /><p>{children}</p></div>;
 }
 
-/** Week strip: today = black circle, routine days = purple dot, done = orange, rest = grey. */
-export function WeekStrip({ rows, dates, todayIndex }: { rows: WeekRow[]; dates: string[]; todayIndex: number }) {
-  return (
-    <div className="wk">
-      {DAY_NAMES.map((d, i) => {
-        const row = rows.find((r) => r.day === d);
-        const st = row?.record?.status;
-        const cls = [i === todayIndex ? 'now' : '', row ? (st === 'done' ? 'ok' : st === 'rest' ? 'rest' : 'on') : ''].join(' ');
-        return <span key={d} className={cls}>{d}<b>{Number(dates[i].slice(8))}</b><i /></span>;
-      })}
-    </div>
-  );
-}
-
 export const TABS = [
   { href: '/train', label: '트레이닝', icon: <><path d="M4 19V6.5A1.5 1.5 0 0 1 5.5 5H11v14" /><path d="M20 19V6.5A1.5 1.5 0 0 0 18.5 5H13v14" /></> },
   { href: '/test', label: '시험', also: ['/test/quiz', '/test/notes', '/test/roleplay'], icon: <><rect x="5" y="3.5" width="14" height="17" rx="2" /><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4" /></> },
-  { href: '/shop', label: '내 가게', also: ['/routine', '/today'], icon: <><path d="M4 9.5 5.5 4h13L20 9.5M4 9.5h16M5.5 9.5V20h13V9.5M10 20v-5h4v5" strokeLinejoin="round" /></> },
+  { href: '/shop', label: '내 가게', icon: <><path d="M4 9.5 5.5 4h13L20 9.5M4 9.5h16M5.5 9.5V20h13V9.5M10 20v-5h4v5" strokeLinejoin="round" /></> },
   { href: '/rank', label: '랭킹', icon: <><path d="M8 20V11M12 20V5M16 20v-6" /></> },
-  { href: '/me', label: '내 정보', also: ['/report'], icon: <><circle cx="12" cy="8.5" r="3.5" /><path d="M5 20c1-3.5 3.8-5.5 7-5.5s6 2 7 5.5" /></> },
+  { href: '/me', label: '내 정보', icon: <><circle cx="12" cy="8.5" r="3.5" /><path d="M5 20c1-3.5 3.8-5.5 7-5.5s6 2 7 5.5" /></> },
 ];
 
 export function TabBar() {

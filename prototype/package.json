@@ -7,9 +7,7 @@
     "build": "next build",
     "start": "next start -p 3100",
     "typecheck": "tsc --noEmit",
-    "test": "node --test --experimental-strip-types --no-warnings lib/*.test.ts lib/train/*.test.ts sim/*.test.ts",
-    "sim": "node --experimental-strip-types --no-warnings sim/run.ts",
-    "sim:tune": "node --experimental-strip-types --no-warnings sim/tune.ts",
+    "test": "node --test --experimental-strip-types --no-warnings lib/train/*.test.ts",
     "setup": "node scripts/setup-env.mjs",
     "phone": "next build && next start -H 0.0.0.0 -p 3100"
   },
