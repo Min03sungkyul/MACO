@@ -4,3 +4,4 @@ maco:
     load-on-start: true
   demo:
     seed-on-start: true
+    password: ${DEMO_PASSWORD:maco1234}
