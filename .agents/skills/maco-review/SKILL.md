@@ -1,9 +1,11 @@
 ---
 name: maco-review
-description: MACO에서 짝 팀원의 PR을 리뷰할 때 쓴다. 규칙 위반, 버그, 시연 흐름 영향을 확인하고 한국어로 리뷰 의견을 정리한다.
+description: MACO에서 팀원의 PR을 리뷰할 때 쓴다 (리뷰어는 팀장 강민국). 규칙 위반, 버그, 시연 흐름 영향을 확인하고 한국어로 리뷰 의견을 정리한다.
 ---
 
-# 짝 PR 리뷰
+# 팀원 PR 리뷰
+
+> 팀원(주승준·박민하·이동성)의 PR은 팀장 강민국이 리뷰·승인한다. 강민국 본인의 PR은 리뷰 없이 병합할 수 있다.
 
 1. PR 브랜치를 받는다: `git fetch` → `git switch <브랜치>` (GitHub Desktop: Current branch에서 선택).
 2. 변경 내용을 읽는다: `git diff main...HEAD`.

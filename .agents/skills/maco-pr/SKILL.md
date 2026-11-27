@@ -17,4 +17,4 @@ description: MACO에서 작업을 마치고 커밋하거나 PR(Pull Request)을 
 3. **커밋**: `git add <파일들>` (전체 `git add .`보다 파일 지정) → `git commit -m "feat(<탭>): <한국어 설명>"`.
 4. **PR 설명 초안**: `.github/pull_request_template.md` 형식으로 작성해 사용자에게 보여 준다. 기능 ID(예: T1), 확인 방법, AI 사용 기록을 채운다.
 5. **push·PR 생성은 사용자가 요청할 때만** 한다. GitHub Desktop을 쓰는 사람에게는 "Push origin → Create Pull Request" 버튼 순서를 알려 준다.
-6. 리뷰어: 트레이닝 ↔ 시험, 랭킹 ↔ 내 가게 짝. 공통 부분이면 그 담당자도 추가.
+6. 리뷰어: 팀원(주승준·박민하·이동성)의 PR은 팀장 강민국(`@Min03sungkyul`)이 CODEOWNERS로 자동 지정된다. 강민국 본인의 PR은 리뷰 없이 병합할 수 있다. 다른 담당 영역을 고쳤으면 PR 설명에 적고 그 담당자에게도 알린다.

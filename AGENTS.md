@@ -86,7 +86,7 @@ Windows PowerShell에서 Gradle은 `.\gradlew.bat bootRun`.
 | `maco-content` | 문제 은행·개념 카드·오류 유형 CSV를 쓰거나 검수할 때 |
 | `maco-ai-task` | AI 기능(AiTask)을 추가할 때 |
 | `maco-pr` | 커밋·PR을 준비할 때 |
-| `maco-review` | 짝의 PR을 리뷰할 때 |
+| `maco-review` | 팀원 PR을 리뷰할 때 (리뷰어는 팀장 강민국) |
 
 ## 8. 완료 기준
 
