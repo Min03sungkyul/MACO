@@ -1,0 +1,7 @@
+{
+  "default": {
+    "hours": false, "menuPrice": false, "photos": 12, "contact": false,
+    "reviews": 0, "rating": 0, "replied": 0, "recentReviewDays": 999,
+    "news": true, "coupon": false, "insta": true
+  }
+}

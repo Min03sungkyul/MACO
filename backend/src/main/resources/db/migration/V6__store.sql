@@ -111,7 +111,7 @@ CREATE TABLE review_request_log (
     CONSTRAINT fk_review_request_store FOREIGN KEY (store_id) REFERENCES store (id) ON DELETE CASCADE
 );
 
--- MVP 미션 2종 (프로토타입: 사진 다시 찍기, 불만 리뷰 답글)
+-- MVP 미션 2종 (prototype/components/train/shop.tsx MISSIONS). 스킬 Lv2부터 열린다 (가정값)
 INSERT INTO mission (code, skill_code, gate, title, description, unlock_level, submit_type, rubric_code) VALUES
-    ('M-PHOTO', 'PHOTO', 'FIND', '대표 메뉴 사진 다시 찍기', '창가 자연광에서 대표 메뉴 한 장을 찍어 올려 주세요. 밝기·선명도를 확인해요.', 1, 'PHOTO', NULL),
-    ('M-REPLY', 'REVIEW', 'TRUST', '불만 리뷰에 답글 달기', '실제 가게의 불만 리뷰 하나에 공감·사과·개선·다시 오기로 답글을 써 보세요.', 1, 'TEXT', 'REPLY_COMPLAINT');
+    ('M-PHOTO', 'PHOTO', 'FIND', '대표 메뉴 사진 다시 찍기', '배운 대로 밝고 선명하게, 주인공 하나만 크게 찍어 올려요. 마코가 밝기와 선명도를 채점해요.', 2, 'PHOTO', NULL),
+    ('M-REPLY', 'REVIEW', 'TRUST', '최근 리뷰에 답글 달기', '공감 → 사과 → 개선 → 다시 오기 순서로 직접 답글을 써요. 마코는 대신 써 주지 않고 첨삭만 해요.', 2, 'TEXT', 'REPLY_COMPLAINT');
