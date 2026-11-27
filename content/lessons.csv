@@ -1,0 +1,7 @@
+id,skill_code,level,seq,title,concept_card_id,item_count
+1,PHOTO,1,1,밝고 선명하게,1,7
+2,PHOTO,3,2,"주인공은 하나, 크게",2,7
+3,PHOTO,5,3,손님 눈으로 순서 짜기,3,7
+4,REVIEW,1,1,먼저 답할 리뷰 고르기,4,7
+5,REVIEW,3,2,칭찬엔 구체적으로,5,7
+6,REVIEW,5,3,불만엔 공감 → 사과 → 개선 → 다시 오기,6,7

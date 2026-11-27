@@ -1,0 +1,10 @@
+code,criterion_key,seq,criterion,weight,description,good,fix,error_type_code
+REPLY_PRAISE,THANKS,1,감사,1,,감사 인사로 시작했어요.,"""감사해요"" 한마디로 시작해 보세요.",REPLY_TEMPLATE
+REPLY_PRAISE,SPECIFIC,2,손님 말 다시 부르기,1,,손님이 말한 메뉴를 다시 불렀어요.,손님이 칭찬한 메뉴 이름을 넣어 보세요.,REPLY_TEMPLATE
+REPLY_PRAISE,REVISIT,3,다시 오기,1,,다시 오실 이유를 드렸어요.,"""또 들러 주세요""처럼 다시 오라는 말을 붙여 보세요.",REPLY_NO_REVISIT
+REPLY_PRAISE,CLEAN,4,과한 홍보 없음,1,,홍보 없이 깔끔해요.,팔로우·이벤트 홍보는 빼 보세요.,REPLY_PROMO
+REPLY_COMPLAINT,EMPATHY,1,공감,1,,손님 마음을 먼저 받아 줬어요.,"""불편하셨겠어요""처럼 공감을 먼저 써 보세요.",REPLY_NO_EMPATHY
+REPLY_COMPLAINT,APOLOGY,2,사과,1,,분명하게 사과했어요.,"""죄송합니다""를 분명하게 넣어 보세요.",REPLY_NO_APOLOGY
+REPLY_COMPLAINT,FIX,3,개선 약속,1,,무엇을 바꿀지 말했어요.,앞으로 무엇을 바꿀지 한 문장으로 적어 보세요.,REPLY_NO_FIX
+REPLY_COMPLAINT,REVISIT,4,다시 오기,1,,다시 오실 이유를 드렸어요.,"""다음에 오시면 …""으로 다시 오실 이유를 드려 보세요.",REPLY_NO_REVISIT
+REPLY_COMPLAINT,CALM,5,변명·반박 없음,1,,변명 없이 담백해요.,"""원래"", ""다른 손님은"" 같은 변명은 빼 보세요.",REPLY_DEFENSIVE
