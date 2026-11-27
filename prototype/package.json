@@ -1,0 +1,31 @@
+{
+  "name": "maco-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3100",
+    "build": "next build",
+    "start": "next start -p 3100",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test --experimental-strip-types --no-warnings lib/*.test.ts lib/train/*.test.ts sim/*.test.ts",
+    "sim": "node --experimental-strip-types --no-warnings sim/run.ts",
+    "sim:tune": "node --experimental-strip-types --no-warnings sim/tune.ts",
+    "setup": "node scripts/setup-env.mjs",
+    "phone": "next build && next start -H 0.0.0.0 -p 3100"
+  },
+  "dependencies": {
+    "next": "^16.4.6",
+    "next-auth": "^5.0.0-beta.32",
+    "qrcode": "^1.5.4",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "netlify-cli": "^27.19.0",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,373 @@
+{
+  "options": {
+    "owners": 1000,
+    "weeks": 12,
+    "pilot": 300,
+    "pilotWeeks": 4,
+    "seed": 7
+  },
+  "summary": [
+    {
+      "policy": "fixed",
+      "label": "현재 고정 규칙",
+      "totalDone": 9.04,
+      "totalDoneCI": 0.56,
+      "doneRate": 0.446,
+      "tasksPerWeek": 2.61,
+      "halfWeeks": 0.594,
+      "retention": 0.354,
+      "vsFixed": 0,
+      "vsFixedCI": 0,
+      "afterDriftDone": 2.54,
+      "regret": 10.39
+    },
+    {
+      "policy": "v1-cells",
+      "label": "v1 칸별 독립 모델",
+      "totalDone": 8.92,
+      "totalDoneCI": 0.6,
+      "doneRate": 0.444,
+      "tasksPerWeek": 2.75,
+      "halfWeeks": 0.576,
+      "retention": 0.317,
+      "vsFixed": -0.12,
+      "vsFixedCI": 0.55,
+      "afterDriftDone": 2.65,
+      "regret": 10.51
+    },
+    {
+      "policy": "v2-noprior",
+      "label": "v2 (진단 사전분포 없음)",
+      "totalDone": 8.01,
+      "totalDoneCI": 0.53,
+      "doneRate": 0.433,
+      "tasksPerWeek": 2.32,
+      "halfWeeks": 0.626,
+      "retention": 0.362,
+      "vsFixed": -1.03,
+      "vsFixedCI": 0.57,
+      "afterDriftDone": 2.37,
+      "regret": 11.42
+    },
+    {
+      "policy": "v2-noforget",
+      "label": "v2 (망각 없음)",
+      "totalDone": 10.07,
+      "totalDoneCI": 0.58,
+      "doneRate": 0.495,
+      "tasksPerWeek": 2.36,
+      "halfWeeks": 0.689,
+      "retention": 0.455,
+      "vsFixed": 1.03,
+      "vsFixedCI": 0.57,
+      "afterDriftDone": 3.4,
+      "regret": 9.36
+    },
+    {
+      "policy": "maco",
+      "label": "마코 엔진 v2",
+      "totalDone": 10.04,
+      "totalDoneCI": 0.58,
+      "doneRate": 0.495,
+      "tasksPerWeek": 2.35,
+      "halfWeeks": 0.687,
+      "retention": 0.451,
+      "vsFixed": 1,
+      "vsFixedCI": 0.58,
+      "afterDriftDone": 3.48,
+      "regret": 9.39
+    },
+    {
+      "policy": "fixed-ask",
+      "label": "고정 규칙 + 바쁜 시간 질문",
+      "totalDone": 10.78,
+      "totalDoneCI": 0.63,
+      "doneRate": 0.481,
+      "tasksPerWeek": 2.73,
+      "halfWeeks": 0.629,
+      "retention": 0.408,
+      "vsFixed": 1.75,
+      "vsFixedCI": 0.4,
+      "afterDriftDone": 3.26,
+      "regret": 8.65
+    },
+    {
+      "policy": "maco-ask",
+      "label": "마코 엔진 v2 + 바쁜 시간 질문",
+      "totalDone": 10.52,
+      "totalDoneCI": 0.61,
+      "doneRate": 0.507,
+      "tasksPerWeek": 2.4,
+      "halfWeeks": 0.698,
+      "retention": 0.455,
+      "vsFixed": 1.48,
+      "vsFixedCI": 0.58,
+      "afterDriftDone": 3.63,
+      "regret": 8.91
+    },
+    {
+      "policy": "oracle",
+      "label": "정답을 아는 기준선",
+      "totalDone": 19.43,
+      "totalDoneCI": 0.82,
+      "doneRate": 0.647,
+      "tasksPerWeek": 2.97,
+      "halfWeeks": 0.833,
+      "retention": 0.638,
+      "vsFixed": 10.39,
+      "vsFixedCI": 0.69,
+      "afterDriftDone": 7.82,
+      "regret": 0
+    }
+  ],
+  "weekly": [
+    {
+      "policy": "fixed",
+      "done": [
+        1.141,
+        1.048,
+        0.902,
+        0.849,
+        0.788,
+        0.757,
+        0.674,
+        0.663,
+        0.61,
+        0.555,
+        0.528,
+        0.522
+      ],
+      "active": [
+        1,
+        0.93,
+        0.833,
+        0.751,
+        0.673,
+        0.611,
+        0.551,
+        0.512,
+        0.471,
+        0.43,
+        0.395,
+        0.354
+      ]
+    },
+    {
+      "policy": "v1-cells",
+      "done": [
+        1.036,
+        1,
+        0.925,
+        0.81,
+        0.779,
+        0.745,
+        0.684,
+        0.627,
+        0.589,
+        0.592,
+        0.571,
+        0.558
+      ],
+      "active": [
+        1,
+        0.934,
+        0.817,
+        0.714,
+        0.624,
+        0.563,
+        0.51,
+        0.464,
+        0.416,
+        0.376,
+        0.351,
+        0.317
+      ]
+    },
+    {
+      "policy": "v2-noprior",
+      "done": [
+        0.834,
+        0.86,
+        0.804,
+        0.757,
+        0.713,
+        0.714,
+        0.636,
+        0.591,
+        0.543,
+        0.556,
+        0.492,
+        0.507
+      ],
+      "active": [
+        1,
+        0.954,
+        0.86,
+        0.767,
+        0.681,
+        0.607,
+        0.551,
+        0.5,
+        0.457,
+        0.424,
+        0.392,
+        0.362
+      ]
+    },
+    {
+      "policy": "v2-noforget",
+      "done": [
+        0.998,
+        0.986,
+        0.95,
+        0.905,
+        0.874,
+        0.861,
+        0.808,
+        0.788,
+        0.757,
+        0.741,
+        0.71,
+        0.692
+      ],
+      "active": [
+        1,
+        0.949,
+        0.861,
+        0.794,
+        0.743,
+        0.687,
+        0.635,
+        0.594,
+        0.548,
+        0.512,
+        0.483,
+        0.455
+      ]
+    },
+    {
+      "policy": "maco",
+      "done": [
+        0.994,
+        0.987,
+        0.947,
+        0.924,
+        0.893,
+        0.862,
+        0.81,
+        0.763,
+        0.749,
+        0.741,
+        0.701,
+        0.666
+      ],
+      "active": [
+        1,
+        0.949,
+        0.868,
+        0.792,
+        0.738,
+        0.682,
+        0.638,
+        0.594,
+        0.542,
+        0.509,
+        0.478,
+        0.451
+      ]
+    },
+    {
+      "policy": "fixed-ask",
+      "done": [
+        1.263,
+        1.166,
+        1.042,
+        0.96,
+        0.917,
+        0.926,
+        0.848,
+        0.827,
+        0.777,
+        0.714,
+        0.684,
+        0.658
+      ],
+      "active": [
+        1,
+        0.935,
+        0.85,
+        0.77,
+        0.7,
+        0.644,
+        0.596,
+        0.555,
+        0.513,
+        0.471,
+        0.443,
+        0.408
+      ]
+    },
+    {
+      "policy": "maco-ask",
+      "done": [
+        1.029,
+        1.016,
+        0.979,
+        0.95,
+        0.907,
+        0.88,
+        0.875,
+        0.809,
+        0.782,
+        0.769,
+        0.772,
+        0.753
+      ],
+      "active": [
+        1,
+        0.946,
+        0.865,
+        0.806,
+        0.735,
+        0.674,
+        0.627,
+        0.587,
+        0.551,
+        0.511,
+        0.485,
+        0.455
+      ]
+    },
+    {
+      "policy": "oracle",
+      "done": [
+        1.557,
+        1.606,
+        1.669,
+        1.655,
+        1.686,
+        1.689,
+        1.653,
+        1.61,
+        1.614,
+        1.601,
+        1.528,
+        1.56
+      ],
+      "active": [
+        1,
+        0.972,
+        0.94,
+        0.897,
+        0.852,
+        0.81,
+        0.774,
+        0.733,
+        0.705,
+        0.68,
+        0.659,
+        0.638
+      ]
+    }
+  ]
+}
