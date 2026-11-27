@@ -20,6 +20,7 @@ Claude Code는 `CLAUDE.md`가 이 파일을 불러온다. 규칙을 바꿀 때�
 | DB 테이블 | `docs/02_데이터설계.md` |
 | API 목록 | `docs/03_API설계_초안.md` |
 | 이 하네스 사용법 | `docs/04_AI코딩_하네스.md` |
+| Git·PR·병합·Docker 협업 방법 (초보자용) | `docs/06_협업_가이드.md` |
 | 폴더별 세부 규칙 | `frontend/AGENTS.md`, `backend/AGENTS.md`, `content/AGENTS.md` |
 
 ## 3. 담당 영역

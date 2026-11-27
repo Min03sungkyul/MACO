@@ -1,28 +1,28 @@
 # 담당 영역 → PR을 올리면 담당자에게 리뷰가 자동 요청된다.
-# 저장소를 만든 뒤 @아이디 4개를 실제 GitHub 아이디로 바꾼다.
-#   @Min03sungkyul = 강민국   @SEUNGJUN = 주승준   @MINHA = 박민하   @DONGSEONG = 이동성
+# 팀원 4명의 실제 GitHub 아이디다.
+#   @Min03sungkyul = 강민국   @seungjoon1105 = 주승준   @Minhapark-da = 박민하   @Seolan-9 = 이동성
 # (비공개 저장소에서 자동 요청이 되려면 GitHub Pro/Team이 필요하다. 학생은 GitHub Education으로 Pro 무료)
 
 # 기본 (저장소 설정·하네스)
 *                                         @Min03sungkyul
 
 # 공통 기반
-/backend/                                 @MINHA
-/docker-compose*.yml                      @MINHA
-/frontend/src/lib/api/client.ts           @MINHA
+/backend/                                 @Minhapark-da
+/docker-compose*.yml                      @Minhapark-da
+/frontend/src/lib/api/client.ts           @Minhapark-da
 
 # 트레이닝 + 공통 UI
-/frontend/                                @SEUNGJUN
-/frontend/src/components/ui/              @SEUNGJUN
-/frontend/src/styles/                     @SEUNGJUN
-/backend/src/main/java/com/maco/training/ @SEUNGJUN
+/frontend/                                @seungjoon1105
+/frontend/src/components/ui/              @seungjoon1105
+/frontend/src/styles/                     @seungjoon1105
+/backend/src/main/java/com/maco/training/ @seungjoon1105
 
 # 시험 + 문제 은행
-/frontend/src/app/exam/                   @DONGSEONG
-/frontend/src/components/exam/            @DONGSEONG
-/backend/src/main/java/com/maco/exam/     @DONGSEONG
-/backend/src/main/java/com/maco/content/  @DONGSEONG
-/content/                                 @DONGSEONG
+/frontend/src/app/exam/                   @Seolan-9
+/frontend/src/components/exam/            @Seolan-9
+/backend/src/main/java/com/maco/exam/     @Seolan-9
+/backend/src/main/java/com/maco/content/  @Seolan-9
+/content/                                 @Seolan-9
 
 # 내 가게 + AI
 /frontend/src/app/store/                  @Min03sungkyul
@@ -32,8 +32,8 @@
 /backend/src/main/resources/prompts/      @Min03sungkyul
 
 # 랭킹 + 내 정보
-/frontend/src/app/ranking/                @MINHA
-/frontend/src/app/me/                     @MINHA
+/frontend/src/app/ranking/                @Minhapark-da
+/frontend/src/app/me/                     @Minhapark-da
 
 # 하네스 (마지막 줄이 우선)
 /AGENTS.md                                @Min03sungkyul
