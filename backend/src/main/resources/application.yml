@@ -1,0 +1,51 @@
+# 값은 루트 .env (또는 환경 변수)에서 읽는다. .env 이름 목록은 루트 .env.example.
+spring:
+  application:
+    name: maco
+  config:
+    import: optional:file:../.env[.properties]
+  profiles:
+    default: local
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/maco?serverTimezone=Asia/Seoul&characterEncoding=UTF-8}
+    username: ${DB_USER:maco}
+    password: ${DB_PASSWORD:maco_local}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Asia/Seoul
+  flyway:
+    enabled: true
+  jackson:
+    time-zone: Asia/Seoul
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 12MB
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+
+maco:
+  jwt:
+    secret: ${JWT_SECRET:}
+    expiry-hours: 168
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000}
+  ai:
+    mode: ${AI_MODE:recorded}
+    provider: ${AI_PROVIDER:}
+    api-key: ${AI_API_KEY:}
+    model-text: ${AI_MODEL_TEXT:}
+    model-vision: ${AI_MODEL_VISION:}
+  upload-dir: ${UPLOAD_DIR:./uploads}
+  naver-search:
+    client-id: ${NAVER_SEARCH_CLIENT_ID:}
+    client-secret: ${NAVER_SEARCH_CLIENT_SECRET:}
+  content:
+    dir: ${CONTENT_DIR:../content}
