@@ -1,0 +1,26 @@
+/** 공통 UI (담당: 주승준, docs/01 5-5). 필요한 부품이 없으면 탭 폴더에 만들고 공통화를 요청한다. */
+export { AppShell } from './AppShell';
+export { Badge } from './Badge';
+export { BottomSheet } from './BottomSheet';
+export { Button, LinkButton, buttonClass } from './Button';
+export { Card } from './Card';
+export { ChatBubble } from './ChatBubble';
+export { ChatInput } from './ChatInput';
+export { EmptyState } from './EmptyState';
+export { ErrorState } from './ErrorState';
+export { FeedbackSheet } from './FeedbackSheet';
+export { Gauge } from './Gauge';
+export { GoalRing } from './GoalRing';
+export { ImageUploader } from './ImageUploader';
+export { Modal } from './Modal';
+export { PageHeader } from './PageHeader';
+export { PhotoMock, parsePhoto } from './PhotoMock';
+export { ProgressBar } from './ProgressBar';
+export { Providers } from './Providers';
+export { QueryView } from './QueryView';
+export { QuestionCard, type QuestionAnswer } from './QuestionCard';
+export { RankRow } from './RankRow';
+export { Spinner } from './Spinner';
+export { TabBar } from './TabBar';
+export { TopStatusBar } from './TopStatusBar';
+export { XpToastProvider, useXpToast } from './XpToast';
