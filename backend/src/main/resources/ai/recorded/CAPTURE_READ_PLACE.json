@@ -1,0 +1,12 @@
+{
+  "default": {
+    "hours": true, "menuPrice": false, "photos": 4, "contact": true,
+    "reviews": 3, "rating": 4.3, "replied": 1, "recentReviewDays": 12,
+    "news": false, "coupon": false, "insta": false
+  },
+  "owner-week4": {
+    "hours": true, "menuPrice": true, "photos": 9, "contact": true,
+    "reviews": 21, "rating": 4.3, "replied": 19, "recentReviewDays": 2,
+    "news": true, "coupon": false, "insta": false
+  }
+}

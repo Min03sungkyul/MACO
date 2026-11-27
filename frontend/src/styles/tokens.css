@@ -1,0 +1,35 @@
+/*
+ * MACO 디자인 토큰 (담당: 주승준). 프로토타입 prototype/app/globals.css의 :root를 옮겼다.
+ * 화면 코드에는 색 코드를 쓰지 않고 Tailwind 클래스(bg-accent, text-ink …)나 var(--color-…)만 쓴다.
+ * Figma 변수와 이름을 맞춘다.
+ */
+@theme {
+  --color-ink: #111111;
+  --color-sub: #767676;
+  --color-body: #4d4d4d;
+  --color-line: #ebebeb;
+  --color-soft: #f5f5f5;
+  --color-off: #d6d6d6;
+  --color-bg: #ffffff;
+  --color-page: #f5f5f3;
+  --color-accent: #6e4fe0;       /* 한 화면에 한 곳만 */
+  --color-accent-soft: #f0ecfd;
+  --color-achieve: #ff6b1a;      /* 무언가를 끝냈을 때만 */
+  --color-achieve-text: #e0550b;
+  --color-good: #1f9d55;
+  --color-good-soft: #e8f6ee;
+  --color-bad: #d93b3b;
+  --color-bad-soft: #fdeceb;
+  --color-kakao: #fee500;
+  --color-overlay: rgb(0 0 0 / 0.4);
+
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
+  --radius-button: 14px;
+  --radius-option: 12px;
+  --radius-card: 16px;
+
+  --spacing-page: 24px;
+  --spacing-tabbar: 56px;
+  --container-app: 480px;
+}

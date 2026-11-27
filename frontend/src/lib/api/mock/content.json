@@ -1,0 +1,1994 @@
+{
+ "items": [
+  {
+   "id": 1,
+   "code": "PHOTO-CHOICE2-001",
+   "skillCode": "PHOTO",
+   "type": "CHOICE2",
+   "prompt": "피드에 올릴 라떼 사진이에요.\n손님이 더 멈춰 볼 사진은?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": null,
+     "image": "photo:s=latte;light=dark"
+    },
+    {
+     "key": "B",
+     "text": null,
+     "image": "photo:s=latte;light=ok"
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 1,
+   "initDifficulty": 1,
+   "answer": "B",
+   "explanation": "어두운 사진은 작은 화면에서 음식 색이 탁해 보여요. 창가 자연광에서 다시 찍어요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_LIGHT"
+   }
+  },
+  {
+   "id": 2,
+   "code": "PHOTO-CHOICE2-002",
+   "skillCode": "PHOTO",
+   "type": "CHOICE2",
+   "prompt": "같은 크루아상을 찍었어요.\n어느 사진을 올릴까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": null,
+     "image": "photo:s=bread"
+    },
+    {
+     "key": "B",
+     "text": null,
+     "image": "photo:s=bread;blur=true"
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 1,
+   "initDifficulty": 1,
+   "answer": "A",
+   "explanation": "흔들린 사진은 맛을 상상하기 어려워요. 팔꿈치를 테이블에 대고 찍어요.",
+   "sampleAnswer": null,
+   "errors": {
+    "B": "PHOTO_BLUR"
+   }
+  },
+  {
+   "id": 3,
+   "code": "PHOTO-JUDGE-001",
+   "skillCode": "PHOTO",
+   "type": "JUDGE",
+   "prompt": "마감 후 조명이 어두운 매장에서\n신메뉴 케이크를 찍어야 해요. 가장 좋은 방법은?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "플래시를 켜고 바로 찍는다",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "내일 낮에 창가에서 다시 찍는다",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "어둡게 찍고 밝기를 최대로 올린다",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "어두운 채로 올리고 글로 설명한다",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 1,
+   "initDifficulty": 1,
+   "answer": "B",
+   "explanation": "플래시는 그림자와 번들거림을 만들고, 밝기를 크게 올리면 화질이 깨져요. 자연광이 가장 쉬운 해결책이에요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_LIGHT",
+    "C": "PHOTO_LIGHT",
+    "D": "PHOTO_LIGHT"
+   }
+  },
+  {
+   "id": 4,
+   "code": "PHOTO-SPOT-001",
+   "skillCode": "PHOTO",
+   "type": "SPOT",
+   "prompt": "인스타 피드에서\n다시 찍어야 할 사진을 모두 골라 주세요.",
+   "context": null,
+   "media": "view:grid",
+   "choices": [],
+   "hotspots": [
+    {
+     "partKey": "a",
+     "label": "photo:s=latte",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "밝고 선명해요."
+    },
+    {
+     "partKey": "b",
+     "label": "photo:s=cake;light=dark",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "너무 어두워요."
+    },
+    {
+     "partKey": "c",
+     "label": "photo:s=bread",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "밝고 선명해요."
+    },
+    {
+     "partKey": "d",
+     "label": "photo:s=latte;blur=true",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "흔들렸어요."
+    },
+    {
+     "partKey": "e",
+     "label": "photo:s=cake",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "밝고 선명해요."
+    },
+    {
+     "partKey": "f",
+     "label": "photo:s=bread;light=over",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "너무 하얗게 날아갔어요."
+    }
+   ],
+   "rubricCode": null,
+   "conceptCardId": 1,
+   "initDifficulty": 1,
+   "answer": "b|d|f",
+   "explanation": "어둡거나, 흔들리거나, 너무 밝은 사진은 피드 전체의 인상을 떨어뜨려요.",
+   "sampleAnswer": null,
+   "errors": {}
+  },
+  {
+   "id": 5,
+   "code": "PHOTO-CHOICE2-003",
+   "skillCode": "PHOTO",
+   "type": "CHOICE2",
+   "prompt": "창가에서 찍었더니 너무 밝게 나왔어요.\n어느 쪽이 나을까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": null,
+     "image": "photo:s=cake;light=over"
+    },
+    {
+     "key": "B",
+     "text": null,
+     "image": "photo:s=cake"
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 1,
+   "initDifficulty": 1,
+   "answer": "B",
+   "explanation": "하얗게 날아간 부분은 보정으로 되살릴 수 없어요. 햇빛이 직접 닿지 않는 창가 자리에서 찍어요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_LIGHT"
+   }
+  },
+  {
+   "id": 6,
+   "code": "PHOTO-JUDGE-002",
+   "skillCode": "PHOTO",
+   "type": "JUDGE",
+   "prompt": "사진이 자꾸 흔들려요.\n가장 흔한 이유는 무엇일까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "휴대폰이 오래돼서",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "어두운 곳이라 셔터가 느려져서",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "음식이 뜨거워서",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "세로로 찍어서",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 1,
+   "initDifficulty": 1,
+   "answer": "B",
+   "explanation": "어두우면 휴대폰이 빛을 오래 모으느라 셔터가 느려져요. 밝은 곳에서, 손을 고정하고 찍어요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_BLUR",
+    "C": "PHOTO_BLUR",
+    "D": "PHOTO_BLUR"
+   }
+  },
+  {
+   "id": 7,
+   "code": "PHOTO-CHOICE2-004",
+   "skillCode": "PHOTO",
+   "type": "CHOICE2",
+   "prompt": "같은 라떼 사진에 보정을 했어요.\n어느 쪽을 올릴까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": null,
+     "image": "photo:s=latte;filter=true"
+    },
+    {
+     "key": "B",
+     "text": null,
+     "image": "photo:s=latte"
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 1,
+   "initDifficulty": 1,
+   "answer": "B",
+   "explanation": "색을 과하게 바꾸면 실제 메뉴와 달라 보여요. 방문한 손님이 실망하면 리뷰로 돌아와요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_FILTER"
+   }
+  },
+  {
+   "id": 8,
+   "code": "PHOTO-CHOICE2-005",
+   "skillCode": "PHOTO",
+   "type": "CHOICE2",
+   "prompt": "대표 메뉴 사진이에요.\n어느 쪽이 더 끌리나요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": null,
+     "image": "photo:s=cake;size=small"
+    },
+    {
+     "key": "B",
+     "text": null,
+     "image": "photo:s=cake;size=big"
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 2,
+   "initDifficulty": 3,
+   "answer": "B",
+   "explanation": "주인공이 작으면 무엇을 파는지 한눈에 안 보여요. 화면의 절반 이상을 채워요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_NO_HERO"
+   }
+  },
+  {
+   "id": 9,
+   "code": "PHOTO-CHOICE2-006",
+   "skillCode": "PHOTO",
+   "type": "CHOICE2",
+   "prompt": "신메뉴 소개 사진이에요.\n어느 쪽을 쓸까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": null,
+     "image": "photo:s=latte;clutter=true"
+    },
+    {
+     "key": "B",
+     "text": null,
+     "image": "photo:s=latte"
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 2,
+   "initDifficulty": 3,
+   "answer": "B",
+   "explanation": "배경에 컵·휴지가 많으면 눈이 흩어져요. 메뉴 하나만 남기고 찍어요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_CLUTTER"
+   }
+  },
+  {
+   "id": 10,
+   "code": "PHOTO-CHOICE2-007",
+   "skillCode": "PHOTO",
+   "type": "CHOICE2",
+   "prompt": "케이크 사진 두 장이에요.\n어느 쪽이 나을까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": null,
+     "image": "photo:s=cake;crop=true"
+    },
+    {
+     "key": "B",
+     "text": null,
+     "image": "photo:s=cake"
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 2,
+   "initDifficulty": 3,
+   "answer": "B",
+   "explanation": "메뉴가 화면 밖으로 잘리면 크기와 모양을 알기 어려워요. 한 걸음 물러서서 찍어요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_CROP"
+   }
+  },
+  {
+   "id": 11,
+   "code": "PHOTO-SPOT-002",
+   "skillCode": "PHOTO",
+   "type": "SPOT",
+   "prompt": "주인공이 잘 안 보이는 사진을\n모두 골라 주세요.",
+   "context": null,
+   "media": "view:grid",
+   "choices": [],
+   "hotspots": [
+    {
+     "partKey": "a",
+     "label": "photo:s=cake;size=big",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "주인공이 크게 보여요."
+    },
+    {
+     "partKey": "b",
+     "label": "photo:s=latte;clutter=true",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "배경이 어수선해요."
+    },
+    {
+     "partKey": "c",
+     "label": "photo:s=bread;size=small",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "메뉴가 너무 작아요."
+    },
+    {
+     "partKey": "d",
+     "label": "photo:s=latte;size=big",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "주인공이 크게 보여요."
+    },
+    {
+     "partKey": "e",
+     "label": "photo:s=cake;crop=true",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "메뉴가 잘렸어요."
+    },
+    {
+     "partKey": "f",
+     "label": "photo:s=bread;size=big",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "주인공이 크게 보여요."
+    }
+   ],
+   "rubricCode": null,
+   "conceptCardId": 2,
+   "initDifficulty": 3,
+   "answer": "b|c|e",
+   "explanation": "작거나, 어수선하거나, 잘린 사진은 무엇을 파는지 한눈에 안 보여요.",
+   "sampleAnswer": null,
+   "errors": {}
+  },
+  {
+   "id": 12,
+   "code": "PHOTO-JUDGE-003",
+   "skillCode": "PHOTO",
+   "type": "JUDGE",
+   "prompt": "신메뉴 딸기 케이크를 알리려고 해요.\n무엇을 주인공으로 찍을까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "케이크 단면을 가까이",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "매장 전체 인테리어",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "케이크와 음료 다섯 잔을 함께",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "케이크를 든 사장님 얼굴",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 2,
+   "initDifficulty": 3,
+   "answer": "A",
+   "explanation": "신메뉴의 매력은 단면과 재료에서 보여요. 하나만 가까이 찍어요.",
+   "sampleAnswer": null,
+   "errors": {
+    "B": "PHOTO_NO_HERO",
+    "C": "PHOTO_NO_HERO",
+    "D": "PHOTO_NO_HERO"
+   }
+  },
+  {
+   "id": 13,
+   "code": "PHOTO-JUDGE-004",
+   "skillCode": "PHOTO",
+   "type": "JUDGE",
+   "prompt": "찍기 직전에 가장 먼저 할 일은?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "필터를 고른다",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "테이블 위 컵·휴지를 치운다",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "음악을 튼다",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "가게 로고를 넣을 자리를 비운다",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 2,
+   "initDifficulty": 3,
+   "answer": "B",
+   "explanation": "배경 정리 10초가 보정 10분보다 효과가 커요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_CLUTTER",
+    "C": "PHOTO_CLUTTER",
+    "D": "PHOTO_CLUTTER"
+   }
+  },
+  {
+   "id": 14,
+   "code": "PHOTO-CHOICE2-008",
+   "skillCode": "PHOTO",
+   "type": "CHOICE2",
+   "prompt": "빵 진열대를 찍었어요.\n어느 쪽이 나을까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": null,
+     "image": "photo:s=bread;tilt=12"
+    },
+    {
+     "key": "B",
+     "text": null,
+     "image": "photo:s=bread"
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 2,
+   "initDifficulty": 3,
+   "answer": "B",
+   "explanation": "기울어진 사진은 불안해 보여요. 화면의 격자선을 켜고 수평을 맞춰요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_CROP"
+   }
+  },
+  {
+   "id": 15,
+   "code": "PHOTO-JUDGE-005",
+   "skillCode": "PHOTO",
+   "type": "JUDGE",
+   "prompt": "플레이스 대표 사진 첫 장으로\n가장 좋은 것은?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "가장 잘 팔리는 메뉴",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "가게 영수증",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "직원 단체 사진",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "메뉴판 전체를 멀리서",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 3,
+   "initDifficulty": 5,
+   "answer": "A",
+   "explanation": "손님은 첫 장에서 \"여기서 뭘 먹을 수 있지?\"를 확인해요. 대표 메뉴가 먼저예요.",
+   "sampleAnswer": null,
+   "errors": {
+    "B": "PHOTO_ORDER",
+    "C": "PHOTO_ORDER",
+    "D": "PHOTO_ORDER"
+   }
+  },
+  {
+   "id": 16,
+   "code": "PHOTO-JUDGE-006",
+   "skillCode": "PHOTO",
+   "type": "JUDGE",
+   "prompt": "대표 사진 세 장의 순서로\n가장 좋은 것은?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "외관 → 영수증 → 메뉴",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "대표 메뉴 → 매장 분위기 → 외관",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "메뉴판 → 메뉴판 → 메뉴판",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "매장 분위기 → 직원 → 대표 메뉴",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 3,
+   "initDifficulty": 5,
+   "answer": "B",
+   "explanation": "무엇을 파는지 → 어떤 분위기인지 → 어떻게 찾아오는지 순서로 손님의 궁금증을 풀어 줘요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_ORDER",
+    "C": "PHOTO_ORDER",
+    "D": "PHOTO_ORDER"
+   }
+  },
+  {
+   "id": 17,
+   "code": "PHOTO-CHOICE2-009",
+   "skillCode": "PHOTO",
+   "type": "CHOICE2",
+   "prompt": "대표 사진 첫 세 장이에요.\n어느 구성이 손님에게 더 도움이 될까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "① 라떼 ② 라떼 ③ 라떼\n(같은 메뉴, 같은 각도)",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "① 대표 라떼 ② 창가 좌석\n③ 가게 외관과 간판",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 3,
+   "initDifficulty": 5,
+   "answer": "B",
+   "explanation": "같은 사진이 반복되면 새 정보가 없어요. 메뉴·분위기·외관을 한 장씩 보여 줘요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_ORDER"
+   }
+  },
+  {
+   "id": 18,
+   "code": "PHOTO-JUDGE-007",
+   "skillCode": "PHOTO",
+   "type": "JUDGE",
+   "prompt": "외관 사진이 대표 사진에\n꼭 있어야 하는 이유는?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "인테리어 비용을 자랑하려고",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "처음 오는 손님이 가게를 찾기 쉽게",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "사진 수를 채우려고",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "간판 디자인을 평가받으려고",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 3,
+   "initDifficulty": 5,
+   "answer": "B",
+   "explanation": "처음 오는 손님은 골목에서 간판을 찾아요. 외관 사진이 길찾기를 도와줘요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_ORDER",
+    "C": "PHOTO_ORDER",
+    "D": "PHOTO_ORDER"
+   }
+  },
+  {
+   "id": 19,
+   "code": "PHOTO-SPOT-003",
+   "skillCode": "PHOTO",
+   "type": "SPOT",
+   "prompt": "대표 사진 앞쪽에 두면 안 되는\n사진을 모두 골라 주세요.",
+   "context": null,
+   "media": "view:grid",
+   "choices": [],
+   "hotspots": [
+    {
+     "partKey": "a",
+     "label": "photo:s=receipt;label=영수증",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "손님에게 정보가 없어요."
+    },
+    {
+     "partKey": "b",
+     "label": "photo:s=latte;size=big;label=대표 라떼",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "첫 장으로 좋아요."
+    },
+    {
+     "partKey": "c",
+     "label": "photo:s=cake;blur=true;label=케이크",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "흔들렸어요."
+    },
+    {
+     "partKey": "d",
+     "label": "photo:s=shop;label=외관",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "찾아오는 길에 도움이 돼요."
+    },
+    {
+     "partKey": "e",
+     "label": "photo:s=menu;light=dark;label=메뉴판",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "어두워서 글씨가 안 보여요."
+    },
+    {
+     "partKey": "f",
+     "label": "photo:s=bread;label=빵 진열대",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "분위기를 보여 줘요."
+    }
+   ],
+   "rubricCode": null,
+   "conceptCardId": 3,
+   "initDifficulty": 5,
+   "answer": "a|c|e",
+   "explanation": "앞쪽 사진은 손님이 갈지 말지를 정하는 자리예요. 정보가 없거나 흐린 사진은 뒤로 보내요.",
+   "sampleAnswer": null,
+   "errors": {}
+  },
+  {
+   "id": 20,
+   "code": "PHOTO-JUDGE-008",
+   "skillCode": "PHOTO",
+   "type": "JUDGE",
+   "prompt": "대표 사진은 얼마나 자주 바꾸면 좋을까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "한 번 올리면 그대로 둔다",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "계절 메뉴가 바뀔 때마다 첫 장을 바꾼다",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "매일 전부 바꾼다",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "리뷰 사진으로만 채운다",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 3,
+   "initDifficulty": 5,
+   "answer": "B",
+   "explanation": "지금 파는 메뉴가 첫 장에 있어야 해요. 계절 메뉴가 바뀔 때 함께 바꿔요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "PHOTO_ORDER",
+    "C": "PHOTO_ORDER",
+    "D": "PHOTO_ORDER"
+   }
+  },
+  {
+   "id": 21,
+   "code": "REVIEW-JUDGE-001",
+   "skillCode": "REVIEW",
+   "type": "JUDGE",
+   "prompt": "오늘 리뷰 네 개가 달렸어요.\n가장 먼저 답할 리뷰는?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "★5 \"맛있어요\"",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "★2 \"라떼가 미지근했어요\"",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "★4 \"분위기 좋아요\"",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "★5 사진만 있는 리뷰",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 4,
+   "initDifficulty": 1,
+   "answer": "B",
+   "explanation": "불만 리뷰는 다른 손님도 지켜봐요. 가장 먼저, 가능하면 하루 안에 답해요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "REPLY_NEEDED_MISSED",
+    "C": "REPLY_NEEDED_MISSED",
+    "D": "REPLY_NEEDED_MISSED"
+   }
+  },
+  {
+   "id": 22,
+   "code": "REVIEW-SPOT-001",
+   "skillCode": "REVIEW",
+   "type": "SPOT",
+   "prompt": "오늘 꼭 답글을 달아야 할 리뷰를\n모두 골라 주세요.",
+   "context": null,
+   "media": "view:reviews",
+   "choices": [],
+   "hotspots": [
+    {
+     "partKey": "a",
+     "label": "여기 라떼 진짜 맛있어요!",
+     "stars": 5,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "감사 답글은 여유 있을 때 달아도 돼요."
+    },
+    {
+     "partKey": "b",
+     "label": "주차 되나요? 근처에 댈 곳이 없었어요.",
+     "stars": 3,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "질문엔 빨리 답해야 다음 손님도 도움을 받아요."
+    },
+    {
+     "partKey": "c",
+     "label": "케이크가 말라 있었어요.",
+     "stars": 2,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "불만 리뷰는 하루 안에 답해요."
+    },
+    {
+     "partKey": "d",
+     "label": "조용해서 공부하기 좋아요",
+     "stars": 5,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "감사 답글은 여유 있을 때 달아도 돼요."
+    },
+    {
+     "partKey": "e",
+     "label": "주문하고 20분 기다렸어요.",
+     "stars": 1,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "불만 리뷰는 하루 안에 답해요."
+    }
+   ],
+   "rubricCode": null,
+   "conceptCardId": 4,
+   "initDifficulty": 1,
+   "answer": "b|c|e",
+   "explanation": "불만과 질문 리뷰가 먼저예요. 칭찬 리뷰는 그다음에 따뜻하게 답해요.",
+   "sampleAnswer": null,
+   "errors": {}
+  },
+  {
+   "id": 23,
+   "code": "REVIEW-JUDGE-002",
+   "skillCode": "REVIEW",
+   "type": "JUDGE",
+   "prompt": "불만 리뷰에는 언제까지 답하는 게 좋을까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "일주일 안에 몰아서",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "가능하면 하루 안에",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "한 달에 한 번",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "답하지 않는다",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 4,
+   "initDifficulty": 1,
+   "answer": "B",
+   "explanation": "답이 늦을수록 그 리뷰만 보고 떠나는 손님이 늘어요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "REPLY_LATE",
+    "C": "REPLY_LATE",
+    "D": "REPLY_LATE"
+   }
+  },
+  {
+   "id": 24,
+   "code": "REVIEW-JUDGE-003",
+   "skillCode": "REVIEW",
+   "type": "JUDGE",
+   "prompt": "\"주차 되나요?\"라는 리뷰가 달렸어요.\n어떻게 할까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "리뷰는 질문하는 곳이 아니니 넘어간다",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "답글로 주차 정보를 알려 주고 플레이스 정보에도 적는다",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "전화번호만 남긴다",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "리뷰 삭제를 요청한다",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 4,
+   "initDifficulty": 1,
+   "answer": "B",
+   "explanation": "같은 질문을 가진 손님이 많아요. 답글과 기본 정보 둘 다 고쳐 두면 다시 안 물어봐요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "REPLY_NEEDED_MISSED",
+    "C": "REPLY_NEEDED_MISSED",
+    "D": "REPLY_NEEDED_MISSED"
+   }
+  },
+  {
+   "id": 25,
+   "code": "REVIEW-JUDGE-004",
+   "skillCode": "REVIEW",
+   "type": "JUDGE",
+   "prompt": "\"리뷰 쓰면 음료 서비스\" 이벤트로\n리뷰를 늘려도 될까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "리뷰가 늘면 무조건 좋다",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "대가를 주면 그 사실을 밝혀야 하고, MACO는 대가 없는 요청을 권해요",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "별점 5점만 받으면 괜찮다",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "이벤트 사실을 숨기면 된다",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 4,
+   "initDifficulty": 1,
+   "answer": "B",
+   "explanation": "대가를 받은 리뷰는 광고로 볼 수 있어 표시가 필요해요. 대가 없이 정중하게 부탁하는 게 가장 안전해요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "REPLY_INCENTIVE",
+    "C": "REPLY_INCENTIVE",
+    "D": "REPLY_INCENTIVE"
+   }
+  },
+  {
+   "id": 26,
+   "code": "REVIEW-JUDGE-005",
+   "skillCode": "REVIEW",
+   "type": "JUDGE",
+   "prompt": "리뷰가 3개뿐인 새 가게예요.\n리뷰를 늘리는 좋은 방법은?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "계산할 때 QR 카드로 대가 없이 부탁한다",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "지인들에게 써 달라고 한다",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "리뷰를 쓰면 할인해 준다",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "옆 가게 리뷰를 따라 쓴다",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 4,
+   "initDifficulty": 1,
+   "answer": "A",
+   "explanation": "실제 손님의 솔직한 리뷰가 가장 믿음을 줘요. 계산대 QR 카드로 자연스럽게 부탁해요.",
+   "sampleAnswer": null,
+   "errors": {
+    "B": "REPLY_INCENTIVE",
+    "C": "REPLY_INCENTIVE",
+    "D": "REPLY_INCENTIVE"
+   }
+  },
+  {
+   "id": 27,
+   "code": "REVIEW-CHOICE2-001",
+   "skillCode": "REVIEW",
+   "type": "CHOICE2",
+   "prompt": "★2 불만 리뷰가 달린 지 이틀이 지났어요.\n어느 쪽이 나을까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "이미 지난 일이니\n그냥 둔다",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "늦었지만 사과와 함께\n지금 답글을 단다",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 4,
+   "initDifficulty": 1,
+   "answer": "B",
+   "explanation": "늦더라도 답글이 없는 것보다 나아요. 다른 손님은 사장님의 태도를 봐요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "REPLY_NEEDED_MISSED"
+   }
+  },
+  {
+   "id": 28,
+   "code": "REVIEW-CHOICE2-002",
+   "skillCode": "REVIEW",
+   "type": "CHOICE2",
+   "prompt": "★5 \"크루아상이 정말 바삭해요!\"\n어느 답글이 더 좋을까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "감사합니다^^",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "바삭한 크루아상 좋아해 주셔서 감사해요!\n매일 아침 8시에 구워요. 또 들러 주세요.",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 5,
+   "initDifficulty": 3,
+   "answer": "B",
+   "explanation": "손님이 말한 메뉴를 다시 부르고 작은 정보를 더하면, 읽는 다른 손님에게도 도움이 돼요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "REPLY_TEMPLATE"
+   }
+  },
+  {
+   "id": 29,
+   "code": "REVIEW-CHOICE2-003",
+   "skillCode": "REVIEW",
+   "type": "CHOICE2",
+   "prompt": "★5 \"조용해서 공부하기 좋아요\"\n어느 답글이 더 좋을까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "편하게 머물다 가셨다니 기뻐요.\n창가 자리는 평일 오후에 여유 있어요!",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "방문해 주셔서 감사합니다.\n좋은 하루 되세요.",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 5,
+   "initDifficulty": 3,
+   "answer": "A",
+   "explanation": "손님이 좋았던 점을 받아 주고, 다음에 쓸모 있는 정보를 한 줄 더해요.",
+   "sampleAnswer": null,
+   "errors": {
+    "B": "REPLY_TEMPLATE"
+   }
+  },
+  {
+   "id": 30,
+   "code": "REVIEW-REWRITE-001",
+   "skillCode": "REVIEW",
+   "type": "REWRITE",
+   "prompt": "칭찬 리뷰에 답글을 써 보세요.",
+   "context": "★5 \"크루아상이 정말 바삭하고 라떼도 고소해요!\"",
+   "media": null,
+   "choices": [],
+   "hotspots": [],
+   "rubricCode": "REPLY_PRAISE",
+   "conceptCardId": 5,
+   "initDifficulty": 3,
+   "answer": null,
+   "explanation": "감사 + 손님이 말한 메뉴 + 다시 오라는 말, 세 가지면 충분해요.",
+   "sampleAnswer": "크루아상과 라떼 맛있게 드셔 주셔서 감사해요! 크루아상은 매일 아침 구워요. 또 들러 주세요.",
+   "errors": {}
+  },
+  {
+   "id": 31,
+   "code": "REVIEW-JUDGE-006",
+   "skillCode": "REVIEW",
+   "type": "JUDGE",
+   "prompt": "모든 리뷰에 같은 답글을 복사해 붙이면?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "시간이 절약되니 좋다",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "손님이 성의 없다고 느낄 수 있다",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "검색에 더 잘 나온다",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "별점이 올라간다",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 5,
+   "initDifficulty": 3,
+   "answer": "B",
+   "explanation": "같은 문장이 반복되면 자동 답글처럼 보여요. 한 줄이라도 손님 말을 넣어요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "REPLY_TEMPLATE",
+    "C": "REPLY_TEMPLATE",
+    "D": "REPLY_TEMPLATE"
+   }
+  },
+  {
+   "id": 32,
+   "code": "REVIEW-SPOT-002",
+   "skillCode": "REVIEW",
+   "type": "SPOT",
+   "prompt": "칭찬 리뷰 답글이에요.\n빼는 게 좋은 문장을 모두 골라 주세요.",
+   "context": null,
+   "media": "view:reply",
+   "choices": [],
+   "hotspots": [
+    {
+     "partKey": "a",
+     "label": "바삭한 크루아상 좋아해 주셔서 감사해요!",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "좋아요. 손님 말을 받아 줬어요."
+    },
+    {
+     "partKey": "b",
+     "label": "인스타 팔로우하고 이벤트 꼭 참여하세요!!!",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "감사 답글에 홍보를 밀어 넣으면 부담스러워요."
+    },
+    {
+     "partKey": "c",
+     "label": "크루아상은 매일 아침 8시에 구워요.",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "좋아요. 쓸모 있는 정보예요."
+    },
+    {
+     "partKey": "d",
+     "label": "김민지 고객님 지난번 주문도 기억나요~",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "손님 실명과 주문 내역은 공개하지 않아요."
+    },
+    {
+     "partKey": "e",
+     "label": "또 들러 주세요!",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "좋아요. 다시 오라는 말이에요."
+    }
+   ],
+   "rubricCode": null,
+   "conceptCardId": 5,
+   "initDifficulty": 3,
+   "answer": "b|d",
+   "explanation": "답글은 감사와 안내까지만 해요. 홍보와 개인정보는 빼요.",
+   "sampleAnswer": null,
+   "errors": {}
+  },
+  {
+   "id": 33,
+   "code": "REVIEW-JUDGE-007",
+   "skillCode": "REVIEW",
+   "type": "JUDGE",
+   "prompt": "단골손님 리뷰에 답글을 달 때\n피해야 할 것은?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "메뉴 이름 다시 부르기",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "손님 실명과 지난 주문 내역 언급",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "감사 인사",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "다음 신메뉴 소식 한 줄",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 5,
+   "initDifficulty": 3,
+   "answer": "B",
+   "explanation": "답글은 모두가 봐요. 손님이 원하지 않는 개인정보는 쓰지 않아요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "REPLY_PRIVATE",
+    "C": "REPLY_PRIVATE",
+    "D": "REPLY_PRIVATE"
+   }
+  },
+  {
+   "id": 34,
+   "code": "REVIEW-SPOT-003",
+   "skillCode": "REVIEW",
+   "type": "SPOT",
+   "prompt": "★2 \"라떼가 미지근했어요\" 답글이에요.\n빼야 할 문장을 모두 골라 주세요.",
+   "context": null,
+   "media": "view:reply",
+   "choices": [],
+   "hotspots": [
+    {
+     "partKey": "a",
+     "label": "불편을 드려 정말 죄송합니다.",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "좋아요. 사과로 시작했어요."
+    },
+    {
+     "partKey": "b",
+     "label": "그런데 저희는 늘 같은 온도로 만들어요.",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "변명처럼 들려요."
+    },
+    {
+     "partKey": "c",
+     "label": "오늘부터 내드리기 전에 온도를 한 번 더 확인할게요.",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "좋아요. 구체적인 개선이에요."
+    },
+    {
+     "partKey": "d",
+     "label": "다른 손님들은 다 맛있다고 하세요.",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": true,
+     "reason": "손님 경험을 부정하는 말이에요."
+    },
+    {
+     "partKey": "e",
+     "label": "다음에 오시면 따뜻하게 다시 만들어 드릴게요.",
+     "stars": null,
+     "x": null,
+     "y": null,
+     "w": null,
+     "h": null,
+     "bad": false,
+     "reason": "좋아요. 다시 오실 이유예요."
+    }
+   ],
+   "rubricCode": null,
+   "conceptCardId": 6,
+   "initDifficulty": 5,
+   "answer": "b|d",
+   "explanation": "변명과 비교를 빼면 공감 → 사과 → 개선 → 다시 오기만 남아요.",
+   "sampleAnswer": null,
+   "errors": {}
+  },
+  {
+   "id": 35,
+   "code": "REVIEW-CHOICE2-004",
+   "skillCode": "REVIEW",
+   "type": "CHOICE2",
+   "prompt": "★1 \"주문이 20분이나 걸렸어요\"\n어느 답글이 나을까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "그날은 손님이 정말 많았어요.\n주말엔 원래 오래 걸려요.",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "오래 기다리게 해서 죄송해요.\n주말엔 주문 순서를 안내하는 판을 두기로 했어요.",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 6,
+   "initDifficulty": 5,
+   "answer": "B",
+   "explanation": "사정 설명보다 사과와 바뀌는 점이 먼저예요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "REPLY_DEFENSIVE"
+   }
+  },
+  {
+   "id": 36,
+   "code": "REVIEW-REWRITE-002",
+   "skillCode": "REVIEW",
+   "type": "REWRITE",
+   "prompt": "불만 리뷰에 답글을 써 보세요.",
+   "context": "★2 \"라떼가 미지근했어요. 직원분도 바빠 보여서 말을 못 했어요.\"",
+   "media": null,
+   "choices": [],
+   "hotspots": [],
+   "rubricCode": "REPLY_COMPLAINT",
+   "conceptCardId": 6,
+   "initDifficulty": 5,
+   "answer": null,
+   "explanation": "공감 → 사과 → 개선 → 다시 오기 순서로 쓰면 다른 손님도 믿게 돼요.",
+   "sampleAnswer": "미지근한 라떼를 드려 불편하셨겠어요. 정말 죄송합니다. 내드리기 전에 온도를 한 번 더 확인하겠습니다. 다음에 오시면 따뜻하게 다시 만들어 드릴게요.",
+   "errors": {}
+  },
+  {
+   "id": 37,
+   "code": "REVIEW-JUDGE-008",
+   "skillCode": "REVIEW",
+   "type": "JUDGE",
+   "prompt": "불만 리뷰 답글의 순서로 가장 좋은 것은?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "변명 → 사과 → 홍보",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "공감·사과 → 개선 → 다시 오기 제안",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "감사 → 반박 → 사과",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "쿠폰 → 사과",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 6,
+   "initDifficulty": 5,
+   "answer": "B",
+   "explanation": "마음을 먼저 받아 주고, 바뀌는 점을 말하고, 다시 오실 이유를 드려요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "REPLY_NO_FIX",
+    "C": "REPLY_NO_FIX",
+    "D": "REPLY_NO_FIX"
+   }
+  },
+  {
+   "id": 38,
+   "code": "REVIEW-JUDGE-009",
+   "skillCode": "REVIEW",
+   "type": "JUDGE",
+   "prompt": "우리 가게에 없는 메뉴를 먹었다는\n리뷰가 달렸어요. 어떻게 할까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "답글로 거짓말이라고 따진다",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "정중하게 사실을 확인하고, 필요하면 플랫폼에 신고한다",
+     "image": null
+    },
+    {
+     "key": "C",
+     "text": "같은 손님에게 나쁜 리뷰를 단다",
+     "image": null
+    },
+    {
+     "key": "D",
+     "text": "모든 리뷰 답글을 지운다",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 6,
+   "initDifficulty": 5,
+   "answer": "B",
+   "explanation": "감정적인 반박은 다른 손님에게 더 나쁘게 보여요. 확인과 신고 절차를 써요.",
+   "sampleAnswer": null,
+   "errors": {
+    "A": "REPLY_DEFENSIVE",
+    "C": "REPLY_DEFENSIVE",
+    "D": "REPLY_DEFENSIVE"
+   }
+  },
+  {
+   "id": 39,
+   "code": "REVIEW-CHOICE2-005",
+   "skillCode": "REVIEW",
+   "type": "CHOICE2",
+   "prompt": "길어질 것 같은 불만 리뷰예요.\n어느 답글이 나을까요?",
+   "context": null,
+   "media": null,
+   "choices": [
+    {
+     "key": "A",
+     "text": "불편을 드려 죄송합니다. 자세한 이야기는\n매장으로 연락 주시면 꼭 듣고 싶어요.",
+     "image": null
+    },
+    {
+     "key": "B",
+     "text": "어떤 점이 문제였는지 하나하나\n답글로 설명해 드릴게요. 첫째, …",
+     "image": null
+    }
+   ],
+   "hotspots": [],
+   "rubricCode": null,
+   "conceptCardId": 6,
+   "initDifficulty": 5,
+   "answer": "A",
+   "explanation": "공개 답글은 짧게, 긴 이야기는 전화나 메시지로 옮겨요.",
+   "sampleAnswer": null,
+   "errors": {
+    "B": "REPLY_DEFENSIVE"
+   }
+  },
+  {
+   "id": 40,
+   "code": "REVIEW-REWRITE-003",
+   "skillCode": "REVIEW",
+   "type": "REWRITE",
+   "prompt": "불만 리뷰에 답글을 써 보세요.",
+   "context": "★1 \"주문하고 20분이나 기다렸어요. 안내도 없었고요.\"",
+   "media": null,
+   "choices": [],
+   "hotspots": [],
+   "rubricCode": "REPLY_COMPLAINT",
+   "conceptCardId": 6,
+   "initDifficulty": 5,
+   "answer": null,
+   "explanation": "기다린 마음에 공감하고, 다음엔 무엇이 달라지는지 구체적으로 말해요.",
+   "sampleAnswer": "오래 기다리시게 해서 정말 죄송합니다. 안내도 못 드려 답답하셨겠어요. 주문이 밀릴 땐 예상 시간을 먼저 말씀드리겠습니다. 다음 방문 때는 빠르게 준비해 드릴게요.",
+   "errors": {}
+  }
+ ],
+ "conceptCards": [
+  {
+   "id": 1,
+   "skillCode": "PHOTO",
+   "level": 1,
+   "title": "밝고 선명하게",
+   "body": "작은 휴대폰 화면에서는 어둡거나 흔들린 사진부터 넘겨져요. 창가 자연광에서, 팔꿈치를 테이블에 대고 찍으면 대부분 해결돼요.",
+   "evidence": "손님은 먼저 눈에 띄는 정보로 판단해요 (가용성 이론).",
+   "image": null
+  },
+  {
+   "id": 2,
+   "skillCode": "PHOTO",
+   "level": 3,
+   "title": "주인공은 하나, 크게",
+   "body": "한 장에는 팔고 싶은 메뉴 하나만 화면의 절반 이상 차지하게 담아요. 배경의 컵·휴지·전선은 치우고 찍어요.",
+   "evidence": "사진이 하나의 메시지를 전할 때 더 빨리 이해돼요.",
+   "image": null
+  },
+  {
+   "id": 3,
+   "skillCode": "PHOTO",
+   "level": 5,
+   "title": "손님 눈으로 순서 짜기",
+   "body": "대표 사진 첫 장은 가장 잘 팔리는 메뉴, 다음은 매장 분위기, 그다음은 외관과 찾아오는 길이에요. 영수증이나 흐린 사진은 앞에 두지 않아요.",
+   "evidence": "플레이스 첫 화면에서 손님이 갈지 말지를 정해요.",
+   "image": null
+  },
+  {
+   "id": 4,
+   "skillCode": "REVIEW",
+   "level": 1,
+   "title": "먼저 답할 리뷰 고르기",
+   "body": "불만 리뷰와 질문 리뷰가 먼저예요. 가능하면 하루 안에 답해요. 리뷰를 늘릴 땐 대가 없이 정중하게 부탁해요.",
+   "evidence": "대가를 준 리뷰는 그 사실을 밝혀야 해요 (공정위 추천·보증 심사지침).",
+   "image": null
+  },
+  {
+   "id": 5,
+   "skillCode": "REVIEW",
+   "level": 3,
+   "title": "칭찬엔 구체적으로",
+   "body": "\"감사합니다\"만 복사해 붙이면 성의 없어 보여요. 손님이 말한 메뉴를 다시 부르고, 감사와 다시 오라는 말을 붙여요.",
+   "evidence": "사장님 답글이 달린 뒤 평점과 리뷰가 늘었다는 연구가 있어요 (Proserpio & Zervas 2017).",
+   "image": null
+  },
+  {
+   "id": 6,
+   "skillCode": "REVIEW",
+   "level": 5,
+   "title": "불만엔 공감 → 사과 → 개선 → 다시 오기",
+   "body": "변명이나 반박 대신 불편에 공감하고 사과해요. 무엇을 바꿀지 구체적으로 말하고, 다시 오실 이유를 드려요. 긴 이야기는 전화나 메시지로 옮겨요.",
+   "evidence": "다른 손님들도 그 답글을 보고 가게를 판단해요.",
+   "image": null
+  }
+ ],
+ "lessons": [
+  {
+   "id": 1,
+   "skillCode": "PHOTO",
+   "level": 1,
+   "seq": 1,
+   "title": "밝고 선명하게",
+   "conceptCardId": 1,
+   "itemCount": 7
+  },
+  {
+   "id": 2,
+   "skillCode": "PHOTO",
+   "level": 3,
+   "seq": 2,
+   "title": "주인공은 하나, 크게",
+   "conceptCardId": 2,
+   "itemCount": 7
+  },
+  {
+   "id": 3,
+   "skillCode": "PHOTO",
+   "level": 5,
+   "seq": 3,
+   "title": "손님 눈으로 순서 짜기",
+   "conceptCardId": 3,
+   "itemCount": 7
+  },
+  {
+   "id": 4,
+   "skillCode": "REVIEW",
+   "level": 1,
+   "seq": 1,
+   "title": "먼저 답할 리뷰 고르기",
+   "conceptCardId": 4,
+   "itemCount": 7
+  },
+  {
+   "id": 5,
+   "skillCode": "REVIEW",
+   "level": 3,
+   "seq": 2,
+   "title": "칭찬엔 구체적으로",
+   "conceptCardId": 5,
+   "itemCount": 7
+  },
+  {
+   "id": 6,
+   "skillCode": "REVIEW",
+   "level": 5,
+   "seq": 3,
+   "title": "불만엔 공감 → 사과 → 개선 → 다시 오기",
+   "conceptCardId": 6,
+   "itemCount": 7
+  }
+ ],
+ "skills": [
+  {
+   "code": "INFO",
+   "name": "기본 정보",
+   "gate": "FIND",
+   "ready": false
+  },
+  {
+   "code": "PHOTO",
+   "name": "보여 주기 (사진)",
+   "gate": "FIND",
+   "ready": true
+  },
+  {
+   "code": "REVIEW",
+   "name": "리뷰",
+   "gate": "TRUST",
+   "ready": true
+  },
+  {
+   "code": "COPY",
+   "name": "소개 문구",
+   "gate": "TRUST",
+   "ready": false
+  },
+  {
+   "code": "PROMO",
+   "name": "알리기",
+   "gate": "NOTIFY",
+   "ready": false
+  },
+  {
+   "code": "ADS",
+   "name": "광고와 숫자",
+   "gate": "NOTIFY",
+   "ready": false
+  }
+ ],
+ "errorTypes": {
+  "PHOTO_LIGHT": {
+   "name": "밝기",
+   "fixTip": "창가 자연광에서 찍고, 보정은 밝기만 살짝 올려요."
+  },
+  "PHOTO_BLUR": {
+   "name": "흔들림",
+   "fixTip": "팔꿈치를 테이블에 대고, 초점을 탭한 뒤 찍어요."
+  },
+  "PHOTO_FILTER": {
+   "name": "과한 보정",
+   "fixTip": "실제와 다르게 보이면 방문 후 실망 리뷰로 이어져요."
+  },
+  "PHOTO_NO_HERO": {
+   "name": "주인공 크기",
+   "fixTip": "팔고 싶은 메뉴가 화면의 절반 이상을 차지하게 찍어요."
+  },
+  "PHOTO_CLUTTER": {
+   "name": "어수선한 배경",
+   "fixTip": "컵·휴지·전선을 치우고 메뉴 하나만 남겨요."
+  },
+  "PHOTO_CROP": {
+   "name": "잘린 구도",
+   "fixTip": "메뉴가 화면 밖으로 잘리지 않게 한 걸음 물러서요."
+  },
+  "PHOTO_ORDER": {
+   "name": "대표 사진 순서",
+   "fixTip": "대표 메뉴 → 분위기 → 외관 순서로 놓아요."
+  },
+  "REPLY_NEEDED_MISSED": {
+   "name": "답글 우선순위",
+   "fixTip": "불만과 질문 리뷰에 먼저 답해요."
+  },
+  "REPLY_LATE": {
+   "name": "답글 시기",
+   "fixTip": "가능하면 하루 안에 답해요."
+  },
+  "REPLY_INCENTIVE": {
+   "name": "대가성 리뷰",
+   "fixTip": "리뷰는 대가 없이 정중하게 부탁해요."
+  },
+  "REPLY_TEMPLATE": {
+   "name": "복붙 답글",
+   "fixTip": "손님이 말한 메뉴를 다시 불러 주세요."
+  },
+  "REPLY_PROMO": {
+   "name": "과한 홍보",
+   "fixTip": "답글은 감사와 안내까지만 해요."
+  },
+  "REPLY_PRIVATE": {
+   "name": "개인정보",
+   "fixTip": "손님 실명·주문 내역은 답글에 쓰지 않아요."
+  },
+  "REPLY_NO_EMPATHY": {
+   "name": "공감",
+   "fixTip": "\"불편하셨겠어요\"처럼 손님 마음을 먼저 받아 줘요."
+  },
+  "REPLY_NO_APOLOGY": {
+   "name": "사과",
+   "fixTip": "\"죄송합니다\"를 분명히 써요."
+  },
+  "REPLY_NO_FIX": {
+   "name": "개선 약속",
+   "fixTip": "무엇을 바꿀지 구체적으로 말해요."
+  },
+  "REPLY_NO_REVISIT": {
+   "name": "재방문 제안",
+   "fixTip": "다시 오실 이유를 한 줄 드려요."
+  },
+  "REPLY_DEFENSIVE": {
+   "name": "변명·반박",
+   "fixTip": "\"원래 그래요\", \"다른 손님은…\" 같은 말은 빼요."
+  }
+ },
+ "rubrics": {
+  "REPLY_PRAISE": [
+   {
+    "key": "THANKS",
+    "label": "감사",
+    "good": "감사 인사로 시작했어요.",
+    "fix": "\"감사해요\" 한마디로 시작해 보세요."
+   },
+   {
+    "key": "SPECIFIC",
+    "label": "손님 말 다시 부르기",
+    "good": "손님이 말한 메뉴를 다시 불렀어요.",
+    "fix": "손님이 칭찬한 메뉴 이름을 넣어 보세요."
+   },
+   {
+    "key": "REVISIT",
+    "label": "다시 오기",
+    "good": "다시 오실 이유를 드렸어요.",
+    "fix": "\"또 들러 주세요\"처럼 다시 오라는 말을 붙여 보세요."
+   },
+   {
+    "key": "CLEAN",
+    "label": "과한 홍보 없음",
+    "good": "홍보 없이 깔끔해요.",
+    "fix": "팔로우·이벤트 홍보는 빼 보세요."
+   }
+  ],
+  "REPLY_COMPLAINT": [
+   {
+    "key": "EMPATHY",
+    "label": "공감",
+    "good": "손님 마음을 먼저 받아 줬어요.",
+    "fix": "\"불편하셨겠어요\"처럼 공감을 먼저 써 보세요."
+   },
+   {
+    "key": "APOLOGY",
+    "label": "사과",
+    "good": "분명하게 사과했어요.",
+    "fix": "\"죄송합니다\"를 분명하게 넣어 보세요."
+   },
+   {
+    "key": "FIX",
+    "label": "개선 약속",
+    "good": "무엇을 바꿀지 말했어요.",
+    "fix": "앞으로 무엇을 바꿀지 한 문장으로 적어 보세요."
+   },
+   {
+    "key": "REVISIT",
+    "label": "다시 오기",
+    "good": "다시 오실 이유를 드렸어요.",
+    "fix": "\"다음에 오시면 …\"으로 다시 오실 이유를 드려 보세요."
+   },
+   {
+    "key": "CALM",
+    "label": "변명·반박 없음",
+    "good": "변명 없이 담백해요.",
+    "fix": "\"원래\", \"다른 손님은\" 같은 변명은 빼 보세요."
+   }
+  ]
+ },
+ "scenario": {
+  "id": 1,
+  "code": "RP-LUKEWARM-LATTE",
+  "skillCode": "REVIEW",
+  "title": "미지근한 라떼 불만 리뷰",
+  "persona": "★2 손님. 어제 라떼가 미지근해서 실망한 손님. 사장님의 공감·사과·개선 약속에 따라 마음이 풀린다.",
+  "openingLine": "어제 라떼가 미지근했어요. 직원분도 바빠 보여서 말을 못 했네요. ★2",
+  "maxTurns": 3,
+  "rubricCode": "REPLY_COMPLAINT"
+ }
+}

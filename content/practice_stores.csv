@@ -1,0 +1,2 @@
+code,store_type,name,place_image,insta_image,menu_json,reviews_json,gate_preset_json
+CAFE,CAFE,연습 카페 마코,,,"[{""name"":""무화과 라떼"",""price"":null},{""name"":""무화과 케이크"",""price"":null}]","[{""stars"":5,""text"":""여기 라떼 진짜 맛있어요!""},{""stars"":2,""text"":""케이크가 말라 있었어요.""},{""stars"":5,""text"":""조용해서 공부하기 좋아요""}]","{""hours"":true,""menuPrice"":false,""photos"":4,""contact"":true,""reviews"":3,""rating"":4.3,""replied"":1,""recentReviewDays"":12,""news"":false,""coupon"":false,""insta"":false}"

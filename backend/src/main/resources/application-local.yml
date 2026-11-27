@@ -1,0 +1,7 @@
+# 로컬 개발: 서버를 켤 때 content/ CSV 적재 + 예시 계정 2개 만들기
+maco:
+  content:
+    load-on-start: true
+  demo:
+    seed-on-start: true
+    password: ${DEMO_PASSWORD:maco1234}
