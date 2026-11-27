@@ -44,6 +44,10 @@ VS Code로 폴더를 처음 열면 오른쪽 아래에 **추천 확장 설치** 
 
 1. DB 켜기 (Docker Desktop 먼저 실행)
 
+처음 한 번: 루트에서 `.env.example`을 `.env`로 복사하고 `DB_PASSWORD`에 `docker-compose.yml`의 로컬 비밀번호를 넣는다. 나머지 키 값은 팀 비공개 채팅으로 받는다 (비어 있어도 로컬에서는 돈다). `.env` 파일이 아예 없어도 로컬 기본값으로 돈다.
+
+1. DB 켜기 (Docker Desktop 먼저 실행)
+
 ```bash
 docker compose up -d
 ```
