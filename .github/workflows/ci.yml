@@ -1,0 +1,63 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  rules:
+    name: 규칙 검사
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - run: node scripts/check-rules.mjs
+        env:
+          BASE_REF: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || 'HEAD~1' }}
+
+  frontend:
+    name: 화면 (lint, build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: has
+        run: echo "exists=$([ -f frontend/package.json ] && echo yes || echo no)" >> "$GITHUB_OUTPUT"
+      - if: steps.has.outputs.exists == 'yes'
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - if: steps.has.outputs.exists == 'yes'
+        working-directory: frontend
+        run: npm ci
+      - if: steps.has.outputs.exists == 'yes'
+        working-directory: frontend
+        run: npm run lint --if-present
+      - if: steps.has.outputs.exists == 'yes'
+        working-directory: frontend
+        run: npm run build
+
+  backend:
+    name: 서버 (test)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: has
+        run: echo "exists=$([ -f backend/gradlew ] && echo yes || echo no)" >> "$GITHUB_OUTPUT"
+      - if: steps.has.outputs.exists == 'yes'
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+      - if: steps.has.outputs.exists == 'yes'
+        working-directory: backend
+        run: chmod +x gradlew && ./gradlew test --no-daemon
+        env:
+          AI_MODE: "off"

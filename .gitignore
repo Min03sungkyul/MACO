@@ -1,0 +1,32 @@
+# 비밀값
+.env
+.env.local
+**/.env
+**/.env.local
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Java / Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# 업로드 파일 (캡처·미션 사진)
+uploads/
+
+# 개인 AI 도구 설정
+.claude/settings.local.json
+
+# 편집기·OS
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+*.log

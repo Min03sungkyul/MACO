@@ -1,0 +1,7 @@
+# MACO 팀 공용 Codex 설정
+# 이 프로젝트를 Codex에서 "신뢰(trusted)"로 등록해야 적용된다.
+# 개인 설정(모델, 로그인 등)은 각자 ~/.codex/config.toml 에 둔다.
+
+# 파일 수정은 저장소 안에서만, 위험한 명령은 실행 전에 묻기
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
