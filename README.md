@@ -40,3 +40,9 @@ npm run dev
 ```bash
 node scripts/check-rules.mjs
 ```
+
+## 팀원소개
+- 강민국 : 팀장
+- 이동성 : 마케팅교육
+- 박민하 : 얼굴담당
+- 주승준 : 박민하 뒤치닥
