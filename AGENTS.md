@@ -66,7 +66,7 @@ Claude Code는 `CLAUDE.md`가 이 파일을 불러온다. 규칙을 바꿀 때�
 
 | 목적 | 명령어 | 위치 |
 |---|---|---|
-| 로컬 DB 켜기 | `docker compose up -d` | 루트 |
+| 로컬 DB 켜기 | `docker compose up -d --wait` | 루트 |
 | 서버 실행 / 테스트 | `./gradlew bootRun` / `./gradlew test` | `backend/` |
 | 화면 실행 / 검사 / 빌드 | `npm run dev` / `npm run lint` / `npm run build` | `frontend/` |
 | 규칙 검사 | `node scripts/check-rules.mjs` | 루트 |
