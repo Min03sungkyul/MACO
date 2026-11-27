@@ -12,9 +12,9 @@
     },
     {
       "label": "DB 켜기",
-      "detail": "Docker Desktop이 켜져 있어야 한다",
+      "detail": "Docker Desktop이 켜져 있어야 한다. MySQL이 접속을 받을 준비가 될 때까지 기다린다",
       "type": "shell",
-      "command": "docker compose up -d",
+      "command": "docker compose up -d --wait",
       "options": { "cwd": "${workspaceFolder}" },
       "presentation": { "reveal": "silent", "close": true },
       "problemMatcher": []

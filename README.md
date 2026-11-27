@@ -45,7 +45,7 @@ VS Code로 폴더를 처음 열면 오른쪽 아래에 **추천 확장 설치** 
 1. DB 켜기 (Docker Desktop 먼저 실행)
 
 ```bash
-docker compose up -d
+docker compose up -d --wait
 ```
 
 2. 서버 켜기 (`local` 프로필: 마이그레이션, `content/` CSV 적재, 예시 계정 2개 생성)
