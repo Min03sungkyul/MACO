@@ -21,6 +21,15 @@
   --color-bad: #d93b3b;
   --color-bad-soft: #fdeceb;
   --color-kakao: #fee500;
+  --color-off-deep: #bdbdbd;     /* 잠긴 돌다리 아래 그림자 */
+
+  /* 트레이닝 유닛 경로: 관문별 돌다리 색 (-deep은 돌 아래 입체 그림자) */
+  --color-gate-find: #6e4fe0;
+  --color-gate-find-deep: #5236b8;
+  --color-gate-trust: #ff8a1f;
+  --color-gate-trust-deep: #cf6a0c;
+  --color-gate-notify: #13a58c;
+  --color-gate-notify-deep: #0c7d69;
   --color-overlay: rgb(0 0 0 / 0.4);
 
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
