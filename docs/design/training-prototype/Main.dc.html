@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>MACO 트레이닝</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Pretendard";src:url(/_blob/7bc29cf1f82430f3721534df3e204fa3) format("woff2");font-weight:45 920;font-display:swap}
+body{margin:0}
+*{box-sizing:border-box}
+button,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:disabled{cursor:not-allowed}
+a{color:#111111}a:hover{color:#4d4d4d}
+:focus-visible{outline:3px solid #6e4fe0;outline-offset:2px}
+.maco-scroll{scrollbar-width:none}
+.maco-scroll::-webkit-scrollbar{display:none}
+.maco-press{transition:transform .15s ease-out}
+.maco-press:active{transform:translateY(3px) scale(.98)}
+.maco-tag .maco-tag-face{transition:transform .15s ease-out}
+.maco-tag:active .maco-tag-face{transform:translateY(4px)}
+@keyframes macoRise{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+@keyframes macoUnfold{from{transform:scaleY(.92);opacity:0}to{transform:none;opacity:1}}
+@keyframes macoPop{0%{transform:scale(.8)}70%{transform:scale(1.08)}100%{transform:scale(1)}}
+@keyframes macoDraw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
+@keyframes macoCheck{from{stroke-dashoffset:30}to{stroke-dashoffset:0}}
+@keyframes macoFly{0%{transform:translate(0,0) scale(1);opacity:0}15%{opacity:1}100%{transform:translate(118px,-372px) scale(.55);opacity:.2}}
+@keyframes macoFade{from{opacity:0}to{opacity:1}}
+.maco-rise{animation:macoRise .2s ease-out}
+.maco-unfold{animation:macoUnfold .2s ease-out;transform-origin:50% 0}
+.maco-pop{animation:macoPop .25s ease-out .35s both}
+.maco-draw{animation:macoDraw .4s ease-out .2s both}
+.maco-check{stroke-dasharray:30;animation:macoCheck .35s ease-out .1s both}
+.maco-fly{animation:macoFly .65s cubic-bezier(.3,.7,.4,1) forwards}
+.maco-fade{animation:macoFade .2s ease-out}
+.maco-ring{transition:stroke-dasharray .4s ease-out}
+.maco-bar{transition:width .4s ease-out}
+@media (prefers-reduced-motion:reduce){.maco-rise,.maco-unfold,.maco-pop,.maco-draw,.maco-check,.maco-fly,.maco-fade{animation:none}.maco-ring,.maco-bar,.maco-press,.maco-tag .maco-tag-face{transition:none}.maco-fly{display:none}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; display: flex; flex-direction: column; background: #ffffff; color: #111111; font-family: Pretendard, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; letter-spacing: -0.01em">
+<div style="flex: 1; min-height: 0; position: relative">
+
+<!-- ───────── S6 트레이닝 로드맵 ───────── -->
+<sc-if value="{{ v.isRoadmap }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; height: 100%; position: relative">
+  <header style="flex: none; padding: 24px 16px 10px 14px; border-bottom: 1px solid #ebebeb; display: flex; align-items: center; gap: 4px; background: #ffffff; z-index: 3">
+    <button type="button" class="maco-press" onClick="{{ v.top.course }}" style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px 0 10px; border: 1px solid #ebebeb; border-radius: 12px; background: #ffffff; font-size: 14px; font-weight: 800">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.2"></circle><circle cx="18" cy="18" r="2.2"></circle><path d="M8.2 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.8"></path></svg>전체 과정
+    </button>
+    <span style="flex: 1"></span>
+    <button type="button" class="maco-press" onClick="{{ v.top.streak }}" aria-label="{{ v.top.streakLabel }}" style="display: inline-flex; align-items: center; gap: 3px; height: 44px; min-width: 44px; padding: 0 8px; border: 0; border-radius: 12px; background: transparent; font-size: 15px; font-weight: 800">
+      <svg viewBox="0 0 24 24" width="21" height="21" fill="{{ v.top.flameColor }}" aria-hidden="true"><path d="M12.4 2.2c.7 3-.5 4.8-2 6.4C8.9 10.2 7 12 7 15a5 5 0 0 0 10 0c0-2-.8-3.6-1.9-4.9-.3 1.3-1.1 2.3-2.1 2.8.5-4-.5-7.6-.6-10.7Z"></path></svg>{{ v.top.streakCount }}
+    </button>
+    <button type="button" class="maco-press" onClick="{{ v.top.xp }}" aria-label="{{ v.top.xpLabel }}" style="display: inline-flex; align-items: center; gap: 4px; height: 44px; min-width: 44px; padding: 0 8px; border: 0; border-radius: 12px; background: transparent; font-size: 15px; font-weight: 800">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="#ff6b1a" aria-hidden="true"><path d="M13.5 2 4.8 13.1c-.3.4 0 .9.4.9H11l-1.3 7.4c-.1.5.6.8.9.4l8.6-11.1c.3-.4 0-.9-.4-.9H13l1.4-7.4c.1-.5-.6-.8-.9-.4Z"></path></svg>{{ v.top.xpShown }} XP
+    </button>
+    <button type="button" class="maco-press" onClick="{{ v.top.goal }}" aria-label="{{ v.top.goalLabel }}" style="width: 44px; height: 44px; border: 0; border-radius: 12px; background: transparent; display: inline-flex; align-items: center; justify-content: center; padding: 0">
+      <svg viewBox="0 0 34 34" width="34" height="34" aria-hidden="true" style="transform: rotate(-90deg)"><circle cx="17" cy="17" r="13" fill="none" stroke="#ebebeb" stroke-width="4.5"></circle><circle class="maco-ring" cx="17" cy="17" r="13" fill="none" stroke="#ff6b1a" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="{{ v.top.ringDash }}"></circle></svg>
+    </button>
+  </header>
+
+  <div id="roadmap-scroll" class="maco-scroll" style="flex: 1; overflow-y: auto; padding: 0 20px 36px; position: relative">
+    <sc-for list="{{ v.sections }}" as="sec" hint-placeholder-count="2">
+      <section id="{{ sec.anchor }}" aria-label="{{ sec.aria }}" style="padding-top: 20px">
+        <div style="{{ sec.headStyle }}">
+          <div style="display: flex; align-items: center; gap: 8px">
+            <span style="{{ sec.badgeStyle }}">{{ sec.no }}</span>
+            <p style="margin: 0; flex: 1; font-size: 12px; font-weight: 800; color: #4d4d4d">섹션 {{ sec.no }} · {{ sec.progressText }}</p>
+            <sc-if value="{{ sec.isDone }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#ff6b1a" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-label="섹션 완료"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg></sc-if>
+            <sc-if value="{{ sec.isLocked }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="15" height="15" fill="#767676" aria-label="잠김"><path d="M7 10V8a5 5 0 0 1 10 0v2h.5A1.5 1.5 0 0 1 19 11.5v8A1.5 1.5 0 0 1 17.5 21h-11A1.5 1.5 0 0 1 5 19.5v-8A1.5 1.5 0 0 1 6.5 10H7Zm2 0h6V8a3 3 0 0 0-6 0v2Z"></path></svg></sc-if>
+          </div>
+          <h2 style="margin: 6px 0 0; font-size: 18px; line-height: 1.35; font-weight: 800">{{ sec.title }}</h2>
+          <p style="margin: 3px 0 0; font-size: 14px; line-height: 1.5; color: #4d4d4d">{{ sec.goal }}</p>
+          <div style="margin-top: 10px; height: 6px; border-radius: 99px; background: #f5f5f5; overflow: hidden"><div class="maco-bar" style="{{ sec.fillStyle }}"></div></div>
+          <sc-if value="{{ sec.isLocked }}" hint-placeholder-val="{{ false }}"><p style="margin: 8px 0 0; font-size: 12px; color: #4d4d4d">{{ sec.lockText }}</p></sc-if>
+        </div>
+        <ol style="list-style: none; margin: 0; padding: 0">
+          <sc-for list="{{ sec.rows }}" as="row" hint-placeholder-count="5">
+            <li id="{{ row.anchor }}">
+              <div style="position: relative; height: 150px">
+                <sc-if value="{{ row.hasConn }}" hint-placeholder-val="{{ true }}">
+                  <svg width="350" height="150" aria-hidden="true" style="position: absolute; left: 0; top: -54px; z-index: 0; overflow: visible"><line x1="{{ row.x1 }}" y1="0" x2="{{ row.x2 }}" y2="150" stroke="#e2e2e2" stroke-width="3" stroke-linecap="round" stroke-dasharray="{{ row.baseDash }}"></line><sc-if value="{{ row.connOn }}" hint-placeholder-val="{{ false }}"><line class="{{ row.connClass }}" x1="{{ row.x1 }}" y1="0" x2="{{ row.x2 }}" y2="150" stroke="#ff6b1a" stroke-width="3" stroke-linecap="round" stroke-dasharray="{{ row.connLen }}" style="{{ row.connVar }}"></line></sc-if></svg>
+                </sc-if>
+                <div style="{{ row.chipWrap }}"><span style="{{ row.chipStyle }}">유닛 {{ row.no }} · {{ row.unit }}</span></div>
+                <div style="{{ row.tagWrap }}">
+                  <button type="button" class="maco-tag" onClick="{{ row.tap }}" aria-expanded="{{ row.expanded }}" aria-label="{{ row.aria }}" style="{{ row.tagBtn }}">
+                    <span class="{{ row.faceClass }}" style="position: relative; display: block; width: 100%; height: 100%">
+                      <svg viewBox="0 0 64 76" width="100%" height="100%" aria-hidden="true" style="position: absolute; inset: 0; overflow: visible">
+                        <path d="M10 20L32 3L54 20Q58 23 58 28V64Q58 71 51 71H13Q6 71 6 64V28Q6 23 10 20Z" transform="translate(0 4)" fill="{{ row.shadow }}"></path>
+                        <path d="M10 20L32 3L54 20Q58 23 58 28V64Q58 71 51 71H13Q6 71 6 64V28Q6 23 10 20Z" fill="{{ row.fill }}" stroke="{{ row.stroke }}" stroke-width="2"></path>
+                        <circle cx="32" cy="16" r="4.5" fill="#ffffff" stroke="{{ row.stroke }}" stroke-width="2"></circle>
+                      </svg>
+                      <span style="{{ row.iconBox }}">
+                        <sc-if value="{{ row.icon.s1 }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.7-6.5-11a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.4"></circle></svg></sc-if>
+                        <sc-if value="{{ row.icon.s2 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4Z"></path><circle cx="12" cy="13" r="3.5"></circle></svg></sc-if>
+                        <sc-if value="{{ row.icon.s3 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H10l-5 4v-4H4Z"></path><path d="m12 7.6 1 2 2.1.3-1.5 1.5.4 2.1-2-1-1.9 1 .4-2.1-1.5-1.5 2.1-.3Z"></path></svg></sc-if>
+                        <sc-if value="{{ row.icon.s4 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="10" rx="2"></rect><path d="M8 15v5M16 15v5M8 10h8"></path></svg></sc-if>
+                        <sc-if value="{{ row.icon.s5 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10v4h3l7 4V6L7 10H4Z"></path><path d="M18 9a4 4 0 0 1 0 6"></path></svg></sc-if>
+                        <sc-if value="{{ row.icon.s6 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1" fill="currentColor"></circle></svg></sc-if>
+                        <sc-if value="{{ row.icon.s7 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"></path><rect x="6" y="11" width="3" height="7"></rect><rect x="11" y="7" width="3" height="11"></rect><rect x="16" y="13" width="3" height="5"></rect></svg></sc-if>
+                      </span>
+                      <sc-if value="{{ row.isDone }}" hint-placeholder-val="{{ false }}">
+                        <span aria-hidden="true" style="position: absolute; top: 6px; right: -6px; width: 24px; height: 24px; border-radius: 50%; background: #ff6b1a; border: 2px solid #ffffff; color: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path class="{{ row.checkClass }}" d="m5 12.5 4.5 4.5L19 7.5"></path></svg></span>
+                      </sc-if>
+                      <sc-if value="{{ row.isLocked }}" hint-placeholder-val="{{ false }}">
+                        <span aria-hidden="true" style="position: absolute; bottom: -2px; right: -6px; width: 24px; height: 24px; border-radius: 50%; background: #767676; border: 2px solid #ffffff; color: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h.5A1.5 1.5 0 0 1 19 11.5v8A1.5 1.5 0 0 1 17.5 21h-11A1.5 1.5 0 0 1 5 19.5v-8A1.5 1.5 0 0 1 6.5 10H7Zm2 0h6V8a3 3 0 0 0-6 0v2Z"></path></svg></span>
+                      </sc-if>
+                    </span>
+                  </button>
+                </div>
+                <div style="{{ row.labelStyle }}">
+                  <sc-if value="{{ row.isCurrent }}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 99px; background: #6e4fe0; color: #ffffff; font-size: 12px; font-weight: 800">지금 할 레슨</span></sc-if>
+                  <span style="{{ row.titleStyle }}">{{ row.lesson }}</span>
+                  <span style="{{ row.stateStyle }}">{{ row.stateText }}</span>
+                </div>
+              </div>
+
+              <sc-if value="{{ row.showCoach }}" hint-placeholder-val="{{ false }}">
+                <div class="maco-fade" style="display: flex; align-items: flex-end; gap: 6px; margin: -8px 0 14px">
+                  <span style="width: 60px; height: 60px; flex: none"><dc-import name="Coach" mood="happy" tool="memo" hint-size="60px,60px"></dc-import></span>
+                  <p style="margin: 0 0 8px; position: relative; padding: 10px 12px; border-radius: 14px; border: 1px solid #ebebeb; background: #ffffff; font-size: 14px; line-height: 1.45; font-weight: 600">{{ row.coachLine }}</p>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ row.showCard }}" hint-placeholder-val="{{ false }}">
+                <div class="maco-unfold" style="position: relative; z-index: 2; margin: 0 0 18px; padding: 16px; border-radius: 18px; background: #ffffff; border: 1px solid #ebebeb; box-shadow: 0 10px 28px rgba(17,17,17,0.08)">
+                  <span aria-hidden="true" style="{{ row.caretStyle }}"></span>
+                  <p style="margin: 0; font-size: 12px; font-weight: 800; color: #4d4d4d">{{ row.card.meta }}</p>
+                  <h3 style="margin: 4px 0 0; font-size: 18px; line-height: 1.35; font-weight: 800">{{ row.lesson }}</h3>
+                  <p style="margin: 4px 0 0; font-size: 14px; line-height: 1.55; color: #4d4d4d">{{ row.card.desc }}</p>
+                  <div style="margin-top: 12px; display: flex; align-items: center; gap: 10px">
+                    <span style="flex: none; display: inline-flex; align-items: center; gap: 5px; height: 48px; padding: 0 12px; border-radius: 12px; background: #f5f5f5; font-size: 14px; font-weight: 700">문제 3개</span>
+                    <button type="button" class="maco-press" onClick="{{ row.start }}" style="{{ row.card.btnStyle }}">{{ row.card.btnLabel }}</button>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ row.showLock }}" hint-placeholder-val="{{ false }}">
+                <div class="maco-unfold" role="status" style="position: relative; z-index: 2; margin: 0 0 18px; padding: 14px 16px; border-radius: 16px; background: #f5f5f5; display: flex; gap: 10px; align-items: flex-start">
+                  <span aria-hidden="true" style="{{ row.caretSoft }}"></span>
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="#4d4d4d" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="M7 10V8a5 5 0 0 1 10 0v2h.5A1.5 1.5 0 0 1 19 11.5v8A1.5 1.5 0 0 1 17.5 21h-11A1.5 1.5 0 0 1 5 19.5v-8A1.5 1.5 0 0 1 6.5 10H7Zm2 0h6V8a3 3 0 0 0-6 0v2Z"></path></svg>
+                  <p style="margin: 0; font-size: 14px; line-height: 1.5">{{ row.lockText }}<br><span style="color: #4d4d4d">유닛을 차례로 마치면 자동으로 열려요.</span></p>
+                </div>
+              </sc-if>
+            </li>
+          </sc-for>
+        </ol>
+      </section>
+    </sc-for>
+    <p style="margin: 28px 0 0; text-align: center; font-size: 13px; color: #4d4d4d">7개 섹션 · 35개 유닛</p>
+  </div>
+
+  <sc-if value="{{ v.fly.show }}" hint-placeholder-val="{{ false }}">
+    <span class="maco-fly" aria-hidden="true" style="position: absolute; left: 160px; top: 430px; z-index: 6; padding: 8px 14px; border-radius: 99px; background: #ff6b1a; color: #ffffff; font-size: 17px; font-weight: 800; pointer-events: none">+{{ v.fly.xp }} XP</span>
+  </sc-if>
+</div>
+</sc-if>
+
+<!-- ───────── 전체 과정 ───────── -->
+<sc-if value="{{ v.isCourse }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; height: 100%">
+  <header style="flex: none; padding: 24px 12px 10px; display: flex; align-items: center; border-bottom: 1px solid #ebebeb">
+    <button type="button" onClick="{{ v.back }}" aria-label="로드맵으로 돌아가기" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg></button>
+    <h1 style="flex: 1; margin: 0; text-align: center; font-size: 18px; font-weight: 800">전체 과정</h1>
+    <span style="width: 44px"></span>
+  </header>
+  <div class="maco-scroll" style="flex: 1; overflow-y: auto; padding: 18px 20px 32px; display: flex; flex-direction: column; gap: 12px">
+    <p style="margin: 0 0 4px; font-size: 14px; line-height: 1.55; color: #4d4d4d">유닛 {{ v.course.doneCount }}/35 완료 · 섹션을 누르면 유닛이 펼쳐져요.</p>
+    <sc-for list="{{ v.course.sections }}" as="cs" hint-placeholder-count="7">
+      <section aria-label="{{ cs.aria }}" style="{{ cs.cardStyle }}">
+        <button type="button" onClick="{{ cs.toggle }}" aria-expanded="{{ cs.open }}" style="width: 100%; border: 0; background: transparent; padding: 14px 14px 14px 16px; display: flex; align-items: flex-start; gap: 12px; text-align: left">
+          <span style="{{ cs.badgeStyle }}">{{ cs.no }}</span>
+          <span style="flex: 1; min-width: 0">
+            <span style="display: block; font-size: 16px; line-height: 1.35; font-weight: 800">{{ cs.title }}</span>
+            <span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.45; color: #4d4d4d">{{ cs.goal }}</span>
+            <span style="display: flex; align-items: center; gap: 8px; margin-top: 8px">
+              <span style="flex: 1; height: 6px; border-radius: 99px; background: #f5f5f5; overflow: hidden"><span class="maco-bar" style="{{ cs.fillStyle }}"></span></span>
+              <span style="font-size: 12px; font-weight: 800">{{ cs.progressText }}</span>
+            </span>
+          </span>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ cs.chevron }}"><path d="m6 9 6 6 6-6"></path></svg>
+        </button>
+        <sc-if value="{{ cs.open }}" hint-placeholder-val="{{ false }}">
+          <ol class="maco-unfold" style="list-style: none; margin: 0; padding: 0 14px 14px; display: flex; flex-direction: column; gap: 8px">
+            <sc-for list="{{ cs.units }}" as="cu" hint-placeholder-count="5">
+              <li style="{{ cu.rowStyle }}">
+                <span style="{{ cu.dotStyle }}">{{ cu.mark }}</span>
+                <span style="flex: 1; min-width: 0">
+                  <span style="display: block; font-size: 14px; line-height: 1.4; font-weight: 800">{{ cu.unit }}</span>
+                  <span style="display: block; font-size: 12px; line-height: 1.4; color: #4d4d4d">{{ cu.sub }}</span>
+                </span>
+                <sc-if value="{{ cu.isCurrent }}" hint-placeholder-val="{{ false }}"><button type="button" class="maco-press" onClick="{{ cu.go }}" style="flex: none; height: 40px; padding: 0 12px; border: 0; border-radius: 10px; background: #6e4fe0; color: #ffffff; font-size: 13px; font-weight: 800">이어서 하기</button></sc-if>
+                <sc-if value="{{ cu.isDone }}" hint-placeholder-val="{{ false }}"><button type="button" class="maco-press" onClick="{{ cu.go }}" style="flex: none; height: 40px; padding: 0 10px; border: 1px solid #d6d6d6; border-radius: 10px; background: #ffffff; font-size: 13px; font-weight: 700">다시 하기</button></sc-if>
+              </li>
+            </sc-for>
+          </ol>
+        </sc-if>
+      </section>
+    </sc-for>
+    <div style="margin-top: 16px; padding: 14px 16px; border-radius: 14px; border: 1px dashed #d6d6d6">
+      <p style="margin: 0; font-size: 13px; font-weight: 800">데모 설정</p>
+      <p style="margin: 3px 0 10px; font-size: 12px; line-height: 1.5; color: #4d4d4d">{{ v.course.storageNote }}</p>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap">
+        <button type="button" onClick="{{ v.course.reset }}" style="height: 40px; padding: 0 12px; border: 1px solid #d6d6d6; border-radius: 10px; background: #ffffff; font-size: 13px; font-weight: 700">처음부터 다시</button>
+        <button type="button" onClick="{{ v.course.jump }}" style="height: 40px; padding: 0 12px; border: 1px solid #d6d6d6; border-radius: 10px; background: #ffffff; font-size: 13px; font-weight: 700">마지막 유닛 직전으로</button>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ───────── 연속학습 ───────── -->
+<sc-if value="{{ v.isStreak }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; height: 100%">
+  <header style="flex: none; padding: 24px 12px 10px; display: flex; align-items: center; border-bottom: 1px solid #ebebeb">
+    <button type="button" onClick="{{ v.back }}" aria-label="로드맵으로 돌아가기" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg></button>
+    <h1 style="flex: 1; margin: 0; text-align: center; font-size: 18px; font-weight: 800">연속학습</h1>
+    <span style="width: 44px"></span>
+  </header>
+  <div class="maco-scroll maco-fade" style="flex: 1; overflow-y: auto; padding: 28px 20px 32px; display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; align-items: center; gap: 14px">
+      <svg viewBox="0 0 24 24" width="56" height="56" fill="{{ v.streak.flameColor }}" aria-hidden="true"><path d="M12.4 2.2c.7 3-.5 4.8-2 6.4C8.9 10.2 7 12 7 15a5 5 0 0 0 10 0c0-2-.8-3.6-1.9-4.9-.3 1.3-1.1 2.3-2.1 2.8.5-4-.5-7.6-.6-10.7Z"></path></svg>
+      <div>
+        <p style="margin: 0; font-size: 34px; line-height: 1.1; font-weight: 800">{{ v.streak.days }}일 연속</p>
+        <p style="margin: 4px 0 0; font-size: 14px; color: #4d4d4d">일일 목표를 채운 날이 이어지고 있어요.</p>
+      </div>
+    </div>
+    <div style="padding: 16px; border-radius: 16px; border: 1px solid #ebebeb">
+      <p style="margin: 0 0 12px; font-size: 14px; font-weight: 800">이번 주 학습 달력 · {{ v.streak.range }}</p>
+      <ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px">
+        <sc-for list="{{ v.streak.week }}" as="d" hint-placeholder-count="7">
+          <li style="display: flex; flex-direction: column; align-items: center; gap: 6px" aria-label="{{ d.aria }}">
+            <span style="{{ d.labelStyle }}">{{ d.dow }}</span>
+            <span style="{{ d.dotStyle }}">
+              <sc-if value="{{ d.done }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg></sc-if>
+              <sc-if value="{{ d.notDone }}" hint-placeholder-val="{{ true }}">{{ d.date }}</sc-if>
+            </span>
+          </li>
+        </sc-for>
+      </ol>
+    </div>
+    <div style="{{ v.streak.todayStyle }}">
+      <p style="margin: 0; font-size: 15px; font-weight: 800">{{ v.streak.todayTitle }}</p>
+      <p style="margin: 3px 0 0; font-size: 14px; line-height: 1.5; color: #4d4d4d">{{ v.streak.todayText }}</p>
+    </div>
+    <sc-if value="{{ v.streak.needToday }}" hint-placeholder-val="{{ true }}">
+      <button type="button" class="maco-press" onClick="{{ v.startCurrent }}" style="width: 100%; height: 52px; border: 0; border-radius: 14px; background: #6e4fe0; color: #ffffff; font-size: 16px; font-weight: 800">오늘 레슨 하나 하기</button>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+<!-- ───────── XP 기록 ───────── -->
+<sc-if value="{{ v.isXp }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; height: 100%">
+  <header style="flex: none; padding: 24px 12px 10px; display: flex; align-items: center; border-bottom: 1px solid #ebebeb">
+    <button type="button" onClick="{{ v.back }}" aria-label="로드맵으로 돌아가기" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg></button>
+    <h1 style="flex: 1; margin: 0; text-align: center; font-size: 18px; font-weight: 800">XP 기록</h1>
+    <span style="width: 44px"></span>
+  </header>
+  <div class="maco-scroll maco-fade" style="flex: 1; overflow-y: auto; padding: 24px 20px 32px; display: flex; flex-direction: column; gap: 14px">
+    <div>
+      <p style="margin: 0; font-size: 14px; font-weight: 700; color: #4d4d4d">오늘 획득한 XP</p>
+      <p style="margin: 2px 0 0; font-size: 36px; font-weight: 800">{{ v.xpPage.total }} <span style="font-size: 18px">XP</span></p>
+    </div>
+    <sc-if value="{{ v.xpPage.empty }}" hint-placeholder-val="{{ false }}">
+      <div style="padding: 20px 16px; border-radius: 16px; background: #f5f5f5; text-align: center">
+        <p style="margin: 0; font-size: 15px; font-weight: 800">아직 오늘 받은 XP가 없어요</p>
+        <p style="margin: 4px 0 12px; font-size: 13px; color: #4d4d4d">레슨을 하나 마치면 여기에 기록돼요.</p>
+        <button type="button" class="maco-press" onClick="{{ v.startCurrent }}" style="height: 46px; padding: 0 18px; border: 0; border-radius: 12px; background: #6e4fe0; color: #ffffff; font-size: 15px; font-weight: 800">지금 할 레슨 시작</button>
+      </div>
+    </sc-if>
+    <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+      <sc-for list="{{ v.xpPage.items }}" as="xi" hint-placeholder-count="2">
+        <li style="padding: 14px 16px; border-radius: 14px; border: 1px solid #ebebeb; display: flex; align-items: center; gap: 12px">
+          <span style="flex: 1; min-width: 0">
+            <span style="display: block; font-size: 12px; font-weight: 700; color: #4d4d4d">{{ xi.where }}</span>
+            <span style="display: block; font-size: 15px; line-height: 1.4; font-weight: 800">{{ xi.lesson }}</span>
+            <span style="display: block; font-size: 12px; color: #4d4d4d">{{ xi.detail }}</span>
+          </span>
+          <span style="flex: none; font-size: 17px; font-weight: 800">+{{ xi.xp }}</span>
+        </li>
+      </sc-for>
+    </ol>
+    <p style="margin: 0; font-size: 12px; line-height: 1.5; color: #4d4d4d">XP 기준(가정값): 정답 10 · 오답 2 · 레슨 완료 10. 데모 기록이며 서버 기록과 따로 저장돼요.</p>
+  </div>
+</div>
+</sc-if>
+
+<!-- ───────── 오늘의 목표 ───────── -->
+<sc-if value="{{ v.isGoal }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; height: 100%">
+  <header style="flex: none; padding: 24px 12px 10px; display: flex; align-items: center; border-bottom: 1px solid #ebebeb">
+    <button type="button" onClick="{{ v.back }}" aria-label="로드맵으로 돌아가기" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg></button>
+    <h1 style="flex: 1; margin: 0; text-align: center; font-size: 18px; font-weight: 800">오늘의 목표</h1>
+    <span style="width: 44px"></span>
+  </header>
+  <div class="maco-scroll maco-fade" style="flex: 1; overflow-y: auto; padding: 28px 20px 32px; display: flex; flex-direction: column; align-items: center; gap: 18px">
+    <div style="position: relative; width: 168px; height: 168px" role="img" aria-label="{{ v.goalPage.aria }}">
+      <svg viewBox="0 0 34 34" width="168" height="168" aria-hidden="true" style="transform: rotate(-90deg)"><circle cx="17" cy="17" r="13" fill="none" stroke="#ebebeb" stroke-width="3.2"></circle><circle class="maco-ring" cx="17" cy="17" r="13" fill="none" stroke="#ff6b1a" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="{{ v.goalPage.ringDash }}"></circle></svg>
+      <span style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
+        <span style="font-size: 30px; font-weight: 800">{{ v.goalPage.xp }} <span style="font-size: 18px; color: #4d4d4d">/ {{ v.goalPage.goal }}</span></span>
+        <span style="font-size: 13px; font-weight: 700; color: #4d4d4d">XP</span>
+      </span>
+    </div>
+    <p style="margin: 0; font-size: 17px; font-weight: 800; text-align: center">{{ v.goalPage.remainText }}</p>
+    <div style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #ebebeb">
+      <p style="margin: 0; font-size: 12px; font-weight: 800; color: #4d4d4d">추천 레슨 · {{ v.goalPage.where }}</p>
+      <p style="margin: 4px 0 0; font-size: 17px; line-height: 1.4; font-weight: 800">{{ v.goalPage.lesson }}</p>
+      <p style="margin: 2px 0 14px; font-size: 13px; color: #4d4d4d">문제 3개 · 약 3분</p>
+      <button type="button" class="maco-press" onClick="{{ v.startCurrent }}" style="width: 100%; height: 52px; border: 0; border-radius: 14px; background: #6e4fe0; color: #ffffff; font-size: 16px; font-weight: 800">추천 레슨 시작</button>
+    </div>
+    <p style="margin: 0; font-size: 12px; color: #4d4d4d">하루 목표 {{ v.goalPage.goal }} XP (가정값)</p>
+  </div>
+</div>
+</sc-if>
+
+<!-- ───────── 다른 탭 (자리 표시) ───────── -->
+<sc-if value="{{ v.isTab }}" hint-placeholder-val="{{ false }}">
+<div class="maco-fade" style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px 32px; text-align: center">
+  <span style="width: 96px; height: 96px"><dc-import name="Coach" mood="happy" tool="memo" hint-size="96px,96px"></dc-import></span>
+  <h1 style="margin: 0; font-size: 20px; font-weight: 800">{{ v.tabName }} 탭</h1>
+  <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #4d4d4d">이 시안에서는 트레이닝 탭만 플레이할 수 있어요.<br>트레이닝으로 돌아가도 학습 기록은 그대로예요.</p>
+</div>
+</sc-if>
+
+<!-- ───────── S7~S9 레슨 ───────── -->
+<sc-if value="{{ v.isLesson }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; height: 100%; position: relative">
+  <header style="flex: none; padding: 24px 20px 10px 8px; display: flex; align-items: center; gap: 8px">
+    <button type="button" onClick="{{ v.back }}" aria-label="레슨 닫기" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+    <div style="flex: 1; height: 10px; border-radius: 99px; background: #f5f5f5; overflow: hidden" role="progressbar" aria-label="레슨 진행" aria-valuenow="{{ v.ls.pct }}" aria-valuemin="0" aria-valuemax="100"><div class="maco-bar" style="{{ v.ls.fillStyle }}"></div></div>
+    <span style="min-width: 32px; text-align: right; font-size: 14px; font-weight: 800">{{ v.ls.counter }}</span>
+  </header>
+
+  <div class="maco-scroll" style="{{ v.ls.bodyStyle }}">
+    <sc-if value="{{ v.ls.isConcept }}" hint-placeholder-val="{{ false }}">
+      <div class="maco-fade" style="display: flex; flex-direction: column; gap: 14px">
+        <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 99px; background: #f5f5f5; font-size: 13px; font-weight: 700"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2M9.5 2.5h5"></path></svg>30초 개념 카드</span>
+        <p style="margin: 0; font-size: 13px; font-weight: 700; color: #4d4d4d">{{ v.ls.where }}</p>
+        <h1 style="margin: -8px 0 0; font-size: 24px; line-height: 1.38; font-weight: 800">{{ v.ls.conceptTitle }}</h1>
+        <p style="margin: 0; font-size: 16px; line-height: 1.65; color: #4d4d4d">{{ v.ls.conceptBody }}</p>
+        <div style="display: flex; align-items: flex-end; gap: 8px; margin-top: 6px">
+          <span style="width: 76px; height: 76px; flex: none"><dc-import name="Coach" mood="happy" tool="{{ v.ls.tool }}" hint-size="76px,76px"></dc-import></span>
+          <p style="margin: 0 0 10px; padding: 10px 12px; border-radius: 14px; border: 1px solid #ebebeb; font-size: 14px; line-height: 1.45; font-weight: 600">문제 3개로 바로 연습해 봐요.</p>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ v.ls.isQuestion }}" hint-placeholder-val="{{ true }}">
+      <div class="maco-fade" style="display: flex; flex-direction: column; gap: 14px">
+        <p style="margin: 0; font-size: 13px; font-weight: 700; color: #4d4d4d">{{ v.q.typeLabel }}</p>
+        <h1 style="margin: -8px 0 0; font-size: 20px; line-height: 1.42; font-weight: 800">{{ v.q.prompt }}</h1>
+
+        <sc-if value="{{ v.q.hasReview }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 14px 16px; border-radius: 14px; border: 1px solid #ebebeb">
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 13px">
+              <b>{{ v.q.review.name }}</b>
+              <span aria-label="{{ v.q.review.starsLabel }}" style="color: #e0550b; letter-spacing: 1px">{{ v.q.review.stars }}</span>
+              <span style="margin-left: auto; color: #767676">{{ v.q.review.date }}</span>
+            </div>
+            <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.55">{{ v.q.review.text }}</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ v.q.hasTable }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 6px 14px; border-radius: 14px; border: 1px solid #ebebeb">
+            <p style="margin: 8px 0 4px; font-size: 12px; font-weight: 800; color: #4d4d4d">{{ v.q.tableTitle }}</p>
+            <sc-for list="{{ v.q.table }}" as="tr" hint-placeholder-count="3">
+              <div style="display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid #f0f0f0; font-size: 15px"><span style="color: #4d4d4d">{{ tr.k }}</span><b>{{ tr.v }}</b></div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ v.q.isChoice }}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <sc-for list="{{ v.q.options }}" as="opt" hint-placeholder-count="3">
+              <button type="button" class="maco-press" onClick="{{ opt.pick }}" aria-pressed="{{ opt.selected }}" style="{{ opt.style }}">
+                <span style="{{ opt.keyStyle }}">{{ opt.key }}</span>
+                <span style="flex: 1; text-align: left; font-size: 15px; line-height: 1.45; font-weight: 600">{{ opt.text }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ v.q.isSpot }}" hint-placeholder-val="{{ false }}">
+          <div style="border-radius: 16px; border: 1px solid #ebebeb; overflow: hidden">
+            <div style="padding: 12px 16px; background: #f5f5f5; display: flex; align-items: center; gap: 8px">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.7-6.5-11a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+              <b style="font-size: 14px">{{ v.q.spotTitle }}</b>
+            </div>
+            <sc-for list="{{ v.q.rows }}" as="sr" hint-placeholder-count="4">
+              <button type="button" onClick="{{ sr.pick }}" aria-pressed="{{ sr.selected }}" style="{{ sr.style }}">
+                <span style="flex: none; width: 84px; font-size: 13px; color: #4d4d4d; text-align: left">{{ sr.k }}</span>
+                <span style="flex: 1; font-size: 15px; font-weight: 700; text-align: left">{{ sr.v }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <p style="margin: 0; font-size: 13px; color: #4d4d4d">문제가 있는 줄을 눌러 주세요.</p>
+        </sc-if>
+
+        <sc-if value="{{ v.q.isPhoto }}" hint-placeholder-val="{{ false }}">
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+            <sc-for list="{{ v.q.photos }}" as="ph" hint-placeholder-count="2">
+              <button type="button" class="maco-press" onClick="{{ ph.pick }}" aria-pressed="{{ ph.selected }}" aria-label="{{ ph.aria }}" style="{{ ph.style }}">
+                <span style="display: block; aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden"><dc-import name="Photo" kind="{{ ph.kind }}" hint-size="100%,100%"></dc-import></span>
+                <span style="display: block; height: 34px; line-height: 34px; font-size: 16px; font-weight: 800">{{ ph.key }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <p style="margin: 0; font-size: 13px; color: #4d4d4d">밝기·구도·배경 중 무엇이 다른지 비교해 보세요.</p>
+        </sc-if>
+
+        <sc-if value="{{ v.q.isPspot }}" hint-placeholder-val="{{ false }}">
+          <div style="position: relative; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden">
+            <dc-import name="Photo" kind="spot" hint-size="100%,100%"></dc-import>
+            <sc-for list="{{ v.q.spots }}" as="sp" hint-placeholder-count="3">
+              <button type="button" onClick="{{ sp.pick }}" aria-pressed="{{ sp.selected }}" aria-label="{{ sp.label }}" style="{{ sp.style }}"></button>
+            </sc-for>
+          </div>
+          <p style="margin: 0; font-size: 13px; color: #4d4d4d">사진에서 한 곳을 눌러 주세요.</p>
+        </sc-if>
+
+        <sc-if value="{{ v.q.isRewrite }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 12px 14px; border-radius: 12px; background: #f5f5f5">
+            <p style="margin: 0; font-size: 12px; font-weight: 800; color: #4d4d4d">지금 문장</p>
+            <p style="margin: 4px 0 0; font-size: 15px; line-height: 1.5">{{ v.q.orig }}</p>
+          </div>
+          <label for="rewrite-input" style="font-size: 14px; font-weight: 800; margin-bottom: -6px">고쳐 쓴 문장</label>
+          <textarea id="rewrite-input" value="{{ v.q.text }}" onChange="{{ v.q.onText }}" readOnly="{{ v.q.locked }}" rows="4" style="width: 100%; resize: none; padding: 12px 14px; border-radius: 12px; border: 2px solid #ebebeb; font-size: 16px; line-height: 1.55"></textarea>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px" aria-label="확인할 기준">
+            <sc-for list="{{ v.q.critNames }}" as="cn" hint-placeholder-count="3"><span style="font-size: 12px; font-weight: 700; padding: 5px 9px; border-radius: 8px; border: 1px solid #ebebeb">{{ cn }}</span></sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ v.ls.showAction }}" hint-placeholder-val="{{ true }}">
+    <div style="flex: none; padding: 12px 20px 26px; border-top: 1px solid #ebebeb; background: #ffffff">
+      <button type="button" class="maco-press" onClick="{{ v.ls.action }}" disabled="{{ v.ls.disabled }}" style="{{ v.ls.actionStyle }}">{{ v.ls.actionLabel }}</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ v.fb.show }}" hint-placeholder-val="{{ false }}">
+    <div class="maco-rise maco-scroll" role="status" style="{{ v.fb.sheetStyle }}">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <sc-if value="{{ v.fb.isCorrect }}" hint-placeholder-val="{{ true }}">
+          <span style="flex: none; width: 34px; height: 34px; border-radius: 50%; background: #1f9d55; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="maco-check" d="m5 12.5 4.5 4.5L19 7.5"></path></svg></span>
+        </sc-if>
+        <sc-if value="{{ v.fb.isWrong }}" hint-placeholder-val="{{ false }}">
+          <span style="flex: none; width: 52px; height: 52px; margin: -8px 0 -4px -4px"><dc-import name="Coach" mood="calm" tool="memo" hint-size="52px,52px"></dc-import></span>
+        </sc-if>
+        <h2 style="{{ v.fb.titleStyle }}">{{ v.fb.title }}</h2>
+      </div>
+      <p style="margin: 0; font-size: 15px; line-height: 1.55">{{ v.fb.reason }}</p>
+
+      <sc-if value="{{ v.fb.isWrong }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 12px 14px; border-radius: 14px; background: #ffffff; border: 2px solid #111111">
+          <p style="margin: 0; font-size: 12px; font-weight: 800">고칠 점 하나</p>
+          <p style="margin: 3px 0 0; font-size: 15px; line-height: 1.5; font-weight: 600">{{ v.fb.fix }}</p>
+        </div>
+        <sc-if value="{{ v.fb.canWhy }}" hint-placeholder-val="{{ true }}">
+          <button type="button" onClick="{{ v.fb.toggleWhy }}" aria-expanded="{{ v.fb.whyOpen }}" style="align-self: flex-start; height: 36px; padding: 0 2px; border: 0; background: transparent; font-size: 15px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; text-decoration: underline; text-underline-offset: 3px">왜 틀렸어요?<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ v.fb.chevron }}"><path d="m6 9 6 6 6-6"></path></svg></button>
+          <sc-if value="{{ v.fb.whyOpen }}" hint-placeholder-val="{{ false }}">
+            <div class="maco-unfold" style="margin-top: -6px; padding: 12px 14px; border-radius: 14px; background: #ffffff">
+              <p style="margin: 0; font-size: 12px; font-weight: 800; color: #6e4fe0">MACO 코치 설명</p>
+              <p style="margin: 3px 0 0; font-size: 14px; line-height: 1.6">{{ v.fb.why }}</p>
+            </div>
+          </sc-if>
+        </sc-if>
+      </sc-if>
+
+      <sc-if value="{{ v.fb.isRewrite }}" hint-placeholder-val="{{ false }}">
+        <ul style="list-style: none; margin: 0; padding: 12px 14px; border-radius: 14px; background: #ffffff; display: flex; flex-direction: column; gap: 8px">
+          <sc-for list="{{ v.fb.crit }}" as="cr" hint-placeholder-count="3">
+            <li style="display: flex; gap: 8px; align-items: flex-start; font-size: 14px; line-height: 1.45">
+              <sc-if value="{{ cr.ok }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#1f9d55" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg></sc-if>
+              <sc-if value="{{ cr.miss }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#d93b3b" stroke-width="3" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="M7 7l10 10M17 7 7 17"></path></svg></sc-if>
+              <span><b>{{ cr.n }}</b> · {{ cr.note }}</span>
+            </li>
+          </sc-for>
+        </ul>
+        <div style="padding: 12px 14px; border-radius: 14px; background: #ffffff">
+          <p style="margin: 0; font-size: 12px; font-weight: 800; color: #4d4d4d">예시 답안</p>
+          <p style="margin: 3px 0 0; font-size: 14px; line-height: 1.6">{{ v.fb.example }}</p>
+        </div>
+        <p style="margin: 0; font-size: 12px; color: #4d4d4d">AI 채점 연결 전이라 준비한 기준으로 확인했어요.</p>
+      </sc-if>
+
+      <button type="button" class="maco-press" onClick="{{ v.fb.next }}" style="margin-top: 2px; width: 100%; min-height: 54px; border: 0; border-radius: 14px; background: #111111; color: #ffffff; font-size: 17px; font-weight: 800">{{ v.fb.nextLabel }}</button>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<!-- ───────── S10 레슨 완료 ───────── -->
+<sc-if value="{{ v.isComplete }}" hint-placeholder-val="{{ false }}">
+<div class="maco-scroll" style="display: flex; flex-direction: column; height: 100%; overflow-y: auto; padding: 36px 20px 26px">
+  <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px">
+    <sc-if value="{{ v.res.sectionDone }}" hint-placeholder-val="{{ false }}">
+      <span style="width: 150px; height: 150px"><dc-import name="Coach" mood="cheer" tool="{{ v.res.tool }}" hint-size="150px,150px"></dc-import></span>
+      <p style="margin: 0; font-size: 14px; font-weight: 800; color: #4d4d4d">섹션 {{ v.res.secNo }} 완료</p>
+      <h1 style="margin: 0; font-size: 24px; line-height: 1.35; font-weight: 800">{{ v.res.secTitle }}</h1>
+    </sc-if>
+    <sc-if value="{{ v.res.lessonOnly }}" hint-placeholder-val="{{ true }}">
+      <span style="width: 88px; height: 88px; border-radius: 28px; background: #ff6b1a; color: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 0 #e0550b"><svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="maco-check" d="m5 12.5 4.5 4.5L19 7.5"></path></svg></span>
+      <h1 style="margin: 10px 0 0; font-size: 26px; font-weight: 800">레슨 완료!</h1>
+    </sc-if>
+    <p style="margin: 0; font-size: 15px; color: #4d4d4d">{{ v.res.lesson }}</p>
+  </div>
+  <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+    <div style="padding: 14px 16px; border-radius: 16px; border: 1px solid #ebebeb">
+      <p style="margin: 0; font-size: 13px; font-weight: 700; color: #4d4d4d">적립 XP</p>
+      <p style="margin: 2px 0 0; font-size: 28px; font-weight: 800; color: #e0550b">+{{ v.res.xp }}</p>
+    </div>
+    <div style="padding: 14px 16px; border-radius: 16px; border: 1px solid #ebebeb">
+      <p style="margin: 0; font-size: 13px; font-weight: 700; color: #4d4d4d">맞힌 문제</p>
+      <p style="margin: 2px 0 0; font-size: 28px; font-weight: 800">{{ v.res.correct }}<span style="font-size: 16px; color: #4d4d4d">/3</span></p>
+    </div>
+  </div>
+  <div style="margin-top: 10px; padding: 14px 16px; border-radius: 16px; background: #f5f5f5">
+    <p style="margin: 0; font-size: 13px; font-weight: 800">이번에 보완할 점</p>
+    <p style="margin: 3px 0 0; font-size: 15px; line-height: 1.55">{{ v.res.improve }}</p>
+  </div>
+  <div style="margin-top: 10px; padding: 14px 16px; border-radius: 16px; border: 1px solid #ebebeb">
+    <p style="margin: 0; font-size: 13px; font-weight: 800">{{ v.res.nextTitle }}</p>
+    <p style="margin: 3px 0 0; font-size: 15px; line-height: 1.5">{{ v.res.nextText }}</p>
+  </div>
+  <span style="flex: 1; min-height: 16px"></span>
+  <button type="button" class="maco-press" onClick="{{ v.res.back }}" style="margin-top: 16px; width: 100%; height: 56px; border: 0; border-radius: 14px; background: #6e4fe0; color: #ffffff; font-size: 17px; font-weight: 800">로드맵으로 돌아가기</button>
+</div>
+</sc-if>
+
+<!-- ───────── 전체 과정 완료 ───────── -->
+<sc-if value="{{ v.isAllDone }}" hint-placeholder-val="{{ false }}">
+<div class="maco-scroll maco-fade" style="display: flex; flex-direction: column; align-items: center; height: 100%; overflow-y: auto; padding: 40px 20px 26px; text-align: center">
+  <span style="width: 170px; height: 170px"><dc-import name="Coach" mood="cheer" tool="memo" hint-size="170px,170px"></dc-import></span>
+  <p style="margin: 8px 0 0; font-size: 14px; font-weight: 800; color: #4d4d4d">7개 섹션 · 35개 유닛</p>
+  <h1 style="margin: 4px 0 0; font-size: 28px; font-weight: 800">전체 과정 완료!</h1>
+  <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.6; color: #4d4d4d">가게를 찾기 쉽게 만드는 것부터 숫자로 다음 홍보를 고치는 것까지 모두 연습했어요.</p>
+  <div style="margin-top: 20px; width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; text-align: left">
+    <div style="padding: 14px 16px; border-radius: 16px; border: 1px solid #ebebeb"><p style="margin: 0; font-size: 13px; color: #4d4d4d; font-weight: 700">맞힌 문제</p><p style="margin: 2px 0 0; font-size: 24px; font-weight: 800">{{ v.all.correct }}<span style="font-size: 15px; color: #4d4d4d">/105</span></p></div>
+    <div style="padding: 14px 16px; border-radius: 16px; border: 1px solid #ebebeb"><p style="margin: 0; font-size: 13px; color: #4d4d4d; font-weight: 700">오늘 XP</p><p style="margin: 2px 0 0; font-size: 24px; font-weight: 800">{{ v.all.xp }}</p></div>
+  </div>
+  <span style="flex: 1; min-height: 20px"></span>
+  <button type="button" class="maco-press" onClick="{{ v.all.review }}" style="width: 100%; height: 54px; border: 0; border-radius: 14px; background: #6e4fe0; color: #ffffff; font-size: 16px; font-weight: 800">배운 유닛 다시 연습하기</button>
+  <button type="button" class="maco-press" onClick="{{ v.all.roadmap }}" style="margin-top: 10px; width: 100%; height: 50px; border: 1px solid #d6d6d6; border-radius: 14px; background: #ffffff; font-size: 15px; font-weight: 700">로드맵 보기</button>
+</div>
+</sc-if>
+
+</div>
+
+<sc-if value="{{ v.showTabs }}" hint-placeholder-val="{{ true }}">
+  <nav aria-label="탭" style="flex: none; height: 64px; border-top: 1px solid #ebebeb; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); background: #ffffff">
+    <sc-for list="{{ v.tabs }}" as="tb" hint-placeholder-count="5">
+      <button type="button" onClick="{{ tb.go }}" aria-current="{{ tb.current }}" style="{{ tb.style }}">
+        <sc-if value="{{ tb.on }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position: absolute; top: -1px; left: 24%; right: 24%; height: 3px; border-radius: 0 0 3px 3px; background: #111111"></span></sc-if>
+        <sc-if value="{{ tb.i.t }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5Z"></path><path d="M12 6v13.5"></path></svg></sc-if>
+        <sc-if value="{{ tb.i.e }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"></rect><path d="M9 3.5h6v3H9z"></path><path d="m9 13 2 2 4-4"></path></svg></sc-if>
+        <sc-if value="{{ tb.i.s }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9 5.5 4h13L20 9"></path><path d="M4 9h16v1.5a2.7 2.7 0 0 1-5.3 0 2.7 2.7 0 0 1-5.4 0 2.7 2.7 0 0 1-5.3 0Z"></path><path d="M5.5 12.5V20h13v-7.5"></path><path d="M10 20v-4h4v4"></path></svg></sc-if>
+        <sc-if value="{{ tb.i.r }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0Z"></path><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8"></path></svg></sc-if>
+        <sc-if value="{{ tb.i.m }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg></sc-if>
+        {{ tb.label }}
+      </button>
+    </sc-for>
+  </nav>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"start":{"editor":"enum","options":["roadmap","detail","course","streak","xp","goal","concept","question","wrong","rewrite","complete","after","alldone"],"default":"roadmap"},"mode":{"editor":"enum","options":["입문 모드","내 가게 모드"],"default":"입문 모드"},"$preview":{"width":390,"height":844}}'>
+var GOAL_XP = 50; // 가정값: 하루 목표 XP
+var XP_RULE = { correct: 10, wrong: 2, lesson: 10 }; // 가정값 (docs/01 5-2)
+var STORE_KEY = 'maco-training-demo-v2'; // 데모 기록 (서버 기록과 분리)
+var STREAK_BEFORE = 3; // 데모: 어제까지 연속 3일
+var WEEK = [
+  { dow: '월', date: 23, done: false }, { dow: '화', date: 24, done: false }, { dow: '수', date: 25, done: true },
+  { dow: '목', date: 26, done: true }, { dow: '금', date: 27, done: true }, { dow: '토', date: 28, today: true }, { dow: '일', date: 29, future: true }
+];
+
+var REV_WAIT = { name: '손님 J***', stars: '★★★☆☆', starsLabel: '별점 5점 중 3점', date: '어제', text: '커피는 맛있었는데 주문하고 20분 넘게 기다렸어요. 직원분도 바빠 보여서 물어보기 어려웠어요.' };
+var REV_PRAISE = { name: '손님 M***', stars: '★★★★★', starsLabel: '별점 5점 중 5점', date: '2일 전', text: '무화과 케이크가 정말 촉촉했어요! 창가 자리도 좋아서 또 올게요.' };
+var REV_SWEET = { name: '손님 K***', stars: '★★☆☆☆', starsLabel: '별점 5점 중 2점', date: '오늘', text: '케이크가 너무 달아서 반도 못 먹었어요. 음료도 달아서 아쉬웠어요.' };
+var CR4 = [
+  { n: '공감', w: ['불편', '속상', '아쉬', '답답', '기다리', '마음', '실망'] },
+  { n: '사과', w: ['죄송', '사과'] },
+  { n: '개선 안내', w: ['하겠', '개선', '바꾸', '바꿔', '준비', '늘리', '안내', '드릴게', '할게'] },
+  { n: '다시 방문 제안', w: ['다시', '또 ', '다음', '방문', '들러', '오시면'] }
+];
+
+var SECTIONS = [
+  { title: '우리 가게를 찾기 쉽게', goal: '손님이 검색했을 때 가게 정보를 한 번에 찾게 해요.', tool: 'pin', units: [
+    { n: '가게 이름과 업종 확인하기', l: '검색되는 가게 이름 맞추기', c: '손님이 검색할 이름부터 맞춰 볼까요?', k: '가게 이름과 업종은 손님이 검색하는 말과 같아야 해요.', b: '간판, 지도, SNS의 가게 이름이 서로 다르면 손님이 같은 가게인지 헷갈려요. 업종도 손님이 실제로 찾는 단어로 고르세요.', q: [
+      { t: 'choice', p: '간판은 ‘무화과 카페’인데 지도에는 ‘MUHWAGWA’로 등록돼 있어요. 어떻게 할까요?', o: ['지도 이름을 간판과 같은 ‘무화과 카페’로 맞춰요', '영어가 세련돼 보이니 그대로 둬요', 'SNS에만 한글 이름을 써요'], a: 0, r: '손님은 간판에서 본 이름으로 검색해요.', f: '가게 이름은 간판·지도·SNS에서 똑같이 맞춰요.' },
+      { t: 'choice', p: '디저트가 주력인 카페의 업종으로 손님이 찾기 쉬운 것은?', o: ['카페, 디저트', '음식점', '기타'], a: 0, r: '손님이 검색하는 말과 업종이 맞아야 검색 결과에 나와요.', f: '업종은 손님이 검색하는 단어로 골라요.' },
+      { t: 'spot', p: '검색 결과에서 손님을 헷갈리게 하는 줄을 찾아 주세요.', v: { title: '무화과 카페 · 검색 결과', rows: [['가게 이름', '무화과 카페'], ['업종', '카페, 디저트'], ['SNS 계정', '@fig_bakery_house'], ['전화', '032-000-0000']] }, a: 2, r: 'SNS 계정 이름이 가게 이름과 달라 같은 가게인지 알기 어려워요.', f: 'SNS 계정 이름에도 가게 이름을 넣어요.' }] },
+    { n: '영업시간과 휴무일 정리하기', l: '빠진 휴무일 찾기', c: '헛걸음하는 손님이 없게 휴무일을 확인해요.', k: '영업시간에는 휴무일과 마지막 주문 시간까지 적어요.', b: '문 닫힌 가게 앞에서 돌아간 손님은 다시 오기 어려워요. 정기 휴무, 브레이크 타임, 마지막 주문 시간을 빠짐없이 적어 주세요.', q: [
+      { t: 'spot', p: '매주 월요일에 쉬는 가게예요. 가게 정보에서 빠진 곳을 찾아 주세요.', v: { title: '무화과 카페 · 가게 정보', rows: [['영업시간', '매일 10:00~21:00'], ['마지막 주문', '20:30'], ['주차', '건물 뒤 2대'], ['전화', '032-000-0000']] }, a: 0, r: '‘매일’이라고 적혀 있어 월요일 휴무가 빠졌어요.', f: '정기 휴무일은 영업시간 옆에 꼭 적어요.' },
+      { t: 'choice', p: '다음 주 화요일에 임시로 쉬어요. 가장 먼저 할 일은?', o: ['지도 가게 정보에 임시 휴무를 미리 등록해요', '당일 아침 가게 문에 안내문만 붙여요', '손님이 전화하면 알려 드려요'], a: 0, r: '손님은 출발 전에 지도에서 영업 여부를 확인해요.', f: '임시 휴무는 미리 온라인 정보에 올려요.' },
+      { t: 'choice', p: '15~16시 브레이크 타임이 있어요. 어떻게 적을까요?', o: ['10:00~21:00', '10:00~15:00, 16:00~21:00 (15~16시 브레이크 타임)', '오후에는 전화 주세요'], a: 1, r: '쉬는 시간을 나눠 적어야 손님이 헛걸음하지 않아요.', f: '브레이크 타임은 시간을 나눠 적어요.' }] },
+    { n: '위치와 주차 안내하기', l: '찾아오는 길 한 줄 쓰기', c: '처음 오는 손님 눈으로 길을 안내해 봐요.', k: '길 안내는 눈에 띄는 기준점 하나로 시작해요.', b: '‘○○역 5번 출구에서 꽃집 골목으로 1분’처럼 손님 눈에 보이는 것을 기준으로 적어요. 주차 가능 여부도 함께 알려 주세요.', q: [
+      { t: 'choice', p: '가장 찾기 쉬운 길 안내는?', o: ['부평역 근처예요', '부평역 5번 출구에서 꽃집 골목으로 1분이에요', '골목 안쪽에 있어요'], a: 1, r: '출구 번호와 눈에 띄는 가게가 있어 바로 찾을 수 있어요.', f: '역 출구나 큰 건물 같은 기준점을 넣어요.' },
+      { t: 'spot', p: '주차를 묻는 손님이 많아요. 가게 정보에서 고칠 줄을 찾아 주세요.', v: { title: '무화과 카페 · 위치 정보', rows: [['주소', '부평대로 00, 1층'], ['길 안내', '부평역 5번 출구에서 1분'], ['주차', '문의'], ['영업시간', '10:00~21:00 (월 휴무)']] }, a: 2, r: '‘문의’만 있으면 손님이 주차할 수 있는지 알 수 없어요.', f: '주차 대수나 가까운 공영주차장을 적어요.' },
+      { t: 'choice', p: '주차장이 없는 가게예요. 가장 좋은 안내는?', o: ['주차 불가', '주차는 어려워요. 50m 앞 공영주차장을 이용해 주세요', '차는 두고 오세요'], a: 1, r: '안 되는 것과 대안을 함께 알려 주면 손님이 계획을 세울 수 있어요.', f: '안 되는 것 대신 갈 수 있는 곳을 알려 줘요.' }] },
+    { n: '메뉴와 가격 보여주기', l: '가격이 보이는 메뉴판 만들기', c: '가격이 보이면 손님이 망설이지 않아요.', k: '메뉴에는 이름과 가격을 함께 적어요.', b: '가격을 몰라 방문을 미루는 손님이 있어요. 대표 메뉴만이라도 이름, 가격, 한 줄 설명을 올려 주세요.', q: [
+      { t: 'spot', p: '온라인 메뉴판에서 손님이 아쉬워할 줄을 찾아 주세요.', v: { title: '무화과 카페 · 메뉴', rows: [['무화과 케이크', '6,500원'], ['무화과 라테', '5,800원'], ['시즌 타르트', '가격 문의'], ['아메리카노', '4,000원']] }, a: 2, r: '가격이 없으면 손님이 주문 전에 망설여요.', f: '시즌 메뉴도 가격을 적어요.' },
+      { t: 'choice', p: '대표 메뉴 설명으로 가장 좋은 것은?', o: ['맛있는 케이크', '생무화과를 통째로 올린 촉촉한 케이크 (6,500원)', '인기 메뉴!'], a: 1, r: '재료, 맛, 가격이 함께 있어 고르기 쉬워요.', f: '메뉴 설명에는 재료와 가격을 넣어요.' },
+      { t: 'choice', p: '가격이 올랐어요. 온라인 가격은 언제 바꿀까요?', o: ['매장 메뉴판을 바꾸는 날 함께 바꿔요', '손님이 물어볼 때 알려 드려요', '한 달 뒤에 정리해요'], a: 0, r: '가격이 다르면 손님이 계산할 때 불쾌해할 수 있어요.', f: '가격은 온·오프라인을 같은 날 바꿔요.' }] },
+    { n: '검색 화면에서 빠진 정보 찾기', l: '검색 결과 점검하기', c: '손님이 보는 검색 화면을 함께 점검해요.', k: '가게 정보는 손님처럼 직접 검색해 보며 점검해요.', b: '직접 검색해 보면 빠진 정보가 보여요. 이름, 시간, 위치, 메뉴, 연락처를 한 번에 확인하세요.', q: [
+      { t: 'spot', p: '검색 결과에서 빠진 정보를 찾아 주세요.', v: { title: '무화과 카페 · 검색 결과', rows: [['업종', '카페, 디저트'], ['영업시간', '10:00~21:00 (월 휴무)'], ['메뉴', '등록된 메뉴 없음'], ['전화', '032-000-0000']] }, a: 2, r: '메뉴가 없으면 손님이 무엇을 파는지 알 수 없어요.', f: '대표 메뉴를 등록해요.' },
+      { t: 'choice', p: '출발 직전 손님에게 꼭 필요한 정보 두 가지는?', o: ['지금 영업 중인지와 위치', '가게 역사와 사장님 소개', '인테리어 콘셉트'], a: 0, r: '지금 열었는지, 어디인지 알아야 출발할 수 있어요.', f: '영업 여부와 위치가 맨 위에서 보이게 해요.' },
+      { t: 'choice', p: '점검 순서로 알맞은 것은?', o: ['손님처럼 검색 → 빠진 정보 적기 → 하나씩 채우기', '생각나는 대로 고치기', '리뷰가 쌓이면 고치기'], a: 0, r: '손님 화면에서 시작해야 실제로 빠진 것이 보여요.', f: '고치기 전에 손님처럼 먼저 검색해요.' }] }
+  ] },
+  { title: '손님이 보고 싶은 사진 만들기', goal: '메뉴와 매장이 한눈에 보이는 사진을 고를 수 있어요.', tool: 'camera', units: [
+    { n: '밝고 선명한 사진 고르기', l: '밝기와 흔들림 확인하기', c: '오늘은 밝고 선명한 사진부터 골라볼까요?', k: '밝고 선명한 사진이 메뉴를 맛있어 보이게 해요.', b: '어두우면 색이 탁하고, 흔들리면 무엇인지 알아보기 어려워요. 창가 빛 아래에서 두 손으로 잡고 찍어 주세요.', q: [
+      { t: 'photo', p: '더 맛있어 보이는 사진을 골라 주세요.', o: ['dark', 'clean'], a: 1, r: 'B는 빛이 충분해 무화과 색이 살아 보여요.', f: '어두우면 창가 쪽으로 옮겨 다시 찍어요.' },
+      { t: 'photo', p: '가게 정보에 올리기 좋은 사진을 골라 주세요.', o: ['clean', 'blur'], a: 0, r: 'A는 초점이 맞아 케이크 결이 보여요.', f: '흔들린 사진은 올리지 말고 다시 찍어요.' },
+      { t: 'choice', p: '저녁이라 매장이 어두워요. 가장 좋은 방법은?', o: ['창가나 조명 바로 아래로 옮겨 찍어요', '플래시를 정면에서 터뜨려요', '어두운 채로 보정만 세게 해요'], a: 0, r: '빛 가까이에서 찍는 것이 가장 쉽고 자연스러워요.', f: '빛이 있는 곳으로 메뉴를 옮겨요.' }] },
+    { n: '메뉴가 돋보이는 구도 찾기', l: '메뉴를 가운데에 크게', c: '오늘은 메뉴 사진을 골라볼까요?', k: '대표 사진에서는 배경보다 메뉴가 먼저 보여야 해요.', b: '손님은 사진을 훑어보며 무엇을 파는 가게인지 먼저 확인해요. 메뉴를 가운데에 크게 두고 한 걸음 다가가 찍어 주세요.', q: [
+      { t: 'photo', p: '메뉴가 더 잘 보이는 사진을 골라 주세요.', o: ['busy', 'clean'], a: 1, r: 'B는 케이크가 가운데에 크게 있어요.', f: '메뉴가 화면을 채우게 한 걸음 다가가요.' },
+      { t: 'choice', p: '케이크가 사진의 아주 작은 부분만 차지해요. 어떻게 다시 찍을까요?', o: ['한 걸음 다가가 케이크가 화면을 채우게 찍어요', '더 멀리서 매장 전체를 담아요', '사진 위에 글씨를 크게 넣어요'], a: 0, r: '메뉴가 크게 보여야 무엇인지 바로 알 수 있어요.', f: '메뉴를 화면 가운데에 크게 담아요.' },
+      { t: 'choice', p: '케이크가 맛있어 보이는 각도는?', o: ['단면이 보이게 옆에서 살짝 위', '천장 가까이에서 아주 멀리', '테이블 아래에서 위로'], a: 0, r: '단면이 보이면 재료와 식감이 전해져요.', f: '케이크는 단면이 보이게 찍어요.' }] },
+    { n: '산만한 배경 알아보기', l: '눈길 빼앗는 물건 찾기', c: '메뉴보다 먼저 보이는 물건을 찾아봐요.', k: '찍기 전에 테이블 위를 먼저 정리해요.', b: '컵, 영수증, 휴대폰처럼 메뉴와 상관없는 물건은 시선을 빼앗아요. 찍기 전에 잠깐만 정리해도 사진이 달라져요.', q: [
+      { t: 'pspot', p: '이 사진에서 메뉴보다 먼저 눈에 들어오는 곳을 눌러 주세요.', a: 'clutter', r: '오른쪽 위의 컵과 영수증이 시선을 빼앗아요.', f: '찍기 전에 컵과 영수증을 치워요.' },
+      { t: 'choice', p: '찍기 전에 치워야 할 것을 바르게 고른 것은?', o: ['영수증·빈 컵·휴대폰', '케이크·포크', '접시'], a: 0, r: '메뉴와 상관없는 물건만 치우면 돼요.', f: '메뉴와 상관없는 물건은 화면 밖으로 빼요.' },
+      { t: 'photo', p: '배경이 정리된 사진을 골라 주세요.', o: ['spot', 'clean'], a: 1, r: 'B는 테이블 위에 케이크만 있어요.', f: '배경에는 메뉴 말고 아무것도 두지 않아요.' }] },
+    { n: '매장 분위기를 보여주는 사진 고르기', l: '자리와 분위기 담기', c: '손님이 앉고 싶어질 자리를 찾아봐요.', k: '매장 사진은 손님이 앉을 자리가 보이게 찍어요.', b: '메뉴 사진만 있으면 매장이 어떤지 알 수 없어요. 밝은 창가 자리처럼 손님이 머무는 모습을 떠올릴 수 있는 사진을 넣어 주세요.', q: [
+      { t: 'photo', p: '매장 분위기가 잘 보이는 사진을 골라 주세요.', o: ['interior', 'busy'], a: 0, r: 'A는 창가 자리와 테이블이 보여 머무는 모습이 그려져요.', f: '손님이 앉을 자리가 보이게 찍어요.' },
+      { t: 'choice', p: '매장 사진을 찍기 좋은 때는?', o: ['손님이 없는 밝은 오전, 자리를 정리한 뒤', '손님이 가득 찬 점심', '마감 후 불을 끈 뒤'], a: 0, r: '정돈된 자리와 자연광이 매장을 넓고 깨끗하게 보여 줘요.', f: '정리된 자리를 밝을 때 찍어요.' },
+      { t: 'choice', p: '매장 사진에서 피해야 할 것은?', o: ['창가 자리', '쌓아 둔 박스와 청소 도구', '테이블 위 메뉴판'], a: 1, r: '창고처럼 보이는 물건은 매장 인상을 흐려요.', f: '박스와 청소 도구는 사진 밖으로 빼요.' }] },
+    { n: '대표 사진과 사진 순서 정하기', l: '첫 장과 순서 정하기', c: '가게 첫인상이 될 사진을 골라봐요.', k: '첫 번째 사진은 가게를 대표하는 메뉴로 정해요.', b: '첫 사진이 가게의 첫인상이 돼요. 대표 메뉴 → 매장 분위기 → 메뉴판 순서로 두면 손님이 빠르게 이해해요.', q: [
+      { t: 'photo', p: '카페의 대표 사진 첫 장으로 더 좋은 사진은?', o: ['clean', 'interior'], a: 0, r: '대표 메뉴가 첫 장에 있으면 무엇을 파는지 바로 알아요.', f: '첫 장에는 대표 메뉴를 둬요.' },
+      { t: 'choice', p: '사진 순서로 알맞은 것은?', o: ['대표 메뉴 → 매장 분위기 → 메뉴판', '메뉴판 → 화장실 → 대표 메뉴', '가게 외관만 여러 장'], a: 0, r: '무엇을 파는지 → 어떤 곳인지 → 얼마인지 순서로 궁금해해요.', f: '대표 메뉴 사진부터 차례로 둬요.' },
+      { t: 'choice', p: '시즌 메뉴가 새로 나왔어요. 대표 사진은?', o: ['시즌 동안 첫 장을 시즌 메뉴로 잠시 바꿔요', '절대 바꾸지 않아요', '사진을 모두 지우고 새로 올려요'], a: 0, r: '지금 가장 알리고 싶은 메뉴가 첫 장에 있어야 해요.', f: '시즌이 끝나면 다시 원래 대표 사진으로 바꿔요.' }] }
+  ] },
+  { title: '리뷰로 신뢰 쌓기', goal: '리뷰 답글로 손님이 믿고 찾아오게 해요.', tool: 'bubble', units: [
+    { n: '답글이 필요한 리뷰 구분하기', l: '먼저 답할 리뷰 고르기', c: '오늘 먼저 답할 리뷰를 골라볼까요?', k: '불편을 적은 리뷰에는 꼭, 빨리 답해요.', b: '다른 손님도 리뷰와 답글을 함께 읽어요. 불편을 적은 리뷰에 먼저 답하면 손님 말을 듣는 가게라는 걸 보여 줄 수 있어요.', q: [
+      { t: 'choice', p: '이 리뷰에 어떻게 할까요?', v: { review: REV_WAIT }, o: ['오늘 안에 공감하고 바꿀 점을 알려 드려요', '별 3개라 괜찮으니 넘어가요', '그날 바빴던 사정을 자세히 설명해요'], a: 0, r: '기다림처럼 바로잡을 수 있는 불만은 빨리 답하는 게 좋아요.', f: '불편을 적은 리뷰는 별점과 상관없이 답해요.' },
+      { t: 'choice', p: '세 리뷰 중 가장 먼저 답할 리뷰는?', o: ['‘주문이 빠져서 30분 기다렸어요’ ★★', '‘맛있어요’ ★★★★★', '‘분위기 좋아요’ ★★★★'], a: 0, r: '실수로 생긴 불편은 사과와 개선 안내가 바로 필요해요.', f: '실수나 불편이 적힌 리뷰부터 답해요.' },
+      { t: 'choice', p: '불만 리뷰에 답하기 좋은 때는?', o: ['확인한 날 바로', '일주일 모아서 한 번에', '손님이 다시 오면'], a: 0, r: '늦게 답하면 다른 손님이 방치된 불만으로 읽어요.', f: '불만 리뷰는 확인한 날 답해요.' }] },
+    { n: '좋은 리뷰에 구체적으로 감사하기', l: '칭찬한 메뉴 다시 부르기', c: '칭찬 리뷰에 고마움을 담아 볼까요?', k: '칭찬 리뷰에는 손님이 칭찬한 점을 다시 불러 줘요.', b: '‘감사합니다’ 한마디보다 손님이 칭찬한 메뉴나 자리를 다시 불러 주면 진심이 느껴져요. 다음에 맛볼 메뉴를 하나 권해 보세요.', q: [
+      { t: 'choice', p: '어떤 답글이 가장 좋을까요?', v: { review: REV_PRAISE }, o: ['감사합니다!', '무화과 케이크를 맛있게 드셔서 기뻐요. 다음엔 무화과 라테도 맛보세요!', '칭찬 리뷰는 답글 없이 둬요'], a: 1, r: '칭찬한 메뉴를 다시 부르고 다음 메뉴를 권했어요.', f: '손님이 칭찬한 메뉴 이름을 답글에 넣어요.' },
+      { t: 'choice', p: '‘창가 자리가 좋았어요’ 리뷰에 더할 한 문장은?', o: ['창가 자리는 오후 햇살이 특히 좋아요. 다음에도 그 자리에서 쉬어 가세요!', '감사합니다', '좋게 봐 주셔서 감사합니다 :)'], a: 0, r: '손님이 좋아한 자리를 다시 짚어 줬어요.', f: '손님이 좋았다고 한 점을 그대로 이어 받아 써요.' },
+      { t: 'rewrite', p: '아래 답글을 구체적으로 고쳐 써 보세요.', v: { review: REV_PRAISE }, orig: '감사합니다!', crit: [{ n: '칭찬한 점 짚기', w: ['케이크', '촉촉', '창가', '무화과'] }, { n: '고마움', w: ['감사', '고마', '기뻐', '기쁘'] }, { n: '다시 방문 제안', w: ['다음', '또 ', '다시', '들러'] }], ex: '무화과 케이크를 촉촉하게 드셔 주셔서 정말 기뻐요. 다음엔 창가 자리에서 무화과 라테도 맛보세요!' }] },
+    { n: '불만 리뷰에서 손님의 불편 파악하기', l: '진짜 불편 한 가지 찾기', c: '리뷰 속 진짜 불편을 찾아봐요.', k: '답하기 전에 손님이 무엇이 불편했는지 한 줄로 정리해요.', b: '불만 리뷰에는 여러 말이 섞여 있어요. 손님이 가장 불편했던 한 가지를 찾아야 답글이 엇나가지 않아요.', q: [
+      { t: 'choice', p: '이 손님이 가장 불편했던 것은?', v: { review: REV_WAIT }, o: ['주문 후 오래 기다린 것', '커피 맛', '매장 위치'], a: 0, r: '커피는 맛있었다고 했고, 불편은 기다림이었어요.', f: '칭찬과 불만을 나눠 읽어요.' },
+      { t: 'choice', p: '이 리뷰에서 가게가 바꿀 수 있는 것은?', v: { review: REV_SWEET }, o: ['주문할 때 당도를 고를 수 있게 안내하기', '손님 입맛 탓하기', '리뷰 삭제 요청하기'], a: 0, r: '불편을 줄일 수 있는 행동을 찾았어요.', f: '불편을 줄일 행동 하나를 찾아요.' },
+      { t: 'choice', p: '불편을 파악할 때 가장 먼저 볼 부분은?', o: ['손님이 직접 겪은 일 (언제, 무엇이)', '별점 숫자만', '리뷰 길이'], a: 0, r: '겪은 일을 알아야 무엇을 바꿀지 정할 수 있어요.', f: '리뷰에서 ‘무엇이 있었는지’를 먼저 찾아요.' }] },
+    { n: '공감·사과·개선 안내 담기', l: '답글 네 단계로 쓰기', c: '공감부터 개선까지 순서대로 담아봐요.', k: '불만 답글은 공감 → 사과 → 개선 안내 → 다시 방문 순서로 써요.', b: '먼저 손님 마음을 알아주고, 분명하게 사과하고, 무엇을 바꿀지 알린 뒤 다시 올 이유를 건네세요.', q: [
+      { t: 'choice', p: '답글의 첫 문장으로 알맞은 것은?', v: { review: REV_WAIT }, o: ['오래 기다리시게 해서 많이 답답하셨겠어요.', '저희도 그날 정말 바빴습니다.', '리뷰 감사합니다.'], a: 0, r: '손님 마음을 먼저 알아줬어요.', f: '첫 문장은 손님 마음을 알아주는 말로 시작해요.' },
+      { t: 'choice', p: '개선 안내로 가장 구체적인 것은?', o: ['주문이 몰리는 시간에는 예상 시간을 먼저 알려 드릴게요.', '앞으로 잘하겠습니다.', '노력하겠습니다.'], a: 0, r: '무엇을 바꿀지 손님이 알 수 있어요.', f: '바꿀 행동을 하나 구체적으로 적어요.' },
+      { t: 'rewrite', p: '아래 답글을 네 단계가 모두 들어가게 고쳐 써 보세요.', v: { review: REV_WAIT }, orig: '죄송합니다. 다음에 또 오세요.', crit: CR4, ex: '오래 기다리시게 해서 많이 답답하셨겠어요. 정말 죄송합니다. 주문이 몰릴 때는 예상 시간을 먼저 안내해 드릴게요. 다음에 들러 주시면 더 빠르게 준비할게요.' }] },
+    { n: '변명처럼 들리는 답글 고쳐 쓰기', l: '변명 문장 바꾸기', c: '변명처럼 들리는 문장을 바꿔 봐요.', k: '‘원래’, ‘어쩔 수 없었다’는 변명처럼 들려요.', b: '사정은 짧게, 손님 마음과 바꿀 점은 분명하게. 탓하는 말은 빼고 다음 행동을 약속해 주세요.', q: [
+      { t: 'choice', p: '다음 중 변명처럼 들리는 문장은?', o: ['저희 케이크는 원래 단 편입니다.', '불편하셨다니 죄송합니다.', '다음엔 덜 단 메뉴를 먼저 추천해 드릴게요.'], a: 0, r: '‘원래’는 손님 입맛을 탓하는 말로 들려요.', f: '‘원래’, ‘어쩔 수 없었다’는 빼요.' },
+      { t: 'choice', p: '‘주말이라 어쩔 수 없었습니다’를 고친 문장은?', o: ['주말에 오래 기다리시게 해서 죄송해요. 주말엔 한 명 더 함께 일할게요.', '주말엔 원래 바빠요.', '다음엔 평일에 오세요.'], a: 0, r: '사과와 바꿀 행동이 함께 있어요.', f: '사정 대신 바꿀 행동을 적어요.' },
+      { t: 'rewrite', p: '아래 답글을 변명 없이 고쳐 써 보세요.', v: { review: REV_SWEET }, orig: '저희 케이크는 원래 단 편입니다. 입맛에 안 맞으셨나 봐요.', crit: CR4, ex: '케이크가 너무 달아 반도 못 드셨다니 아쉬우셨겠어요. 죄송합니다. 주문하실 때 덜 단 메뉴를 먼저 안내해 드릴게요. 다음엔 담백한 무화과 스콘도 맛보세요.' }] }
+  ] },
+  { title: '우리 가게를 한 문장으로 소개하기', goal: '손님이 궁금한 것을 담아 우리 가게를 짧게 소개할 수 있어요.', tool: 'sign', units: [
+    { n: '우리 가게의 강점 찾기', l: '손님이 말한 강점 찾기', c: '손님이 칭찬한 우리 가게 강점을 찾아봐요.', k: '강점은 손님 리뷰에 자주 나오는 말에서 찾아요.', b: '사장님이 생각하는 강점과 손님이 느끼는 강점이 다를 수 있어요. 리뷰에 여러 번 나온 말을 소개 문장에 쓰세요.', q: [
+      { t: 'choice', p: '리뷰에 ‘촉촉한 무화과 케이크’가 자주 나와요. 강점으로 알맞은 것은?', o: ['생무화과로 만든 촉촉한 케이크', '넓은 주차장', '오래된 가게'], a: 0, r: '손님이 반복해서 말한 점이 진짜 강점이에요.', f: '리뷰에 자주 나온 말을 강점으로 써요.' },
+      { t: 'choice', p: '강점 문장으로 가장 좋은 것은?', o: ['매일 아침 굽는 무화과 케이크', '최고의 카페', '분위기 맛집'], a: 0, r: '누구나 쓰는 말 대신 우리 가게만의 사실이 있어요.', f: '꾸밈말 대신 확인할 수 있는 사실을 써요.' },
+      { t: 'choice', p: '강점을 찾을 때 먼저 볼 곳은?', o: ['손님 리뷰와 자주 받는 질문', '다른 가게 소개 문구', '유행하는 단어 목록'], a: 0, r: '손님의 말에 손님이 원하는 것이 있어요.', f: '손님 리뷰부터 읽어요.' }] },
+    { n: '손님이 궁금해하는 정보 고르기', l: '소개에 넣을 정보 고르기', c: '손님이 자주 묻는 것부터 넣어볼까요?', k: '소개에는 손님이 자주 묻는 정보를 먼저 넣어요.', b: '‘주차 돼요?’, ‘단체석 있어요?’처럼 자주 받는 질문은 소개에 미리 답해 두세요.', q: [
+      { t: 'choice', p: '전화로 가장 자주 받는 질문이 ‘단체석 있어요?’예요. 소개에 넣을 문장은?', o: ['8명까지 앉는 단체석이 있어요.', '분위기 좋은 카페예요.', '친절한 카페예요.'], a: 0, r: '자주 받는 질문에 미리 답했어요.', f: '자주 받는 질문의 답을 소개에 넣어요.' },
+      { t: 'choice', p: '처음 오는 손님에게 가장 덜 필요한 정보는?', o: ['사장님 취미', '대표 메뉴', '영업시간'], a: 0, r: '방문을 정하는 데 필요한 정보부터 넣어요.', f: '방문에 필요 없는 정보는 뒤로 빼요.' },
+      { t: 'spot', p: '가게 소개에서 손님에게 도움이 안 되는 줄을 찾아 주세요.', v: { title: '무화과 카페 · 가게 소개', rows: [['한 줄 소개', '정성을 다하는 카페'], ['대표 메뉴', '무화과 케이크'], ['좌석', '창가 좌석 6석'], ['예약', '전화 예약 가능']] }, a: 0, r: '‘정성을 다하는’은 손님이 알고 싶은 정보가 아니에요.', f: '한 줄 소개에 메뉴나 특징을 넣어요.' }] },
+    { n: '메뉴·가격이 들어간 소개 쓰기', l: '가격 넣은 한 줄 소개', c: '메뉴와 가격이 보이는 소개를 써 봐요.', k: '소개 문장에 대표 메뉴와 가격을 함께 넣어요.', b: '‘감성 카페’보다 ‘6,500원 무화과 케이크가 대표인 카페’가 손님에게 더 많은 것을 알려 줘요.', q: [
+      { t: 'choice', p: '가장 좋은 소개는?', o: ['생무화과 케이크(6,500원)가 대표인 부평역 앞 디저트 카페', '감성 가득 디저트 카페', '부평 최고의 카페'], a: 0, r: '메뉴, 가격, 위치가 한 문장에 있어요.', f: '소개에 대표 메뉴와 가격을 넣어요.' },
+      { t: 'choice', p: '가격 표기로 알맞은 것은?', o: ['무화과 라테 5,800원', '무화과 라테 착한 가격', '무화과 라테 가격은 매장에서'], a: 0, r: '숫자로 적어야 손님이 비교할 수 있어요.', f: '가격은 숫자로 적어요.' },
+      { t: 'rewrite', p: '아래 소개를 메뉴와 가격이 들어가게 고쳐 써 보세요.', orig: '감성 가득한 디저트 카페입니다.', crit: [{ n: '대표 메뉴', w: ['케이크', '라테', '무화과', '타르트'] }, { n: '가격', w: ['원'] }, { n: '위치나 특징', w: ['역', '앞', '창가', '부평', '매일'] }], ex: '매일 아침 굽는 생무화과 케이크(6,500원)가 대표인 부평역 앞 디저트 카페예요.' }] },
+    { n: '방문이나 예약을 안내하는 문장 쓰기', l: '다음 행동 안내하기', c: '손님이 바로 움직일 수 있게 안내해 봐요.', k: '소개 끝에는 손님이 할 일을 한 가지 알려 줘요.', b: '‘전화로 하루 전까지 예약하세요’처럼 다음 행동이 분명하면 손님이 움직이기 쉬워요.', q: [
+      { t: 'choice', p: '소개의 마지막 문장으로 알맞은 것은?', o: ['케이크 예약은 전화로 하루 전까지 받아요.', '많은 관심 부탁드려요.', '언제든 놀러 오세요~'], a: 0, r: '무엇을, 어떻게, 언제까지 할지 알려 줬어요.', f: '마지막 문장에 손님이 할 일을 하나 적어요.' },
+      { t: 'choice', p: '예약 안내에 꼭 들어갈 것은?', o: ['예약 방법과 마감 시간', '사장님 인사말', '가게 창업 이야기'], a: 0, r: '방법과 마감을 알아야 예약할 수 있어요.', f: '예약 방법과 마감을 함께 적어요.' },
+      { t: 'choice', p: '예약 없이 오는 가게라면 어떻게 안내할까요?', o: ['예약 없이 오셔도 돼요. 주말 오후엔 조금 기다릴 수 있어요.', '예약 안 받아요.', '알아서 오세요.'], a: 0, r: '안 되는 것 대신 손님이 알아야 할 것을 알려 줬어요.', f: '손님이 대비할 수 있는 정보를 함께 적어요.' }] },
+    { n: '채널에 맞춰 소개 문구 줄이기', l: '짧은 소개 만들기', c: '채널 길이에 맞게 소개를 줄여봐요.', k: '채널마다 보이는 길이에 맞춰 핵심만 남겨요.', b: 'SNS 소개란처럼 짧은 곳에는 메뉴·위치·행동 하나씩만 남기고 꾸밈말은 지워요.', q: [
+      { t: 'choice', p: 'SNS 소개란에 맞게 줄인 문장은?', o: ['무화과 케이크 · 부평역 5번 출구 1분 · 예약 DM', '저희 카페는 2020년에 문을 열어 매일 아침 신선한 재료로…', '안녕하세요 반갑습니다'], a: 0, r: '메뉴, 위치, 행동만 남겼어요.', f: '짧은 곳에는 메뉴·위치·행동만 남겨요.' },
+      { t: 'choice', p: '줄일 때 가장 먼저 지울 것은?', o: ['‘정성을 다하는’ 같은 꾸밈말', '대표 메뉴', '위치'], a: 0, r: '꾸밈말은 지워도 정보가 줄지 않아요.', f: '꾸밈말부터 지워요.' },
+      { t: 'rewrite', p: '아래 소개를 SNS 소개란에 맞게 40자 이내로 줄여 보세요.', orig: '저희 무화과 카페는 2020년부터 정성을 다해 매일 아침 생무화과 케이크를 굽고 있으며 부평역 5번 출구 가까이에 있으니 많은 방문 부탁드립니다.', crit: [{ n: '대표 메뉴', w: ['케이크', '무화과'] }, { n: '위치', w: ['부평', '역', '출구'] }, { n: '40자 이내', len: 40 }], ex: '생무화과 케이크 · 부평역 5번 출구 1분 · 예약 DM' }] }
+  ] },
+  { title: '신메뉴와 이벤트 알리기', goal: '신메뉴와 이벤트 소식을 손님에게 분명하게 알릴 수 있어요.', tool: 'megaphone', units: [
+    { n: '게시물의 목표 정하기', l: '게시물 목표 한 가지 정하기', c: '게시물 하나에 목표 하나만 정해봐요.', k: '게시물 하나에는 목표 하나만 담아요.', b: '‘신메뉴 알리기’와 ‘휴무 안내’를 한 게시물에 섞으면 둘 다 기억에 남지 않아요.', q: [
+      { t: 'choice', p: '신메뉴 무화과 타르트 게시물의 목표로 알맞은 것은?', o: ['이번 주에 타르트를 먹으러 오게 하기', '가게의 모든 소식 알리기', '팔로워 늘리기'], a: 0, r: '구체적인 행동 하나를 목표로 정했어요.', f: '게시물마다 손님이 할 행동 하나를 정해요.' },
+      { t: 'choice', p: '한 게시물에 같이 넣지 않는 것이 좋은 것은?', o: ['신메뉴 소식과 다음 달 휴무 안내', '신메뉴 사진과 가격', '신메뉴 이름과 맛 설명'], a: 0, r: '서로 다른 소식은 나눠 올려야 둘 다 전달돼요.', f: '소식 하나에 게시물 하나.' },
+      { t: 'choice', p: '목표가 ‘평일 오후 손님 늘리기’라면 어떤 게시물이 맞을까요?', o: ['평일 15~17시 음료 할인 소식', '주말 브런치 사진', '사장님 일상'], a: 0, r: '목표 시간대에 올 이유를 줬어요.', f: '목표와 같은 시간·대상을 겨냥해요.' }] },
+    { n: '첫 줄에서 신메뉴 알리기', l: '첫 줄 쓰기', c: '첫 줄에서 신메뉴를 바로 알려봐요.', k: '첫 줄에 가장 중요한 소식을 써요.', b: '게시물 목록에서는 첫 줄만 보이는 경우가 많아요. 인사말 대신 신메뉴 이름부터 쓰세요.', q: [
+      { t: 'choice', p: '첫 줄로 가장 좋은 것은?', o: ['새 메뉴 ‘무화과 타르트’가 오늘 나왔어요', '안녕하세요, 무화과 카페입니다', '오늘 날씨가 참 좋네요'], a: 0, r: '첫 줄만 봐도 소식을 알 수 있어요.', f: '인사말 대신 소식부터 써요.' },
+      { t: 'spot', p: '이 게시물에서 첫 줄로 올려야 할 문장을 찾아 주세요.', v: { title: '게시물 초안', rows: [['1줄', '안녕하세요 여러분!'], ['2줄', '요즘 날이 쌀쌀하죠?'], ['3줄', '오늘부터 무화과 타르트를 팔아요.'], ['4줄', '많이 사랑해 주세요']] }, a: 2, r: '진짜 소식이 3줄에 숨어 있어요.', f: '소식 문장을 맨 위로 올려요.' },
+      { t: 'choice', p: '첫 줄을 짧게 고친 것은?', o: ['무화과 타르트 출시 · 오늘부터', '드디어 오랫동안 준비한 새로운 메뉴를 여러분께 소개해 드리게 되어 정말 기뻐요', '새 소식'], a: 0, r: '무엇이, 언제부터인지 짧게 담았어요.', f: '첫 줄은 짧게, 메뉴 이름이 앞에 오게 써요.' }] },
+    { n: '혜택과 기간이 한눈에 보이게 쓰기', l: '혜택·기간 넣기', c: '혜택과 기간이 한눈에 보이게 써 봐요.', k: '이벤트에는 무엇을, 언제까지 주는지 숫자로 써요.', b: '‘곧 마감’, ‘푸짐한 혜택’은 손님이 판단할 수 없어요. 금액과 날짜로 적어 주세요.', q: [
+      { t: 'spot', p: '이벤트 안내에서 고칠 줄을 찾아 주세요.', v: { title: '이벤트 안내', rows: [['이벤트', '무화과 타르트 출시 기념'], ['혜택', '음료 1,000원 할인'], ['기간', '곧 마감!'], ['대상', '타르트 주문 손님']] }, a: 2, r: '‘곧 마감’은 언제까지인지 알 수 없어요.', f: '기간은 날짜로 적어요 (예: 12/1~12/7).' },
+      { t: 'choice', p: '가장 분명한 혜택 문장은?', o: ['타르트 주문 시 음료 1,000원 할인 (12/1~12/7)', '푸짐한 혜택!', '놀라운 할인'], a: 0, r: '조건, 금액, 기간이 모두 있어요.', f: '혜택은 금액과 날짜로 적어요.' },
+      { t: 'choice', p: '혜택 조건을 적는 방법으로 알맞은 것은?', o: ['‘타르트와 음료를 함께 주문하면’처럼 한 줄로', '조건은 매장에서 설명', '조건을 아주 작게'], a: 0, r: '조건이 보여야 계산할 때 오해가 없어요.', f: '조건은 혜택 바로 옆에 한 줄로 적어요.' }] },
+    { n: '소식에 맞는 게시 채널 고르기', l: '채널 고르기', c: '소식에 맞는 채널을 골라봐요.', k: '급한 소식은 손님이 지금 보는 곳에 올려요.', b: '임시 휴무는 지도 가게 정보에, 신메뉴 사진은 사진이 잘 보이는 SNS에. 소식마다 손님이 확인하는 곳이 달라요.', q: [
+      { t: 'choice', p: '내일 임시 휴무 소식은 어디에 먼저 올릴까요?', o: ['지도 가게 정보의 공지와 영업시간', '한 달 뒤 블로그 글', '가게 안 포스터'], a: 0, r: '손님은 출발 전에 지도에서 확인해요.', f: '급한 소식은 지도 가게 정보에 먼저.' },
+      { t: 'choice', p: '새 메뉴 사진을 보여 주기 좋은 곳은?', o: ['사진이 크게 보이는 SNS 게시물', '영수증 뒷면', '전화 연결음'], a: 0, r: '사진이 중심인 소식은 사진이 잘 보이는 곳에.', f: '소식 모양에 맞는 채널을 골라요.' },
+      { t: 'choice', p: '단골에게 쿠폰 소식을 보내기 좋은 곳은?', o: ['소식 받기에 동의한 손님 채널', '모르는 번호로 문자', '다른 가게 게시판'], a: 0, r: '받기로 한 손님에게만 보내야 해요.', f: '알림에 동의한 손님에게만 보내요.' }] },
+    { n: '게시물 사진과 문구 조합하기', l: '사진과 첫 줄 맞추기', c: '사진과 문구가 같은 이야기를 하게 해봐요.', k: '사진과 첫 줄이 같은 메뉴를 말해야 해요.', b: '문구는 케이크인데 사진은 매장이면 손님이 헷갈려요. 사진과 첫 줄이 같은 소식을 전하게 맞춰 주세요.', q: [
+      { t: 'photo', p: '‘무화과 케이크 출시’ 게시물에 어울리는 사진은?', o: ['clean', 'interior'], a: 0, r: '케이크 소식에는 케이크 사진이 맞아요.', f: '첫 줄과 같은 대상을 찍은 사진을 써요.' },
+      { t: 'choice', p: '창가 자리 매장 사진과 함께 쓸 문구는?', o: ['창가 자리 6석, 오후 햇살이 좋아요', '새 메뉴 케이크 출시', '주차 안내'], a: 0, r: '사진에 보이는 것을 문구가 설명해요.', f: '사진에 보이는 것을 문구로 말해요.' },
+      { t: 'choice', p: '사진 위에 글씨를 넣는다면?', o: ['메뉴 이름과 가격만 크게, 짧게', '긴 설명을 빼곡히', '로고만 여러 개'], a: 0, r: '사진을 가리지 않고 핵심만 전해요.', f: '사진 위 글씨는 메뉴와 가격만.' }] }
+  ] },
+  { title: '광고 기초 익히기', goal: '광고를 왜, 누구에게, 얼마로 할지 정할 수 있어요.', tool: 'target', units: [
+    { n: '광고를 하는 이유 정하기', l: '광고 목표 하나 정하기', c: '광고로 무엇을 얻고 싶은지 정해봐요.', k: '광고 전에 원하는 결과 하나를 정해요.', b: '‘가게 알리기’보다 ‘평일 저녁 예약 늘리기’처럼 확인할 수 있는 목표가 있어야 결과를 볼 수 있어요.', q: [
+      { t: 'choice', p: '가장 확인하기 쉬운 광고 목표는?', o: ['다음 달 평일 저녁 예약 늘리기', '가게 유명해지기', '좋은 이미지 만들기'], a: 0, r: '숫자로 확인할 수 있는 목표예요.', f: '목표는 확인할 수 있는 결과로 정해요.' },
+      { t: 'choice', p: '광고보다 먼저 할 일은?', o: ['가게 정보와 사진 점검', '광고비를 최대로 정하기', '경쟁 가게 따라 하기'], a: 0, r: '광고를 보고 온 손님이 볼 곳부터 준비해요.', f: '광고 전에 가게 정보부터 점검해요.' },
+      { t: 'choice', p: '목표가 ‘길찾기 늘리기’라면 어울리는 광고는?', o: ['가게 근처 손님에게 위치와 대표 메뉴 보여 주기', '전국 대상 브랜드 영상', '해외 손님 대상 광고'], a: 0, r: '찾아올 수 있는 손님에게 위치를 보여 줘요.', f: '목표에 맞는 손님과 내용을 골라요.' }] },
+    { n: '광고를 보여줄 손님 정하기', l: '보여 줄 손님 고르기', c: '광고를 볼 손님을 좁혀봐요.', k: '광고는 올 수 있는 손님에게만 보여 줘요.', b: '우리 가게에 올 수 있는 거리, 시간대, 관심사를 정하면 같은 예산으로 더 알맞은 손님을 만날 수 있어요.', q: [
+      { t: 'choice', p: '부평역 앞 카페에 알맞은 지역 설정은?', o: ['가게 주변 2~3km', '전국', '서울 전체'], a: 0, r: '걸어서나 잠깐 이동해 올 수 있는 거리예요.', f: '지역은 실제로 올 수 있는 거리로 좁혀요.' },
+      { t: 'choice', p: '평일 오후 손님을 늘리려면 광고 시간대는?', o: ['평일 오후 1~5시', '새벽 시간', '주말 밤'], a: 0, r: '손님을 늘리고 싶은 시간에 보여 줘요.', f: '광고 시간대를 목표 시간과 맞춰요.' },
+      { t: 'choice', p: '디저트 카페 광고를 보여 줄 관심사로 알맞은 것은?', o: ['디저트·카페 탐방', '자동차 정비', '주식 투자'], a: 0, r: '디저트에 관심 있는 손님이 반응해요.', f: '우리 메뉴에 관심 있을 손님을 골라요.' }] },
+    { n: '예산과 기간 계획하기', l: '작게 시작하는 예산', c: '작게 시작하는 예산을 짜 봐요.', k: '처음 광고는 작은 예산으로 짧게 시험해요.', b: '처음부터 큰돈을 쓰기보다 1~2주 동안 작은 예산으로 반응을 보고 늘리세요. 멈출 기준도 함께 정해요.', q: [
+      { t: 'choice', p: '첫 광고 계획으로 알맞은 것은?', o: ['하루 5천 원씩 2주 시험 후 결과 보고 조정', '한 번에 한 달 치 큰 예산', '끝나는 날 없이 계속'], a: 0, r: '작게 시험하고 결과를 본 뒤 늘려요.', f: '처음엔 작은 예산, 짧은 기간으로.' },
+      { t: 'choice', p: '멈출 기준으로 알맞은 것은?', o: ['1주 동안 예약이 한 건도 없으면 문구를 바꾼다', '돈이 떨어지면 멈춘다', '기준 없음'], a: 0, r: '숫자로 정한 기준이 있어야 판단할 수 있어요.', f: '멈출 기준을 숫자로 정해요.' },
+      { t: 'spot', p: '광고 계획표에서 빠진 줄을 찾아 주세요.', v: { title: '광고 계획표', rows: [['목표', '평일 저녁 예약'], ['지역', '가게 주변 3km'], ['하루 예산', '5,000원'], ['기간', '정하지 않음']] }, a: 3, r: '기간이 없으면 언제 결과를 볼지 알 수 없어요.', f: '시작일과 끝나는 날을 적어요.' }] },
+    { n: '광고에 쓸 사진과 문구 비교하기', l: '광고 소재 고르기', c: '광고에 쓸 사진과 문구를 비교해봐요.', k: '광고는 스쳐 지나가요. 메뉴와 혜택이 바로 보이게 해요.', b: '광고는 손님이 찾아서 보는 글이 아니에요. 사진 한 장, 문구 한 줄로 무엇을 주는지 바로 알 수 있어야 해요.', q: [
+      { t: 'photo', p: '목표가 ‘케이크 예약’인 광고 사진은?', o: ['interior', 'clean'], a: 1, r: '예약할 케이크가 바로 보여요.', f: '광고 목표와 같은 대상을 크게 보여 줘요.' },
+      { t: 'choice', p: '광고 문구로 가장 좋은 것은?', o: ['무화과 케이크 하루 전 예약 시 10% 할인', '최고의 맛!', '놀러 오세요'], a: 0, r: '메뉴, 혜택, 행동이 한 줄에 있어요.', f: '문구에 메뉴·혜택·행동을 담아요.' },
+      { t: 'choice', p: '두 광고 문구를 비교하려면?', o: ['사진은 그대로 두고 문구만 바꿔 같은 기간 비교', '사진과 문구를 동시에 바꾸기', '하루만 보고 결정'], a: 0, r: '하나만 바꿔야 무엇이 효과였는지 알 수 있어요.', f: '비교할 때는 한 가지만 바꿔요.' }] },
+    { n: '광고를 시작하기 전에 가게 정보 점검하기', l: '광고 전 점검표', c: '광고 전에 가게 정보를 한 번 더 봐요.', k: '광고를 보고 들어온 손님이 볼 정보부터 점검해요.', b: '광고는 손님을 데려올 뿐이에요. 들어온 손님이 영업시간, 연락처, 최근 리뷰 답글을 보고 마음을 정해요.', q: [
+      { t: 'spot', p: '예약 광고 전에 고쳐야 할 줄을 찾아 주세요.', v: { title: '무화과 카페 · 가게 정보', rows: [['영업시간', '10:00~21:00 (월 휴무)'], ['예약', '연락처 미등록'], ['대표 사진', '무화과 케이크'], ['메뉴 가격', '등록됨']] }, a: 1, r: '목표가 예약인데 연락처가 없어요.', f: '예약 방법과 연락처를 먼저 등록해요.' },
+      { t: 'choice', p: '광고를 누른 손님이 가장 먼저 보게 할 곳은?', o: ['예약 방법이 보이는 가게 정보', '사장님 블로그 첫 글', '가게 로고 이미지'], a: 0, r: '목표 행동을 바로 할 수 있는 곳으로 보내요.', f: '광고 연결은 목표 행동을 할 수 있는 곳으로.' },
+      { t: 'choice', p: '최근 불만 리뷰에 답글이 없어요. 광고 전에?', o: ['불만 리뷰부터 답글 달기', '그대로 광고 시작', '리뷰를 숨기기'], a: 0, r: '광고로 온 손님도 리뷰와 답글을 봐요.', f: '광고 전에 최근 리뷰에 답해요.' }] }
+  ] },
+  { title: '숫자를 보고 다음 홍보 개선하기', goal: '광고와 게시물 숫자를 읽고 다음 홍보를 고칠 수 있어요.', tool: 'chart', units: [
+    { n: '노출과 클릭 구분하기', l: '노출과 클릭 읽기', c: '노출과 클릭이 무엇이 다른지 봐요.', k: '노출은 본 횟수, 클릭은 눌러 본 횟수예요.', b: '노출이 많아도 클릭이 적으면 사진이나 문구가 눈길을 끌지 못한 거예요.', q: [
+      { t: 'choice', p: '이 광고를 눌러 본 횟수는?', v: { tableTitle: '지난주 광고 결과', table: [['노출', '2,000회'], ['클릭', '40회']] }, o: ['40회', '2,000회', '2,040회'], a: 0, r: '클릭이 눌러 본 횟수예요.', f: '노출은 본 횟수, 클릭은 누른 횟수.' },
+      { t: 'choice', p: '노출에 비해 클릭이 아주 적어요. 무엇을 먼저 의심할까요?', v: { tableTitle: '이번 주 광고 결과', table: [['노출', '5,000회'], ['클릭', '25회']] }, o: ['사진이나 문구가 눈길을 끌지 못했다', '가게 위치가 바뀌었다', '광고가 나가지 않았다'], a: 0, r: '보긴 했지만 누르지 않았어요.', f: '클릭이 적으면 사진과 문구부터 봐요.' },
+      { t: 'choice', p: '클릭률을 구하는 방법은?', o: ['클릭 ÷ 노출 × 100', '노출 ÷ 클릭', '클릭 + 노출'], a: 0, r: '본 사람 중 누른 사람의 비율이에요.', f: '클릭률 = 클릭 ÷ 노출 × 100.' }] },
+    { n: '광고 목표에 맞는 숫자 고르기', l: '예약 목표의 숫자 고르기', c: '목표가 예약일 때 볼 숫자를 골라봐요.', k: '목표에 따라 확인할 숫자가 달라요.', b: '예약이 목표면 예약 수를, 방문이 목표면 길찾기를, 알리기가 목표면 노출을 먼저 봐요.', q: [
+      { t: 'choice', p: '목표가 예약일 때 먼저 확인할 숫자는?', v: { tableTitle: '광고 결과', table: [['노출', '3,200'], ['클릭', '96'], ['길찾기', '18'], ['예약', '7']] }, o: ['예약 7', '노출 3,200', '클릭 96', '길찾기 18'], a: 0, r: '목표인 예약 수가 결과예요.', f: '목표와 같은 이름의 숫자를 먼저 봐요.' },
+      { t: 'choice', p: '목표가 ‘방문 늘리기’라면 먼저 볼 숫자는?', o: ['길찾기 수', '좋아요 수', '팔로워 수'], a: 0, r: '길찾기는 실제로 오려는 손님의 행동이에요.', f: '방문 목표는 길찾기를 봐요.' },
+      { t: 'choice', p: '목표가 ‘신메뉴 알리기’라면 먼저 볼 숫자는?', o: ['노출과 저장 수', '예약 취소 수', '주차 대수'], a: 0, r: '얼마나 많이 보고 기억했는지가 중요해요.', f: '알리기 목표는 노출과 저장을 봐요.' }] },
+    { n: '반응이 저조한 이유 추정하기', l: '원인 하나 고르기', c: '숫자로 반응이 낮은 이유를 짐작해봐요.', k: '어느 단계에서 줄었는지 보면 원인을 좁힐 수 있어요.', b: '노출 → 클릭 → 예약 중 어디서 크게 줄었는지 보세요. 줄어든 단계 바로 앞을 고치면 돼요.', q: [
+      { t: 'choice', p: '클릭은 많은데 예약이 0이에요. 어디를 의심할까요?', v: { tableTitle: '광고 결과', table: [['노출', '4,000'], ['클릭', '200'], ['예약', '0']] }, o: ['예약 방법이 잘 안 보이는 가게 정보', '광고 사진', '광고 지역'], a: 0, r: '누르고 들어온 뒤 예약에서 멈췄어요.', f: '줄어든 단계 바로 앞을 고쳐요.' },
+      { t: 'choice', p: '노출 자체가 적어요. 먼저 볼 것은?', v: { tableTitle: '광고 결과', table: [['노출', '300'], ['클릭', '12']] }, o: ['예산이나 지역·관심사 설정이 너무 좁은지', '문구 맞춤법', '가게 인테리어'], a: 0, r: '보여 줄 대상이 너무 적으면 노출이 적어요.', f: '노출이 적으면 대상과 예산 설정을 봐요.' },
+      { t: 'choice', p: '원인을 짐작했다면 다음은?', o: ['한 번에 한 가지만 바꿔 다시 확인', '모든 걸 한꺼번에 바꾸기', '광고를 영원히 끄기'], a: 0, r: '하나씩 바꿔야 짐작이 맞는지 알 수 있어요.', f: '한 번에 하나만 바꿔 확인해요.' }] },
+    { n: '사진이나 문구를 하나씩 바꿔 비교하기', l: '한 가지씩 비교하기', c: '한 번에 한 가지만 바꿔 비교해봐요.', k: '비교할 때는 하나만 바꾸고 나머지는 그대로 둬요.', b: '사진을 바꿨다면 문구, 기간, 예산은 그대로 두세요. 그래야 결과가 달라진 이유를 알 수 있어요.', q: [
+      { t: 'choice', p: '문구·기간·예산은 같아요. 어느 사진을 계속 쓸까요?', v: { tableTitle: '사진만 바꾼 비교 (각 1주)', table: [['A안 · 케이크 사진', '클릭 60'], ['B안 · 매장 사진', '클릭 24']] }, o: ['A안 케이크 사진', 'B안 매장 사진', '결정할 수 없어요'], a: 0, r: '다른 조건이 같아서 사진 차이로 볼 수 있어요.', f: '조건이 같을 때 더 나은 쪽을 고르면 돼요.' },
+      { t: 'choice', p: 'B안에서 사진과 문구를 동시에 바꿨어요. 문제는?', o: ['무엇 때문에 결과가 달라졌는지 알 수 없어요', '문제없어요', '비용이 두 배가 돼요'], a: 0, r: '두 가지가 같이 바뀌면 원인을 나눌 수 없어요.', f: '비교할 때는 한 가지만 바꿔요.' },
+      { t: 'choice', p: '비교 기간으로 알맞은 것은?', o: ['같은 길이, 같은 요일이 포함된 기간 (예: 각 1주)', 'A는 주말, B는 평일 하루', '아무 때나'], a: 0, r: '요일에 따라 손님 수가 달라서 조건을 맞춰요.', f: '비교 기간의 길이와 요일을 맞춰요.' }] },
+    { n: '결과를 바탕으로 다음 홍보 계획 정하기', l: '다음 계획 한 줄 쓰기', c: '결과로 다음 홍보 계획을 세워봐요.', k: '다음 계획은 ‘무엇을, 얼마나, 언제까지’로 한 줄에 써요.', b: '결과에서 잘된 것은 유지하고, 하나만 새로 시험하세요. 계획을 한 줄로 적어 두면 다음에 비교하기 쉬워요.', q: [
+      { t: 'choice', p: '케이크 사진 광고가 예약을 더 많이 만들었어요. 다음 계획은?', o: ['케이크 사진은 유지하고 문구 하나만 새로 시험해요', '광고를 모두 끄고 쉬어요', '매장 사진으로 바꿔요'], a: 0, r: '잘된 것은 두고 하나만 새로 시험해요.', f: '잘된 것은 유지하고 하나만 바꿔요.' },
+      { t: 'choice', p: '가장 분명한 다음 계획은?', o: ['12월 첫째 주, 하루 5천 원으로 ‘예약 할인’ 문구 시험', '열심히 홍보하기', '좋아질 때까지 계속'], a: 0, r: '언제, 얼마로, 무엇을 할지 다 있어요.', f: '계획에 기간·금액·대상을 넣어요.' },
+      { t: 'rewrite', p: '아래 계획을 ‘무엇을·얼마나·언제까지’가 보이게 고쳐 써 보세요.', orig: '다음에는 광고를 더 잘해 보겠다.', crit: [{ n: '무엇을', w: ['사진', '문구', '광고', '케이크', '할인'] }, { n: '얼마나', w: ['원', '%', '건'] }, { n: '언제까지', w: ['주', '월', '까지', '/'] }], ex: '12월 첫째 주(12/1~12/7) 하루 5,000원으로 ‘케이크 예약 10% 할인’ 문구를 시험하고, 예약 5건 이상이면 이어 간다.' }] }
+  ] }
+];
+
+// 35개 유닛을 한 줄로 펼친 순서
+var ORDER = [];
+SECTIONS.forEach(function (S, si) { S.units.forEach(function (U, ui) { ORDER.push({ id: (si + 1) + '-' + (ui + 1), si: si, ui: ui }); }); });
+function unitOf(id) { var p = id.split('-'); return SECTIONS[+p[0] - 1].units[+p[1] - 1]; }
+function secOf(id) { return SECTIONS[+id.split('-')[0] - 1]; }
+function idxOf(id) { for (var i = 0; i < ORDER.length; i++) if (ORDER[i].id === id) return i; return -1; }
+var KEYS = ['A', 'B', 'C', 'D'];
+var OFFSETS = [-46, 46, -46, 46, -46];
+var SPOTS = [{ key: 'clutter', label: '오른쪽 위 컵과 영수증', pos: 'left: 60%; top: 6%; width: 38%; height: 58%' }, { key: 'cake', label: '가운데 케이크', pos: 'left: 12%; top: 32%; width: 46%; height: 50%' }, { key: 'table', label: '아래쪽 테이블', pos: 'left: 0; top: 84%; width: 100%; height: 16%' }];
+var TABS = [{ k: 'training', label: '트레이닝', i: 't' }, { k: 'exam', label: '시험', i: 'e' }, { k: 'store', label: '연습 가게', i: 's' }, { k: 'ranking', label: '랭킹', i: 'r' }, { k: 'me', label: '내 정보', i: 'm' }];
+
+function ringDash(xp) { var c = 2 * Math.PI * 13; var r = Math.min(1, xp / GOAL_XP); return (Math.max(r, 0.015) * c).toFixed(1) + ' ' + c.toFixed(1); }
+function gradeText(q, text) {
+  var t = (text || '').trim();
+  var rows = q.crit.map(function (c) {
+    var ok = c.len ? (t.length > 0 && t.length <= c.len) : c.w.some(function (w) { return t.indexOf(w) >= 0; });
+    return { n: c.n, ok: ok, miss: !ok, note: ok ? '들어 있어요.' : (c.len ? '지금 ' + t.length + '자예요. 더 줄여 보세요.' : '빠졌어요.') };
+  });
+  var passed = rows.filter(function (r) { return r.ok; }).length;
+  return { rows: rows, passed: passed, correct: t.length >= 5 && passed / rows.length >= 0.6 };
+}
+function answerText(q) {
+  if (q.t === 'choice') return '‘' + q.o[q.a] + '’';
+  if (q.t === 'spot') return '‘' + q.v.rows[q.a][0] + ' · ' + q.v.rows[q.a][1] + '’';
+  if (q.t === 'photo') return KEYS[q.a];
+  if (q.t === 'pspot') return '오른쪽 위 컵과 영수증';
+  return '';
+}
+function reduced() { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
+
+class Component extends DCLogic {
+  live() { return !this.props.start || this.props.start === 'roadmap'; }
+  blank() {
+    return { init: true, screen: 'roadmap', tab: 'training', done: {}, xpLog: [], todayXp: 0, displayXp: null, fly: null,
+      selected: null, openSecs: null, lesson: null, result: null, justDone: null, justOpened: null, scrollTo: null, restore: null, saved: 0 };
+  }
+  load() {
+    var s = this.blank();
+    if (!this.live()) return s;
+    try {
+      var raw = window.localStorage.getItem(STORE_KEY);
+      if (raw) { var d = JSON.parse(raw); s.done = d.done || {}; s.xpLog = d.xpLog || []; s.todayXp = d.todayXp || 0; }
+    } catch (e) {}
+    return s;
+  }
+  fill(s, n, xpToday) {
+    for (var i = 0; i < n; i++) s.done[ORDER[i].id] = { xp: 40, correct: 3 };
+    if (xpToday) { s.todayXp = xpToday; s.xpLog = [{ id: ORDER[n - 1].id, xp: xpToday, correct: 2, total: 3 }]; }
+    return s;
+  }
+  preset(name) {
+    var s = this.blank();
+    if (name === 'detail') { this.fill(s, 6, 30); s.selected = '2-2'; s.scrollTo = 'row-2-2'; }
+    if (name === 'course') { this.fill(s, 6, 30); s.screen = 'course'; }
+    if (name === 'streak') { this.fill(s, 6, 30); s.screen = 'streak'; }
+    if (name === 'xp') { this.fill(s, 6, 30); s.xpLog = [{ id: '2-1', xp: 30, correct: 2, total: 3 }]; s.screen = 'xp'; }
+    if (name === 'goal') { this.fill(s, 6, 30); s.screen = 'goal'; }
+    if (name === 'concept') { this.fill(s, 6, 30); s.screen = 'lesson'; s.lesson = this.newLesson('2-2'); }
+    if (name === 'question') { this.fill(s, 1, 0); s.screen = 'lesson'; s.lesson = Object.assign(this.newLesson('1-2'), { step: 'q', answer: null }); }
+    if (name === 'wrong') { this.fill(s, 6, 30); s.screen = 'lesson'; s.lesson = Object.assign(this.newLesson('2-2'), { step: 'q', answer: 0, checked: true, why: true, results: [{ qi: 0, correct: false }] }); }
+    if (name === 'rewrite') { this.fill(s, 13, 30); s.screen = 'lesson'; s.lesson = Object.assign(this.newLesson('3-4'), { step: 'q', q: 2, checked: true, text: '오래 기다리시게 해서 답답하셨겠어요. 정말 죄송합니다. 다음에 또 와 주세요.', results: [{ qi: 0, correct: true }, { qi: 1, correct: true }, { qi: 2, correct: true }] }); }
+    if (name === 'complete') { this.fill(s, 9, 30); s.screen = 'complete'; s.result = this.makeResult(s, '2-5', [{ qi: 0, correct: true }, { qi: 1, correct: true }, { qi: 2, correct: false }]); }
+    if (name === 'after') { this.fill(s, 6, 0); s = this.applyFinish(s, this.makeResult(s, '2-2', [{ qi: 0, correct: true }, { qi: 1, correct: true }, { qi: 2, correct: true }])); s.fly = null; s.displayXp = null; }
+    if (name === 'alldone') { this.fill(s, 35, 120); s.screen = 'alldone'; }
+    return s;
+  }
+  cur() { if (this.state && this.state.init) return this.state; return this.live() ? this.load() : this.preset(this.props.start); }
+  set(patch) { this.setState(Object.assign({}, this.cur(), patch)); }
+  componentDidMount() { var s = this.cur(); if (s.scrollTo) this.setState(Object.assign({}, s)); }
+  componentDidUpdate() {
+    var self = this, s = this.state;
+    if (!s) return;
+    if (s.scrollTo) {
+      var id = s.scrollTo; this.setState({ scrollTo: null });
+      setTimeout(function () { var el = document.getElementById(id); if (el) el.scrollIntoView({ block: 'center', behavior: reduced() ? 'auto' : 'smooth' }); }, 40);
+    }
+    if (s.restore != null && s.screen === 'roadmap') {
+      var top = s.restore; this.setState({ restore: null });
+      setTimeout(function () { var el = document.getElementById('roadmap-scroll'); if (el) el.scrollTop = top; }, 0);
+    }
+    if (s.fly && !this._flyTimer) {
+      this._flyTimer = setTimeout(function () { self._flyTimer = null; self.setState({ fly: null, displayXp: null }); }, reduced() ? 0 : 650);
+    }
+    if (this.live()) {
+      try {
+        var data = JSON.stringify({ demo: true, done: s.done, xpLog: s.xpLog, todayXp: s.todayXp });
+        if (data !== this._lastSaved) { window.localStorage.setItem(STORE_KEY, data); this._lastSaved = data; }
+      } catch (e) {}
+    }
+  }
+
+  newLesson(id) { return { id: id, step: 'concept', q: 0, answer: null, checked: false, why: false, text: '', results: [] }; }
+  currentId(s) { for (var i = 0; i < ORDER.length; i++) if (!s.done[ORDER[i].id]) return ORDER[i].id; return null; }
+  isOpen(s, id) { var i = idxOf(id); return i === 0 || !!s.done[ORDER[i - 1].id]; }
+  saveScroll() { try { var el = document.getElementById('roadmap-scroll'); return el ? el.scrollTop : null; } catch (e) { return null; } }
+  leave(patch) { var s = this.cur(); var keep = s.screen === 'roadmap' ? this.saveScroll() : s.keepScroll; this.set(Object.assign({ keepScroll: keep }, patch)); }
+  backToRoadmap(extra) { var s = this.cur(); this.set(Object.assign({ screen: 'roadmap', tab: 'training', lesson: null, restore: s.keepScroll != null ? s.keepScroll : null }, extra || {})); }
+  startLesson(id) { this.leave({ screen: 'lesson', lesson: this.newLesson(id), selected: null }); }
+
+  makeResult(s, id, results) {
+    var U = unitOf(id);
+    var n = results.length, c = results.filter(function (r) { return r.correct; }).length;
+    var xp = c * XP_RULE.correct + (n - c) * XP_RULE.wrong + XP_RULE.lesson;
+    var wrong = results.filter(function (r) { return !r.correct; })[0];
+    var i = idxOf(id), next = ORDER[i + 1];
+    var sectionDone = !next || next.si !== ORDER[i].si;
+    var replay = !!s.done[id];
+    return { id: id, xp: xp, correct: c, total: n, improve: wrong ? U.q[wrong.qi].f : '좋아요! 다음 유닛에서 이어서 연습해요.', nextId: next ? next.id : null, sectionDone: sectionDone && !replay, replay: replay };
+  }
+  applyFinish(s, R) {
+    var done = Object.assign({}, s.done);
+    var first = !done[R.id];
+    done[R.id] = { xp: R.xp, correct: R.correct };
+    var log = s.xpLog.concat([{ id: R.id, xp: R.xp, correct: R.correct, total: R.total }]);
+    var opened = first && R.nextId && !done[R.nextId] ? R.nextId : null;
+    var allNow = ORDER.every(function (o) { return done[o.id]; });
+    var allBefore = ORDER.every(function (o) { return s.done[o.id]; });
+    return Object.assign({}, s, { done: done, xpLog: log, todayXp: s.todayXp + R.xp, displayXp: s.todayXp, fly: { xp: R.xp },
+      screen: allNow && !allBefore ? 'alldone' : 'roadmap', tab: 'training', lesson: null, result: null, selected: null,
+      justDone: R.id, justOpened: opened, scrollTo: 'row-' + (opened || R.id), restore: null });
+  }
+
+  renderVals() {
+    var self = this;
+    var s = this.cur();
+    var curId = this.currentId(s);
+    var shownXp = s.displayXp != null ? s.displayXp : s.todayXp;
+    var studied = s.todayXp > 0;
+    var streak = STREAK_BEFORE + (studied ? 1 : 0);
+    var v = {
+      isRoadmap: s.screen === 'roadmap', isCourse: s.screen === 'course', isStreak: s.screen === 'streak', isXp: s.screen === 'xp', isGoal: s.screen === 'goal',
+      isTab: s.screen === 'tab', isLesson: s.screen === 'lesson', isComplete: s.screen === 'complete', isAllDone: s.screen === 'alldone'
+    };
+    v.showTabs = !v.isLesson && !v.isComplete && !v.isAllDone;
+    v.back = function () { self.backToRoadmap(); };
+    v.startCurrent = function () { var id = self.currentId(self.cur()) || ORDER[0].id; self.startLesson(id); };
+    v.top = {
+      course: function () { self.leave({ screen: 'course', openSecs: null }); },
+      streak: function () { self.leave({ screen: 'streak' }); },
+      xp: function () { self.leave({ screen: 'xp' }); },
+      goal: function () { self.leave({ screen: 'goal' }); },
+      streak: streak, streakLabel: '연속학습 ' + streak + '일, 자세히 보기', flameColor: studied ? '#ff6b1a' : '#c9c9c9',
+      xpShown: shownXp, xpLabel: '오늘 ' + s.todayXp + ' XP, XP 기록 보기',
+      ringDash: ringDash(shownXp), goalLabel: '오늘의 목표 ' + s.todayXp + '/' + GOAL_XP + ' XP, 자세히 보기'
+    };
+    v.top.streak = function () { self.leave({ screen: 'streak' }); };
+    v.top.streakCount = streak;
+    v.fly = { show: !!s.fly && v.isRoadmap, xp: s.fly ? s.fly.xp : 0 };
+
+    // 탭
+    var storeLabel = this.props.mode === '내 가게 모드' ? '내 가게' : '연습 가게';
+    v.tabs = TABS.map(function (t) {
+      var on = (s.screen === 'tab' ? s.tab : 'training') === t.k;
+      var i = { t: t.i === 't', e: t.i === 'e', s: t.i === 's', r: t.i === 'r', m: t.i === 'm' };
+      return { label: t.k === 'store' ? storeLabel : t.label, on: on, current: on ? 'page' : 'false', i: i,
+        style: 'position: relative; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11px; font-weight: ' + (on ? '800' : '600') + '; color: ' + (on ? '#111111' : '#767676'),
+        go: function () { if (t.k === 'training') self.backToRoadmap(); else self.leave({ screen: 'tab', tab: t.k }); } };
+    });
+    v.tabName = (TABS.filter(function (t) { return t.k === s.tab; })[0] || TABS[0]).label;
+    if (s.tab === 'store') v.tabName = storeLabel;
+
+    // 로드맵
+    v.sections = SECTIONS.map(function (S, si) {
+      var ids = S.units.map(function (u, ui) { return (si + 1) + '-' + (ui + 1); });
+      var doneN = ids.filter(function (id) { return s.done[id]; }).length;
+      var open = self.isOpen(s, ids[0]);
+      var prevX = null, prevExpanded = false, prevState = null;
+      var rows = S.units.map(function (U, ui) {
+        var id = ids[ui];
+        var st = s.done[id] ? 'done' : id === curId ? 'current' : self.isOpen(s, id) ? 'current' : 'locked';
+        var x = 175 + OFFSETS[ui];
+        var expanded = s.selected === id;
+        var big = st === 'current';
+        var w = big ? 74 : 62, h = big ? 88 : 74;
+        var labelRight = x < 175;
+        var gap = w / 2 + 14;
+        var prevId = ORDER[idxOf(id) - 1];
+        var opened = s.justOpened === id;
+        var len = Math.round(Math.sqrt(Math.pow(x - (prevX || x), 2) + 150 * 150));
+        var colors = st === 'current' ? { fill: '#6e4fe0', stroke: '#4f37ad', shadow: '#4f37ad', icon: '#ffffff' } : st === 'done' ? { fill: '#ffffff', stroke: '#d6d6d6', shadow: '#e2e2e2', icon: '#111111' } : { fill: '#f5f5f5', stroke: '#e2e2e2', shadow: '#e6e6e6', icon: '#a3a3a3' };
+        var icon = {}; for (var k = 1; k <= 7; k++) icon['s' + k] = k === si + 1;
+        var row = {
+          anchor: 'row-' + id, no: ui + 1, unit: U.n, lesson: U.l, icon: icon,
+          isDone: st === 'done', isLocked: st === 'locked', isCurrent: st === 'current', expanded: expanded,
+          fill: colors.fill, stroke: colors.stroke, shadow: colors.shadow,
+          hasConn: prevX !== null && !prevExpanded, x1: prevX, x2: x,
+          baseDash: st === 'locked' ? '2 8' : '',
+          connOn: prevState === 'done' && st !== 'locked', connLen: len, connVar: '--len: ' + len,
+          connClass: opened ? 'maco-draw' : '',
+          faceClass: 'maco-tag-face' + (opened ? ' maco-pop' : ''),
+          checkClass: s.justDone === id ? 'maco-check' : '',
+          chipWrap: 'position: absolute; left: 0; right: 0; top: 4px; z-index: 1; display: flex; justify-content: center; padding-left: ' + Math.max(0, 2 * (x - 175)) + 'px; padding-right: ' + Math.max(0, 2 * (175 - x)) + 'px',
+          chipStyle: 'max-width: 100%; padding: 5px 11px; border-radius: 99px; background: #ffffff; border: 1px solid ' + (st === 'locked' ? '#ebebeb' : '#d6d6d6') + '; font-size: 12.5px; line-height: 1.35; font-weight: 700; text-align: center; color: ' + (st === 'locked' ? '#767676' : '#111111'),
+          tagWrap: 'position: absolute; left: ' + (x - w / 2) + 'px; top: ' + (big ? 50 : 58) + 'px; width: ' + w + 'px; height: ' + h + 'px; z-index: 1',
+          tagBtn: 'width: 100%; height: 100%; padding: 0; border: 0; background: transparent; display: block',
+          iconBox: 'position: absolute; left: 0; right: 0; top: ' + (big ? 30 : 24) + 'px; bottom: 6px; display: flex; align-items: center; justify-content: center; color: ' + colors.icon,
+          labelStyle: labelRight
+            ? 'position: absolute; left: ' + (x + gap) + 'px; right: 0; top: 54px; height: 86px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 3px; text-align: left'
+            : 'position: absolute; left: 0; width: ' + (x - gap) + 'px; top: 54px; height: 86px; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; gap: 3px; text-align: right',
+          titleStyle: 'font-size: 15px; line-height: 1.35; font-weight: ' + (st === 'locked' ? '600' : '800') + '; color: ' + (st === 'locked' ? '#767676' : '#111111'),
+          stateText: st === 'done' ? (s.justDone === id ? '방금 완료 · +' + s.done[id].xp + ' XP' : '완료 · 정답 ' + s.done[id].correct + '/3') : st === 'current' ? '문제 3개 · 약 3분' : '이전 유닛을 끝내면 열려요',
+          stateStyle: 'font-size: 12px; line-height: 1.35; font-weight: 600; color: ' + (st === 'locked' ? '#767676' : '#4d4d4d'),
+          aria: U.l + ', 유닛 ' + (ui + 1) + ' ' + U.n + ', ' + (st === 'done' ? '완료' : st === 'current' ? '지금 할 레슨' : '잠김'),
+          showCoach: st === 'current' && id === curId && !expanded, coachLine: U.c,
+          showCard: expanded && st !== 'locked', showLock: expanded && st === 'locked',
+          lockText: prevId ? '‘' + unitOf(prevId.id).n + '’ 유닛을 끝내면 열려요.' : '',
+          caretStyle: 'position: absolute; top: -8px; left: ' + (x - 8) + 'px; width: 16px; height: 16px; background: #ffffff; border-left: 1px solid #ebebeb; border-top: 1px solid #ebebeb; transform: rotate(45deg)',
+          caretSoft: 'position: absolute; top: -7px; left: ' + (x - 7) + 'px; width: 14px; height: 14px; background: #f5f5f5; transform: rotate(45deg)',
+          tap: function () { self.set({ selected: expanded ? null : id }); },
+          start: function () { self.startLesson(id); },
+          card: { meta: '섹션 ' + (si + 1) + ' · 유닛 ' + (ui + 1) + ' · ' + U.n, desc: U.k,
+            btnLabel: st === 'done' ? '다시 하기' : '레슨 시작',
+            btnStyle: 'flex: 1; height: 48px; border-radius: 14px; font-size: 16px; font-weight: 800; ' + (st === 'done' ? 'border: 2px solid #111111; background: #ffffff; color: #111111' : 'border: 0; background: #6e4fe0; color: #ffffff') }
+        };
+        prevX = x; prevExpanded = expanded || row.showCoach; prevState = st;
+        return row;
+      });
+      var pct = Math.round(doneN / 5 * 100);
+      return { anchor: 'sec-' + (si + 1), no: si + 1, title: S.title, goal: S.goal, aria: '섹션 ' + (si + 1) + ' ' + S.title,
+        progressText: '유닛 ' + doneN + '/5 완료', isDone: doneN === 5, isLocked: !open,
+        lockText: si > 0 ? '섹션 ' + si + '을 마치면 열려요. 학습 목표와 유닛은 미리 볼 수 있어요.' : '',
+        headStyle: 'padding: 16px; border-radius: 18px; ' + (open ? 'border: 1px solid #ebebeb; background: #ffffff' : 'border: 1px dashed #d6d6d6; background: #fafafa'),
+        badgeStyle: 'width: 26px; height: 26px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; ' + (open ? 'background: #111111; color: #ffffff' : 'background: #ebebeb; color: #4d4d4d'),
+        fillStyle: 'height: 100%; border-radius: 99px; background: #ff6b1a; width: ' + pct + '%', rows: rows };
+    });
+
+    // 전체 과정
+    var curSec = curId ? +curId.split('-')[0] - 1 : 6;
+    var openSecs = s.openSecs || (function () { var o = {}; o[curSec] = true; return o; })();
+    var doneCount = ORDER.filter(function (o) { return s.done[o.id]; }).length;
+    v.course = { doneCount: doneCount,
+      storageNote: this.live() ? '데모 기록은 서버 기록과 분리해 이 브라우저에만 저장돼요. 새로고침해도 유지돼요.' : '이 보드는 정해진 상태를 보여 주는 시안이라 기록을 저장하지 않아요.',
+      reset: function () { self.set(Object.assign(self.blank(), { screen: 'course' })); },
+      jump: function () { var n = self.blank(); self.fill(n, 34, 0); n.screen = 'course'; n.openSecs = { 6: true }; self.set(n); },
+      sections: SECTIONS.map(function (S, si) {
+        var ids = S.units.map(function (u, ui) { return (si + 1) + '-' + (ui + 1); });
+        var doneN = ids.filter(function (id) { return s.done[id]; }).length;
+        var isOpenSec = !!openSecs[si];
+        var isCur = si === curSec && doneN < 5;
+        var pct = Math.round(doneN / 5 * 100);
+        return { no: si + 1, title: S.title, goal: S.goal, aria: '섹션 ' + (si + 1) + ' ' + S.title, open: isOpenSec, progressText: '유닛 ' + doneN + '/5 완료',
+          fillStyle: 'display: block; height: 100%; border-radius: 99px; background: #ff6b1a; width: ' + pct + '%',
+          cardStyle: 'border-radius: 18px; ' + (isCur ? 'border: 2px solid #6e4fe0' : 'border: 1px solid #ebebeb') + '; background: #ffffff',
+          badgeStyle: 'flex: none; width: 30px; height: 30px; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; ' + (doneN === 5 ? 'background: #ff6b1a; color: #ffffff' : self.isOpen(s, ids[0]) ? 'background: #111111; color: #ffffff' : 'background: #ebebeb; color: #4d4d4d'),
+          chevron: isOpenSec ? 'flex: none; margin-top: 4px; transform: rotate(180deg); transition: transform .2s' : 'flex: none; margin-top: 4px; transition: transform .2s',
+          toggle: function () { var o = Object.assign({}, openSecs); o[si] = !o[si]; self.set({ openSecs: o }); },
+          units: S.units.map(function (U, ui) {
+            var id = ids[ui];
+            var st = s.done[id] ? 'done' : id === curId ? 'current' : 'locked';
+            var prev = ORDER[idxOf(id) - 1];
+            return { unit: (ui + 1) + '. ' + U.n, sub: st === 'done' ? '완료 · ' + U.l : st === 'current' ? '지금 할 레슨 · ' + U.l : (prev ? '‘' + unitOf(prev.id).n + '’를 끝내면 열려요' : ''),
+              isCurrent: st === 'current', isDone: st === 'done', mark: st === 'done' ? '✓' : st === 'current' ? '→' : '•',
+              rowStyle: 'display: flex; align-items: center; gap: 10px; padding: 10px 10px 10px 12px; border-radius: 12px; ' + (st === 'current' ? 'background: #f0ecfd' : 'background: #fafafa'),
+              dotStyle: 'flex: none; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; ' + (st === 'done' ? 'background: #ff6b1a; color: #ffffff' : st === 'current' ? 'background: #6e4fe0; color: #ffffff' : 'background: #ebebeb; color: #767676'),
+              go: function () { self.startLesson(id); } };
+          }) };
+      }) };
+
+    // 연속학습
+    v.streak = { days: streak, flameColor: studied ? '#ff6b1a' : '#c9c9c9', range: '11월 23일~29일 (데모)', needToday: !studied,
+      todayTitle: studied ? '오늘도 학습했어요' : '오늘은 아직 학습하지 않았어요',
+      todayText: studied ? '내일도 레슨 하나로 연속 기록을 이어 가요.' : '레슨 하나를 마치면 오늘이 채워지고 ' + (STREAK_BEFORE + 1) + '일 연속이 돼요.',
+      todayStyle: 'padding: 14px 16px; border-radius: 16px; ' + (studied ? 'background: #fff4ec; border: 1px solid #ffd9c2' : 'background: #f5f5f5'),
+      week: WEEK.map(function (d) {
+        var done = d.done || (d.today && studied);
+        return { dow: d.dow, date: d.date, done: done, notDone: !done,
+          aria: '11월 ' + d.date + '일 ' + d.dow + '요일, ' + (done ? '학습함' : d.future ? '아직 오지 않음' : d.today ? '오늘, 아직 학습 전' : '학습 안 함'),
+          labelStyle: 'font-size: 12px; font-weight: ' + (d.today ? '800' : '600') + '; color: ' + (d.today ? '#111111' : '#4d4d4d'),
+          dotStyle: 'width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; ' + (done ? 'background: #ff6b1a; color: #ffffff' : d.today ? 'border: 2px solid #111111; color: #111111' : d.future ? 'color: #a3a3a3' : 'background: #f5f5f5; color: #4d4d4d') };
+      }) };
+
+    // XP 기록
+    v.xpPage = { total: s.todayXp, empty: s.xpLog.length === 0,
+      items: s.xpLog.slice().reverse().map(function (e) {
+        var U = unitOf(e.id);
+        return { where: '섹션 ' + e.id.split('-')[0] + ' · 유닛 ' + e.id.split('-')[1], lesson: U.l, xp: e.xp,
+          detail: '정답 ' + e.correct + '/' + e.total + ' · 레슨 완료 +' + XP_RULE.lesson };
+      }) };
+
+    // 오늘의 목표
+    var curU = curId ? unitOf(curId) : unitOf('7-5');
+    v.goalPage = { xp: s.todayXp, goal: GOAL_XP, ringDash: ringDash(s.todayXp), aria: '오늘의 목표 ' + s.todayXp + ' / ' + GOAL_XP + ' XP',
+      remainText: s.todayXp >= GOAL_XP ? '오늘 목표를 채웠어요!' : '목표까지 ' + (GOAL_XP - s.todayXp) + ' XP 남았어요',
+      where: curId ? '섹션 ' + curId.split('-')[0] + ' · 유닛 ' + curId.split('-')[1] : '복습', lesson: curU.l };
+
+    // 레슨
+    var L = s.lesson;
+    v.ls = { isConcept: false, isQuestion: false, showAction: false };
+    v.q = {}; v.fb = { show: false };
+    if (L) {
+      var U = unitOf(L.id), S = secOf(L.id);
+      var isConcept = L.step === 'concept';
+      var Q = U.q[L.q];
+      var shown = isConcept ? 0 : L.q + 1;
+      var pct = Math.round(shown / 3 * 100);
+      var isLast = L.q === 2;
+      var g = !isConcept && Q.t === 'rewrite' && L.checked ? gradeText(Q, L.text) : null;
+      var correct = !isConcept && L.checked ? (g ? g.correct : L.answer === Q.a) : false;
+      var canCheck = isConcept || (Q.t === 'rewrite' ? (L.text || '').trim().length >= 5 : L.answer !== null);
+      v.ls = { isConcept: isConcept, isQuestion: !isConcept, counter: shown + '/3', pct: pct,
+        fillStyle: 'height: 100%; border-radius: 99px; background: #ff6b1a; width: ' + Math.max(pct, 3) + '%',
+        where: '섹션 ' + L.id.split('-')[0] + ' · ' + U.n, conceptTitle: U.k, conceptBody: U.b, tool: S.tool,
+        bodyStyle: 'flex: 1; overflow-y: auto; padding: 6px 20px ' + (L.checked ? '460px' : '24px'),
+        showAction: isConcept || !L.checked, disabled: !canCheck,
+        actionLabel: isConcept ? '문제 풀기' : Q.t === 'rewrite' ? '기준 확인하기' : '확인',
+        actionStyle: 'width: 100%; height: 54px; border: 0; border-radius: 14px; font-size: 17px; font-weight: 800; color: #ffffff; background: ' + (canCheck ? '#6e4fe0' : '#d6d6d6'),
+        action: function () {
+          if (isConcept) { self.set({ lesson: Object.assign({}, L, { step: 'q', q: 0, text: U.q[0].orig || '' }) }); return; }
+          var ok = Q.t === 'rewrite' ? gradeText(Q, L.text).correct : L.answer === Q.a;
+          self.set({ lesson: Object.assign({}, L, { checked: true, why: false, results: L.results.concat([{ qi: L.q, correct: ok }]) }) });
+        } };
+      if (!isConcept) {
+        var pick = function (val) { return function () { if (!L.checked) self.set({ lesson: Object.assign({}, L, { answer: val }) }); }; };
+        var vis = Q.v || {};
+        v.q = { typeLabel: { choice: vis.review ? '상황 판단' : vis.table ? '숫자 읽기' : '고르기', spot: '틀린 곳 찾기', photo: '사진 두 장 중 고르기', pspot: '사진에서 틀린 곳 찾기', rewrite: '고쳐 쓰기' }[Q.t],
+          prompt: Q.p, isChoice: Q.t === 'choice', isSpot: Q.t === 'spot', isPhoto: Q.t === 'photo', isPspot: Q.t === 'pspot', isRewrite: Q.t === 'rewrite',
+          hasReview: !!vis.review, review: vis.review || {}, hasTable: !!vis.table, tableTitle: vis.tableTitle || '',
+          table: (vis.table || []).map(function (r) { return { k: r[0], v: r[1] }; }),
+          orig: Q.orig || '', text: L.text, locked: L.checked, critNames: (Q.crit || []).map(function (c) { return c.n; }),
+          onText: function (e) { self.set({ lesson: Object.assign({}, L, { text: e.target.value }) }); } };
+        var mark = function (i, sel) { return L.checked ? (i === Q.a ? 'ok' : sel ? 'bad' : '') : (sel ? 'sel' : ''); };
+        if (Q.t === 'choice') v.q.options = Q.o.map(function (o, i) {
+          var sel = L.answer === i, m = mark(i, sel);
+          return { key: KEYS[i], text: o, selected: sel, pick: pick(i),
+            style: 'display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 12px 14px; border-radius: 14px; background: ' + (m === 'sel' ? '#f0ecfd' : '#ffffff') + '; border: ' + (m === 'ok' ? '2px solid #1f9d55' : m === 'bad' ? '2px solid #d93b3b' : m === 'sel' ? '2px solid #6e4fe0' : '1px solid #ebebeb'),
+            keyStyle: 'flex: none; width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; ' + (m === 'ok' ? 'background: #1f9d55; color: #ffffff' : m === 'bad' ? 'background: #d93b3b; color: #ffffff' : m === 'sel' ? 'background: #6e4fe0; color: #ffffff' : 'border: 1px solid #ebebeb') };
+        });
+        if (Q.t === 'spot') { v.q.spotTitle = vis.title; v.q.rows = vis.rows.map(function (r, i) {
+          var sel = L.answer === i, m = mark(i, sel);
+          return { k: r[0], v: r[1], selected: sel, pick: pick(i),
+            style: 'width: 100%; display: flex; align-items: center; gap: 8px; min-height: 52px; padding: 10px 16px; border: 0; border-top: 1px solid #f0f0f0; ' + (m === 'ok' ? 'background: #e8f6ee; box-shadow: inset 4px 0 0 #1f9d55' : m === 'bad' ? 'background: #fdeceb; box-shadow: inset 4px 0 0 #d93b3b' : m === 'sel' ? 'background: #f0ecfd; box-shadow: inset 4px 0 0 #6e4fe0' : 'background: #ffffff') };
+        }); }
+        if (Q.t === 'photo') v.q.photos = Q.o.map(function (kind, i) {
+          var sel = L.answer === i, m = mark(i, sel);
+          return { key: KEYS[i], kind: kind, selected: sel, aria: '사진 ' + KEYS[i], pick: pick(i),
+            style: 'padding: 6px 6px 0; border-radius: 14px; text-align: center; background: ' + (m === 'sel' ? '#f0ecfd' : '#ffffff') + '; border: ' + (m === 'ok' ? '3px solid #1f9d55' : m === 'bad' ? '3px solid #d93b3b' : m === 'sel' ? '3px solid #6e4fe0' : '2px solid #ebebeb') };
+        });
+        if (Q.t === 'pspot') v.q.spots = SPOTS.map(function (sp) {
+          var sel = L.answer === sp.key, isAns = sp.key === Q.a;
+          var ring = L.checked ? (isAns ? 'border: 3px dashed #1f9d55; background: rgba(31,157,85,0.14);' : sel ? 'border: 3px solid #d93b3b; background: rgba(217,59,59,0.12);' : 'border: 0; background: transparent;') : (sel ? 'border: 3px solid #6e4fe0; background: rgba(110,79,224,0.16);' : 'border: 0; background: transparent;');
+          return { label: sp.label, selected: sel, pick: pick(sp.key), style: 'position: absolute; ' + sp.pos + '; border-radius: 12px; padding: 0; ' + ring };
+        });
+        if (L.checked) {
+          v.fb = { show: true, isCorrect: correct, isWrong: !correct && !g, isRewrite: !!g,
+            title: g ? (correct ? '좋아요, 기준을 잘 담았어요!' : '기준을 조금 더 담아 볼까요?') : (correct ? '정답이에요!' : '괜찮아요, 하나만 고쳐 봐요'),
+            reason: g ? '기준 ' + g.rows.length + '개 중 ' + g.passed + '개를 담았어요.' : Q.r,
+            fix: Q.f || '', canWhy: !correct && !g, whyOpen: !!L.why,
+            why: g ? '' : '정답은 ' + answerText(Q) + '예요. ' + Q.r + ' ' + (Q.f || ''),
+            chevron: L.why ? 'transform: rotate(180deg)' : '',
+            toggleWhy: function () { self.set({ lesson: Object.assign({}, L, { why: !L.why }) }); },
+            crit: g ? g.rows : [], example: Q.ex || '',
+            sheetStyle: 'position: absolute; left: 0; right: 0; bottom: 0; max-height: 80%; overflow-y: auto; z-index: 5; padding: 20px 20px 26px; border-radius: 22px 22px 0 0; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 -10px 30px rgba(17,17,17,0.10); background: ' + (correct ? '#e8f6ee' : g ? '#f5f5f5' : '#fdeceb'),
+            titleStyle: 'margin: 0; font-size: 20px; font-weight: 800; color: ' + (correct ? '#17773f' : g ? '#111111' : '#b42828'),
+            nextLabel: isLast ? '레슨 마치기' : '다음 문제',
+            next: function () {
+              if (!isLast) { var nq = U.q[L.q + 1]; self.set({ lesson: Object.assign({}, L, { q: L.q + 1, answer: null, checked: false, why: false, text: nq.orig || '' }) }); }
+              else self.set({ screen: 'complete', result: self.makeResult(self.cur(), L.id, L.results), lesson: null });
+            } };
+        }
+      }
+    }
+
+    // 레슨 완료
+    var R = s.result;
+    v.res = { sectionDone: false, lessonOnly: true };
+    if (R) {
+      var RS = secOf(R.id), si2 = +R.id.split('-')[0];
+      var nextU = R.nextId ? unitOf(R.nextId) : null;
+      v.res = { lesson: unitOf(R.id).l, xp: R.xp, correct: R.correct, improve: R.improve,
+        sectionDone: R.sectionDone, lessonOnly: !R.sectionDone, secNo: si2, secTitle: RS.title, tool: RS.tool,
+        nextTitle: R.replay ? '복습 완료' : nextU ? (R.sectionDone ? '다음 섹션이 열렸어요' : '다음 유닛이 열렸어요') : '마지막 유닛이에요',
+        nextText: R.replay ? '이미 배운 유닛을 다시 연습했어요.' : nextU ? (R.sectionDone ? '섹션 ' + (si2 + 1) + ' · ' + SECTIONS[si2].title + ' — ' : '') + nextU.n : '로드맵으로 돌아가면 전체 과정 완료 화면이 열려요.',
+        back: function () { self.setState(self.applyFinish(self.cur(), R)); } };
+    }
+
+    // 전체 과정 완료
+    v.all = { correct: ORDER.reduce(function (a, o) { return a + (s.done[o.id] ? s.done[o.id].correct : 0); }, 0), xp: s.todayXp,
+      review: function () { var o = {}; for (var i = 0; i < 7; i++) o[i] = true; self.set({ screen: 'course', openSecs: o }); },
+      roadmap: function () { self.backToRoadmap({ restore: 0 }); } };
+    return { v: v };
+  }
+}
+</script>
+</body>
+</html>

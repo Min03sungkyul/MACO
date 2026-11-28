@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>가게 코치 마코</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+@keyframes macoBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes macoCheer{0%{transform:translateY(6px) scale(.92)}60%{transform:translateY(-4px) scale(1.03)}100%{transform:none}}
+.maco-coach-idle{animation:macoBob 2.4s ease-in-out infinite;transform-origin:50% 100%}
+.maco-coach-cheer{animation:macoCheer .25s ease-out;transform-origin:50% 100%}
+@media (prefers-reduced-motion:reduce){.maco-coach-idle,.maco-coach-cheer{animation:none}}
+</style>
+</helmet>
+<div style="width: 100%; height: 100%; min-width: 40px; min-height: 44px; display: flex; align-items: flex-end; justify-content: center">
+<svg viewBox="0 0 132 132" width="100%" height="100%" role="img" aria-label="{{ alt }}" style="display: block; overflow: visible">
+  <g class="{{ motionClass }}">
+    <ellipse cx="62" cy="126" rx="34" ry="4" fill="#111111" opacity="0.08"></ellipse>
+    <sc-if value="{{ cheer }}" hint-placeholder-val="{{ false }}">
+      <path d="M14 22l3 6 6 3-6 3-3 6-3-6-6-3 6-3z" fill="#ff6b1a"></path>
+      <path d="M112 12l2 4 4 2-4 2-2 4-2-4-4-2 4-2z" fill="#ff6b1a"></path>
+      <circle cx="24" cy="52" r="2.5" fill="#6e4fe0"></circle>
+      <circle cx="120" cy="40" r="2.5" fill="#6e4fe0"></circle>
+    </sc-if>
+    <!-- 왼팔 -->
+    <path d="{{ leftArm }}" fill="none" stroke="#111111" stroke-width="5" stroke-linecap="round"></path>
+    <!-- 몸 -->
+    <path d="M62 18C90 18 106 38 106 66V98C106 114 94 124 78 124H46C30 124 18 114 18 98V66C18 38 34 18 62 18Z" fill="#fff3e8" stroke="#111111" stroke-width="3.5"></path>
+    <!-- 모자 -->
+    <path d="M38 30C46 14 78 14 86 30C76 25 48 25 38 30Z" fill="#111111"></path>
+    <circle cx="62" cy="15" r="4" fill="#111111"></circle>
+    <!-- 볼 -->
+    <circle cx="38" cy="70" r="6" fill="#ffc6a8"></circle>
+    <circle cx="86" cy="70" r="6" fill="#ffc6a8"></circle>
+    <!-- 눈 -->
+    <sc-if value="{{ eyesOpen }}" hint-placeholder-val="{{ true }}">
+      <ellipse cx="48" cy="58" rx="4" ry="5" fill="#111111"></ellipse>
+      <ellipse cx="76" cy="58" rx="4" ry="5" fill="#111111"></ellipse>
+      <circle cx="49.5" cy="56" r="1.3" fill="#ffffff"></circle>
+      <circle cx="77.5" cy="56" r="1.3" fill="#ffffff"></circle>
+    </sc-if>
+    <sc-if value="{{ calm }}" hint-placeholder-val="{{ false }}">
+      <path d="M43 59q5 3 10 0M71 59q5 3 10 0" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round"></path>
+    </sc-if>
+    <sc-if value="{{ cheer }}" hint-placeholder-val="{{ false }}">
+      <path d="M43 60q5-7 10 0M71 60q5-7 10 0" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round"></path>
+    </sc-if>
+    <!-- 입 -->
+    <sc-if value="{{ happy }}" hint-placeholder-val="{{ true }}">
+      <path d="M54 70q8 7 16 0" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round"></path>
+    </sc-if>
+    <sc-if value="{{ calm }}" hint-placeholder-val="{{ false }}">
+      <path d="M56 72q6 2 12 0" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round"></path>
+    </sc-if>
+    <sc-if value="{{ cheer }}" hint-placeholder-val="{{ false }}">
+      <path d="M52 68q10 14 20 0z" fill="#111111"></path>
+    </sc-if>
+    <!-- 앞치마 -->
+    <path d="M44 84Q62 76 80 84" fill="none" stroke="#111111" stroke-width="2.5"></path>
+    <path d="M36 84H88V114Q88 122 80 122H44Q36 122 36 114Z" fill="#111111"></path>
+    <path d="M54 93l3-5 3 4 3-4 3 4 3-4 3 5" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <rect x="49" y="101" width="26" height="11" rx="2" fill="none" stroke="#ffffff" stroke-width="2"></rect>
+    <!-- 오른팔 + 도구 -->
+    <path d="{{ rightArm }}" fill="none" stroke="#111111" stroke-width="5" stroke-linecap="round"></path>
+    <g transform="{{ toolTransform }}">
+      <sc-if value="{{ tool.memo }}" hint-placeholder-val="{{ true }}">
+        <rect x="-12" y="-16" width="24" height="30" rx="3" fill="#ffffff" stroke="#111111" stroke-width="2.5"></rect>
+        <rect x="-6" y="-19" width="12" height="5" rx="1.5" fill="#6e4fe0"></rect>
+        <path d="M-6 -6h12M-6 0h12M-6 6h7" stroke="#111111" stroke-width="2" stroke-linecap="round"></path>
+      </sc-if>
+      <sc-if value="{{ tool.pin }}" hint-placeholder-val="{{ false }}">
+        <path d="M0 16C0 16-14 3-14-6A14 14 0 0 1 14-6C14 3 0 16 0 16Z" fill="#ff6b1a" stroke="#111111" stroke-width="2.5"></path>
+        <circle cx="0" cy="-6" r="5" fill="#ffffff" stroke="#111111" stroke-width="2"></circle>
+      </sc-if>
+      <sc-if value="{{ tool.camera }}" hint-placeholder-val="{{ false }}">
+        <path d="M-17-8h8l3-5h12l3 5h8v20h-34Z" fill="#ffffff" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"></path>
+        <circle cx="0" cy="2" r="7" fill="#ff6b1a" stroke="#111111" stroke-width="2.5"></circle>
+      </sc-if>
+      <sc-if value="{{ tool.bubble }}" hint-placeholder-val="{{ false }}">
+        <path d="M-17-15h34v22h-18l-9 8v-8h-7Z" fill="#ffffff" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"></path>
+        <path d="M-10-7h20M-10-1h12" stroke="#ff6b1a" stroke-width="2.5" stroke-linecap="round"></path>
+      </sc-if>
+      <sc-if value="{{ tool.sign }}" hint-placeholder-val="{{ false }}">
+        <rect x="-18" y="-14" width="36" height="20" rx="3" fill="#ff6b1a" stroke="#111111" stroke-width="2.5"></rect>
+        <path d="M-10-4h20" stroke="#ffffff" stroke-width="3" stroke-linecap="round"></path>
+        <path d="M-10 6v10M10 6v10" stroke="#111111" stroke-width="2.5" stroke-linecap="round"></path>
+      </sc-if>
+      <sc-if value="{{ tool.megaphone }}" hint-placeholder-val="{{ false }}">
+        <path d="M-16-5v10h7l17 9v-28l-17 9Z" fill="#ff6b1a" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"></path>
+        <path d="M14-7q6 7 0 14" fill="none" stroke="#111111" stroke-width="2.5" stroke-linecap="round"></path>
+      </sc-if>
+      <sc-if value="{{ tool.target }}" hint-placeholder-val="{{ false }}">
+        <circle cx="0" cy="0" r="15" fill="#ffffff" stroke="#111111" stroke-width="2.5"></circle>
+        <circle cx="0" cy="0" r="9" fill="#ff6b1a" stroke="#111111" stroke-width="2"></circle>
+        <circle cx="0" cy="0" r="3" fill="#ffffff"></circle>
+      </sc-if>
+      <sc-if value="{{ tool.chart }}" hint-placeholder-val="{{ false }}">
+        <rect x="-17" y="-15" width="34" height="30" rx="3" fill="#ffffff" stroke="#111111" stroke-width="2.5"></rect>
+        <rect x="-11" y="2" width="5" height="8" fill="#d6d6d6"></rect>
+        <rect x="-3" y="-4" width="5" height="14" fill="#d6d6d6"></rect>
+        <rect x="5" y="-10" width="5" height="20" fill="#ff6b1a"></rect>
+      </sc-if>
+    </g>
+  </g>
+</svg>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mood":{"editor":"enum","options":["happy","calm","cheer"],"default":"happy"},"tool":{"editor":"enum","options":["memo","pin","camera","bubble","sign","megaphone","target","chart"],"default":"memo"},"$preview":{"width":160,"height":160}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var mood = this.props.mood || 'happy';
+    var t = this.props.tool || 'memo';
+    var cheer = mood === 'cheer';
+    var TOOLS = ['memo', 'pin', 'camera', 'bubble', 'sign', 'megaphone', 'target', 'chart'];
+    var tool = {};
+    TOOLS.forEach(function (k) { tool[k] = k === t; });
+    if (!TOOLS.some(function (k) { return k === t; })) tool.memo = true;
+    var NAMES = { memo: '주문 메모지', pin: '지도 핀', camera: '카메라', bubble: '말풍선 메모지', sign: '작은 간판', megaphone: '확성기', target: '과녁', chart: '막대그래프' };
+    var FACE = { happy: '웃는', calm: '차분한', cheer: '신나게 축하하는' };
+    return {
+      cheer: cheer, calm: mood === 'calm', happy: mood === 'happy', eyesOpen: mood !== 'cheer' && mood !== 'calm',
+      tool: tool,
+      motionClass: cheer ? 'maco-coach-cheer' : 'maco-coach-idle',
+      leftArm: cheer ? 'M22 78Q8 62 12 44' : 'M22 86Q10 94 16 104',
+      rightArm: cheer ? 'M102 76Q116 58 112 40' : 'M102 86Q112 88 112 96',
+      toolTransform: cheer ? 'translate(112 26) rotate(-12)' : 'translate(114 98) rotate(8)',
+      alt: '앞치마를 입고 ' + (NAMES[t] || NAMES.memo) + '를 든 ' + (FACE[mood] || FACE.happy) + ' 가게 코치 마코'
+    };
+  }
+}
+</script>
+</body>
+</html>

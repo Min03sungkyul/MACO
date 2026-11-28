@@ -1,0 +1,48 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-11-28T02:50:07Z" },
+  "title": "MACO 트레이닝 탭 프로토타입",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": { "x": 0, "y": 0, "w": 390, "h": 844, "title": "① 로드맵 · 클릭 프로토타입 (35개 유닛 플레이)", "is_interactive": true, "radius": 28 },
+    "RoadmapDetail.dc.html": { "x": 470, "y": 0, "w": 390, "h": 844, "title": "② 레슨 탭 → 짧은 안내와 레슨 시작", "radius": 28 },
+    "RoadmapAfter.dc.html": { "x": 940, "y": 0, "w": 390, "h": 844, "title": "③ 완료 후 로드맵 (다음 유닛 열림)", "radius": 28 },
+    "Course.dc.html": { "x": 1410, "y": 0, "w": 390, "h": 844, "title": "④ 전체 과정 (7개 섹션)", "radius": 28 },
+    "Streak.dc.html": { "x": 1880, "y": 0, "w": 390, "h": 844, "title": "⑤ 연속학습", "radius": 28 },
+    "XpLog.dc.html": { "x": 2350, "y": 0, "w": 390, "h": 844, "title": "⑥ XP 기록", "radius": 28 },
+    "Goal.dc.html": { "x": 2820, "y": 0, "w": 390, "h": 844, "title": "⑦ 오늘의 목표", "radius": 28 },
+    "Concept.dc.html": { "x": 0, "y": 1290, "w": 390, "h": 844, "title": "⑧ S7 개념 카드", "radius": 28 },
+    "Question.dc.html": { "x": 470, "y": 1290, "w": 390, "h": 844, "title": "⑨ S8 문제 풀이 (빠진 휴무일 찾기)", "radius": 28 },
+    "WrongFeedback.dc.html": { "x": 940, "y": 1290, "w": 390, "h": 844, "title": "⑩ S9 오답 · 고칠 점 하나", "radius": 28 },
+    "RewriteFeedback.dc.html": { "x": 1410, "y": 1290, "w": 390, "h": 844, "title": "⑪ S9 답글 고쳐 쓰기 · 기준과 예시", "radius": 28 },
+    "Complete.dc.html": { "x": 1880, "y": 1290, "w": 390, "h": 844, "title": "⑫ S10 섹션 완료 (카메라 든 코치)", "radius": 28 },
+    "AllDone.dc.html": { "x": 2350, "y": 1290, "w": 390, "h": 844, "title": "⑬ 전체 과정 완료", "radius": 28 },
+    "Coach.dc.html": { "x": 0, "y": 2580, "w": 160, "h": 160, "title": "가게 코치 마코" },
+    "Photo.dc.html": { "x": 240, "y": 2580, "w": 320, "h": 240, "title": "샘플 사진 (부평 무화과 카페 케이크)" }
+  },
+  "order": [
+    "Main.dc.html",
+    "RoadmapDetail.dc.html",
+    "RoadmapAfter.dc.html",
+    "Course.dc.html",
+    "Streak.dc.html",
+    "XpLog.dc.html",
+    "Goal.dc.html",
+    "Concept.dc.html",
+    "Question.dc.html",
+    "WrongFeedback.dc.html",
+    "RewriteFeedback.dc.html",
+    "Complete.dc.html",
+    "AllDone.dc.html",
+    "Coach.dc.html",
+    "Photo.dc.html"
+  ],
+  "notes": {
+    "rowRoadmap": { "x": 0, "y": -300, "text": "S6 트레이닝 로드맵 · 상단 버튼 상세 화면", "kind": "title1", "maxW": 3210 },
+    "rowLesson": { "x": 0, "y": 990, "text": "S7~S10 레슨 흐름 · 전체 과정 완료", "kind": "title1", "maxW": 2740 },
+    "rowAssets": { "x": 0, "y": 2280, "text": "마스코트 · 샘플 사진", "kind": "title1", "maxW": 1200 },
+    "howTo": { "x": 3290, "y": 0, "w": 380, "text": "① 보드의 Play로 직접 플레이하세요.\n\n· 왼쪽 위 ‘전체 과정’, 오른쪽 위 연속학습 / 오늘 XP / 목표 링은 각각 다른 상세 화면으로 열려요. 뒤로 가면 보던 위치로 돌아와요.\n· 지금 할 레슨(보라 태그) → 레슨 시작 → 개념 카드 → 문제 3개 → 정오답 → 완료 → 로드맵. 다음 유닛이 열리고 연결선이 이어져요.\n· 기록은 데모 상태로 이 브라우저에 저장돼 새로고침해도 유지돼요. ‘전체 과정’ 맨 아래 데모 설정에서 처음부터 다시 하거나 마지막 유닛 직전으로 건너뛸 수 있어요.\n\n색 규칙: 보라는 지금 할 레슨과 주요 버튼, 주황은 완료·진행이 채워질 때만.", "fill": "purple", "size": "m" }
+  },
+  "designSystems": []
+}
