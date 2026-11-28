@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<title>가게 코치 마코</title>
+<title>고양이 코치 마코</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -10,126 +10,165 @@
 <helmet>
 <style>
 body{margin:0}
-@keyframes macoBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-@keyframes macoCheer{0%{transform:translateY(6px) scale(.92)}60%{transform:translateY(-4px) scale(1.03)}100%{transform:none}}
-.maco-coach-idle{animation:macoBob 2.4s ease-in-out infinite;transform-origin:50% 100%}
-.maco-coach-cheer{animation:macoCheer .25s ease-out;transform-origin:50% 100%}
-@media (prefers-reduced-motion:reduce){.maco-coach-idle,.maco-coach-cheer{animation:none}}
+@keyframes macoIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes macoEars{0%{transform:translateY(0) scaleY(1)}45%{transform:translateY(-5px) scaleY(1.12)}100%{transform:translateY(-2px) scaleY(1.05)}}
+@keyframes macoHint{0%{transform:translate(-10px,8px) rotate(-12deg);opacity:0}100%{transform:none;opacity:1}}
+@keyframes macoStampPaw{0%{transform:translateY(-14px)}55%{transform:translateY(2px)}100%{transform:translateY(0)}}
+@keyframes macoStampMark{0%,50%{transform:scale(0);opacity:0}75%{transform:scale(1.15);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes macoCheer{0%{transform:translateY(6px) scale(.94)}60%{transform:translateY(-4px) scale(1.03)}100%{transform:none}}
+.mc-idle{animation:macoIdle 2.6s ease-in-out infinite;transform-origin:50% 100%}
+.mc-ears{transform-box:fill-box;transform-origin:50% 100%}
+.mc-ears-perk{animation:macoEars .24s ease-out both}
+.mc-hint{animation:macoHint .22s ease-out both;transform-box:fill-box;transform-origin:0 100%}
+.mc-stamp-paw{animation:macoStampPaw .3s ease-in both}
+.mc-stamp-mark{animation:macoStampMark .42s ease-out both;transform-box:fill-box;transform-origin:50% 50%}
+.mc-cheer{animation:macoCheer .25s ease-out both;transform-origin:50% 100%}
+@media (prefers-reduced-motion:reduce){.mc-idle,.mc-ears-perk,.mc-hint,.mc-stamp-paw,.mc-stamp-mark,.mc-cheer{animation:none}}
 </style>
 </helmet>
-<div style="width: 100%; height: 100%; min-width: 40px; min-height: 44px; display: flex; align-items: flex-end; justify-content: center">
-<svg viewBox="0 0 132 132" width="100%" height="100%" role="img" aria-label="{{ alt }}" style="display: block; overflow: visible">
-  <g class="{{ motionClass }}">
-    <ellipse cx="62" cy="126" rx="34" ry="4" fill="#111111" opacity="0.08"></ellipse>
+<div style="width: 100%; height: 100%; min-width: 36px; min-height: 36px; display: flex; align-items: flex-end; justify-content: center">
+<svg viewBox="0 0 140 140" width="100%" height="100%" role="img" aria-label="{{ alt }}" style="display: block; overflow: visible">
+  <g class="{{ bodyClass }}">
+    <ellipse cx="66" cy="134" rx="36" ry="4" fill="#000000" opacity="0.12"></ellipse>
     <sc-if value="{{ cheer }}" hint-placeholder-val="{{ false }}">
-      <path d="M14 22l3 6 6 3-6 3-3 6-3-6-6-3 6-3z" fill="#ff6b1a"></path>
-      <path d="M112 12l2 4 4 2-4 2-2 4-2-4-4-2 4-2z" fill="#ff6b1a"></path>
-      <circle cx="24" cy="52" r="2.5" fill="#6e4fe0"></circle>
-      <circle cx="120" cy="40" r="2.5" fill="#6e4fe0"></circle>
+      <path d="M12 30l3 6 6 3-6 3-3 6-3-6-6-3 6-3z" fill="#ff6b1a"></path>
+      <path d="M124 18l2 4 4 2-4 2-2 4-2-4-4-2 4-2z" fill="#ff6b1a"></path>
+      <circle cx="22" cy="62" r="2.5" fill="#a594ff"></circle>
+      <circle cx="128" cy="52" r="2.5" fill="#a594ff"></circle>
     </sc-if>
-    <!-- 왼팔 -->
-    <path d="{{ leftArm }}" fill="none" stroke="#111111" stroke-width="5" stroke-linecap="round"></path>
+    <!-- 꼬리 -->
+    <path d="M100 118Q130 116 124 88Q121 76 111 80" fill="none" stroke="#2b2d33" stroke-width="10" stroke-linecap="round"></path>
+    <path d="M100 118Q130 116 124 88Q121 76 111 80" fill="none" stroke="#f3e4d1" stroke-width="5.5" stroke-linecap="round"></path>
     <!-- 몸 -->
-    <path d="M62 18C90 18 106 38 106 66V98C106 114 94 124 78 124H46C30 124 18 114 18 98V66C18 38 34 18 62 18Z" fill="#fff3e8" stroke="#111111" stroke-width="3.5"></path>
-    <!-- 모자 -->
-    <path d="M38 30C46 14 78 14 86 30C76 25 48 25 38 30Z" fill="#111111"></path>
-    <circle cx="62" cy="15" r="4" fill="#111111"></circle>
-    <!-- 볼 -->
-    <circle cx="38" cy="70" r="6" fill="#ffc6a8"></circle>
-    <circle cx="86" cy="70" r="6" fill="#ffc6a8"></circle>
-    <!-- 눈 -->
-    <sc-if value="{{ eyesOpen }}" hint-placeholder-val="{{ true }}">
-      <ellipse cx="48" cy="58" rx="4" ry="5" fill="#111111"></ellipse>
-      <ellipse cx="76" cy="58" rx="4" ry="5" fill="#111111"></ellipse>
-      <circle cx="49.5" cy="56" r="1.3" fill="#ffffff"></circle>
-      <circle cx="77.5" cy="56" r="1.3" fill="#ffffff"></circle>
-    </sc-if>
-    <sc-if value="{{ calm }}" hint-placeholder-val="{{ false }}">
-      <path d="M43 59q5 3 10 0M71 59q5 3 10 0" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round"></path>
-    </sc-if>
-    <sc-if value="{{ cheer }}" hint-placeholder-val="{{ false }}">
-      <path d="M43 60q5-7 10 0M71 60q5-7 10 0" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round"></path>
-    </sc-if>
-    <!-- 입 -->
-    <sc-if value="{{ happy }}" hint-placeholder-val="{{ true }}">
-      <path d="M54 70q8 7 16 0" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round"></path>
-    </sc-if>
-    <sc-if value="{{ calm }}" hint-placeholder-val="{{ false }}">
-      <path d="M56 72q6 2 12 0" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round"></path>
-    </sc-if>
-    <sc-if value="{{ cheer }}" hint-placeholder-val="{{ false }}">
-      <path d="M52 68q10 14 20 0z" fill="#111111"></path>
-    </sc-if>
+    <path d="M66 62C92 62 102 80 102 100V112Q102 128 86 128H46Q30 128 30 112V100C30 80 40 62 66 62Z" fill="#f3e4d1" stroke="#2b2d33" stroke-width="3.5"></path>
     <!-- 앞치마 -->
-    <path d="M44 84Q62 76 80 84" fill="none" stroke="#111111" stroke-width="2.5"></path>
-    <path d="M36 84H88V114Q88 122 80 122H44Q36 122 36 114Z" fill="#111111"></path>
-    <path d="M54 93l3-5 3 4 3-4 3 4 3-4 3 5" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-    <rect x="49" y="101" width="26" height="11" rx="2" fill="none" stroke="#ffffff" stroke-width="2"></rect>
-    <!-- 오른팔 + 도구 -->
-    <path d="{{ rightArm }}" fill="none" stroke="#111111" stroke-width="5" stroke-linecap="round"></path>
-    <g transform="{{ toolTransform }}">
-      <sc-if value="{{ tool.memo }}" hint-placeholder-val="{{ true }}">
-        <rect x="-12" y="-16" width="24" height="30" rx="3" fill="#ffffff" stroke="#111111" stroke-width="2.5"></rect>
-        <rect x="-6" y="-19" width="12" height="5" rx="1.5" fill="#6e4fe0"></rect>
-        <path d="M-6 -6h12M-6 0h12M-6 6h7" stroke="#111111" stroke-width="2" stroke-linecap="round"></path>
-      </sc-if>
-      <sc-if value="{{ tool.pin }}" hint-placeholder-val="{{ false }}">
-        <path d="M0 16C0 16-14 3-14-6A14 14 0 0 1 14-6C14 3 0 16 0 16Z" fill="#ff6b1a" stroke="#111111" stroke-width="2.5"></path>
-        <circle cx="0" cy="-6" r="5" fill="#ffffff" stroke="#111111" stroke-width="2"></circle>
-      </sc-if>
-      <sc-if value="{{ tool.camera }}" hint-placeholder-val="{{ false }}">
-        <path d="M-17-8h8l3-5h12l3 5h8v20h-34Z" fill="#ffffff" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"></path>
-        <circle cx="0" cy="2" r="7" fill="#ff6b1a" stroke="#111111" stroke-width="2.5"></circle>
-      </sc-if>
-      <sc-if value="{{ tool.bubble }}" hint-placeholder-val="{{ false }}">
-        <path d="M-17-15h34v22h-18l-9 8v-8h-7Z" fill="#ffffff" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"></path>
-        <path d="M-10-7h20M-10-1h12" stroke="#ff6b1a" stroke-width="2.5" stroke-linecap="round"></path>
-      </sc-if>
-      <sc-if value="{{ tool.sign }}" hint-placeholder-val="{{ false }}">
-        <rect x="-18" y="-14" width="36" height="20" rx="3" fill="#ff6b1a" stroke="#111111" stroke-width="2.5"></rect>
-        <path d="M-10-4h20" stroke="#ffffff" stroke-width="3" stroke-linecap="round"></path>
-        <path d="M-10 6v10M10 6v10" stroke="#111111" stroke-width="2.5" stroke-linecap="round"></path>
-      </sc-if>
-      <sc-if value="{{ tool.megaphone }}" hint-placeholder-val="{{ false }}">
-        <path d="M-16-5v10h7l17 9v-28l-17 9Z" fill="#ff6b1a" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"></path>
-        <path d="M14-7q6 7 0 14" fill="none" stroke="#111111" stroke-width="2.5" stroke-linecap="round"></path>
-      </sc-if>
-      <sc-if value="{{ tool.target }}" hint-placeholder-val="{{ false }}">
-        <circle cx="0" cy="0" r="15" fill="#ffffff" stroke="#111111" stroke-width="2.5"></circle>
-        <circle cx="0" cy="0" r="9" fill="#ff6b1a" stroke="#111111" stroke-width="2"></circle>
-        <circle cx="0" cy="0" r="3" fill="#ffffff"></circle>
-      </sc-if>
-      <sc-if value="{{ tool.chart }}" hint-placeholder-val="{{ false }}">
-        <rect x="-17" y="-15" width="34" height="30" rx="3" fill="#ffffff" stroke="#111111" stroke-width="2.5"></rect>
-        <rect x="-11" y="2" width="5" height="8" fill="#d6d6d6"></rect>
-        <rect x="-3" y="-4" width="5" height="14" fill="#d6d6d6"></rect>
-        <rect x="5" y="-10" width="5" height="20" fill="#ff6b1a"></rect>
-      </sc-if>
+    <path d="M44 98H88V116Q88 122 82 122H50Q44 122 44 116Z" fill="#2b2d33"></path>
+    <path d="M48 98Q66 90 84 98" fill="none" stroke="#2b2d33" stroke-width="2.5"></path>
+    <path d="M56 108h20" stroke="#ff6b1a" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 3"></path>
+    <!-- 귀 -->
+    <g class="{{ earsClass }}">
+      <path d="M36 42Q30 16 40 12Q50 10 60 28Z" fill="#f3e4d1" stroke="#2b2d33" stroke-width="3.5" stroke-linejoin="round"></path>
+      <path d="M96 42Q102 16 92 12Q82 10 72 28Z" fill="#f3e4d1" stroke="#2b2d33" stroke-width="3.5" stroke-linejoin="round"></path>
+      <path d="M41 32Q38 20 43 18Q48 18 53 27Z" fill="#ffb9a3"></path>
+      <path d="M91 32Q94 20 89 18Q84 18 79 27Z" fill="#ffb9a3"></path>
     </g>
+    <!-- 머리 -->
+    <ellipse cx="66" cy="50" rx="36" ry="30" fill="#f3e4d1" stroke="#2b2d33" stroke-width="3.5"></ellipse>
+    <path d="M58 24v7M66 22v8M74 24v7" stroke="#8a7a68" stroke-width="3" stroke-linecap="round"></path>
+    <!-- 볼 -->
+    <circle cx="42" cy="60" r="5.5" fill="#ffb9a3"></circle>
+    <circle cx="90" cy="60" r="5.5" fill="#ffb9a3"></circle>
+    <!-- 눈 -->
+    <sc-if value="{{ eyesRound }}" hint-placeholder-val="{{ true }}">
+      <ellipse cx="53" cy="49" rx="4.2" ry="5.4" fill="#2b2d33"></ellipse>
+      <ellipse cx="79" cy="49" rx="4.2" ry="5.4" fill="#2b2d33"></ellipse>
+      <circle cx="54.6" cy="47" r="1.4" fill="#ffffff"></circle>
+      <circle cx="80.6" cy="47" r="1.4" fill="#ffffff"></circle>
+    </sc-if>
+    <sc-if value="{{ eyesHappy }}" hint-placeholder-val="{{ false }}">
+      <path d="M48 50q5-6 10 0M74 50q5-6 10 0" fill="none" stroke="#2b2d33" stroke-width="3" stroke-linecap="round"></path>
+    </sc-if>
+    <!-- 코·입·수염 -->
+    <path d="M63 56h6l-3 3.5z" fill="#ff8f7a" stroke="#ff8f7a" stroke-width="1.5" stroke-linejoin="round"></path>
+    <sc-if value="{{ mouthSmile }}" hint-placeholder-val="{{ true }}">
+      <path d="M60 61q3 4 6 0q3 4 6 0" fill="none" stroke="#2b2d33" stroke-width="2.4" stroke-linecap="round"></path>
+    </sc-if>
+    <sc-if value="{{ mouthOpen }}" hint-placeholder-val="{{ false }}">
+      <path d="M59 61q7 11 14 0z" fill="#2b2d33"></path>
+    </sc-if>
+    <sc-if value="{{ mouthO }}" hint-placeholder-val="{{ false }}">
+      <ellipse cx="66" cy="63.5" rx="2.6" ry="3" fill="#2b2d33"></ellipse>
+    </sc-if>
+    <path d="M30 54h12M30 61l12-1M102 54H90M102 61l-12-1" stroke="#2b2d33" stroke-width="1.8" stroke-linecap="round" opacity="0.7"></path>
+    <!-- 앞발 -->
+    <sc-if value="{{ pawsDown }}" hint-placeholder-val="{{ true }}">
+      <ellipse cx="52" cy="98" rx="8" ry="6" fill="#f3e4d1" stroke="#2b2d33" stroke-width="3"></ellipse>
+    </sc-if>
+    <sc-if value="{{ cheer }}" hint-placeholder-val="{{ false }}">
+      <path d="M34 84Q18 70 22 52" fill="none" stroke="#2b2d33" stroke-width="10" stroke-linecap="round"></path>
+      <path d="M34 84Q18 70 22 52" fill="none" stroke="#f3e4d1" stroke-width="5" stroke-linecap="round"></path>
+    </sc-if>
+    <!-- 오른발 + 메모지 / 도장 / 도구 -->
+    <sc-if value="{{ memoHold }}" hint-placeholder-val="{{ true }}">
+      <g transform="translate(104 98) rotate(10)">
+        <rect x="-11" y="-15" width="22" height="28" rx="3" fill="#ffffff" stroke="#2b2d33" stroke-width="2.5"></rect>
+        <rect x="-5" y="-18" width="10" height="5" rx="1.5" fill="#ff6b1a"></rect>
+        <path d="M-5-5h10M-5 0h10M-5 5h6" stroke="#2b2d33" stroke-width="2" stroke-linecap="round"></path>
+      </g>
+      <ellipse cx="92" cy="102" rx="8" ry="6" fill="#f3e4d1" stroke="#2b2d33" stroke-width="3"></ellipse>
+    </sc-if>
+    <sc-if value="{{ hint }}" hint-placeholder-val="{{ false }}">
+      <g class="mc-hint">
+        <path d="M94 92Q110 82 116 70" fill="none" stroke="#2b2d33" stroke-width="10" stroke-linecap="round"></path>
+        <path d="M94 92Q110 82 116 70" fill="none" stroke="#f3e4d1" stroke-width="5" stroke-linecap="round"></path>
+        <g transform="translate(122 56) rotate(-8)">
+          <rect x="-15" y="-19" width="30" height="36" rx="3" fill="#ffffff" stroke="#2b2d33" stroke-width="2.5"></rect>
+          <rect x="-6" y="-22" width="12" height="6" rx="1.5" fill="#ff6b1a"></rect>
+          <path d="M0-9v10" stroke="#ff6b1a" stroke-width="3.5" stroke-linecap="round"></path>
+          <circle cx="0" cy="8" r="2.2" fill="#ff6b1a"></circle>
+        </g>
+      </g>
+    </sc-if>
+    <sc-if value="{{ stamp }}" hint-placeholder-val="{{ false }}">
+      <g class="mc-stamp-mark">
+        <circle cx="112" cy="122" r="15" fill="#ff6b1a" opacity="0.18"></circle>
+        <circle cx="112" cy="122" r="12" fill="none" stroke="#ff6b1a" stroke-width="3"></circle>
+        <path d="m106 122 4 4 8-8" fill="none" stroke="#ff6b1a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </g>
+      <g class="mc-stamp-paw">
+        <path d="M94 94Q108 92 112 104" fill="none" stroke="#2b2d33" stroke-width="10" stroke-linecap="round"></path>
+        <path d="M94 94Q108 92 112 104" fill="none" stroke="#f3e4d1" stroke-width="5" stroke-linecap="round"></path>
+        <ellipse cx="112" cy="106" rx="8" ry="6" fill="#f3e4d1" stroke="#2b2d33" stroke-width="3"></ellipse>
+      </g>
+    </sc-if>
+    <sc-if value="{{ cheer }}" hint-placeholder-val="{{ false }}">
+      <path d="M98 84Q114 70 112 52" fill="none" stroke="#2b2d33" stroke-width="10" stroke-linecap="round"></path>
+      <path d="M98 84Q114 70 112 52" fill="none" stroke="#f3e4d1" stroke-width="5" stroke-linecap="round"></path>
+      <g transform="translate(114 34) rotate(-10)">
+        <sc-if value="{{ tool.memo }}" hint-placeholder-val="{{ true }}"><rect x="-12" y="-16" width="24" height="30" rx="3" fill="#ffffff" stroke="#2b2d33" stroke-width="2.5"></rect><path d="M-6-4h12M-6 2h12M-6 8h7" stroke="#2b2d33" stroke-width="2" stroke-linecap="round"></path></sc-if>
+        <sc-if value="{{ tool.pin }}" hint-placeholder-val="{{ false }}"><path d="M0 16C0 16-14 3-14-6A14 14 0 0 1 14-6C14 3 0 16 0 16Z" fill="#ff6b1a" stroke="#2b2d33" stroke-width="2.5"></path><circle cx="0" cy="-6" r="5" fill="#ffffff" stroke="#2b2d33" stroke-width="2"></circle></sc-if>
+        <sc-if value="{{ tool.camera }}" hint-placeholder-val="{{ false }}"><path d="M-17-8h8l3-5h12l3 5h8v20h-34Z" fill="#ffffff" stroke="#2b2d33" stroke-width="2.5" stroke-linejoin="round"></path><circle cx="0" cy="2" r="7" fill="#ff6b1a" stroke="#2b2d33" stroke-width="2.5"></circle></sc-if>
+        <sc-if value="{{ tool.bubble }}" hint-placeholder-val="{{ false }}"><path d="M-17-15h34v22h-18l-9 8v-8h-7Z" fill="#ffffff" stroke="#2b2d33" stroke-width="2.5" stroke-linejoin="round"></path><path d="M-10-7h20M-10-1h12" stroke="#ff6b1a" stroke-width="2.5" stroke-linecap="round"></path></sc-if>
+        <sc-if value="{{ tool.sign }}" hint-placeholder-val="{{ false }}"><rect x="-18" y="-14" width="36" height="20" rx="3" fill="#ff6b1a" stroke="#2b2d33" stroke-width="2.5"></rect><path d="M-10-4h20" stroke="#ffffff" stroke-width="3" stroke-linecap="round"></path><path d="M-10 6v10M10 6v10" stroke="#2b2d33" stroke-width="2.5" stroke-linecap="round"></path></sc-if>
+        <sc-if value="{{ tool.megaphone }}" hint-placeholder-val="{{ false }}"><path d="M-16-5v10h7l17 9v-28l-17 9Z" fill="#ff6b1a" stroke="#2b2d33" stroke-width="2.5" stroke-linejoin="round"></path><path d="M14-7q6 7 0 14" fill="none" stroke="#2b2d33" stroke-width="2.5" stroke-linecap="round"></path></sc-if>
+        <sc-if value="{{ tool.target }}" hint-placeholder-val="{{ false }}"><circle cx="0" cy="0" r="15" fill="#ffffff" stroke="#2b2d33" stroke-width="2.5"></circle><circle cx="0" cy="0" r="9" fill="#ff6b1a" stroke="#2b2d33" stroke-width="2"></circle><circle cx="0" cy="0" r="3" fill="#ffffff"></circle></sc-if>
+        <sc-if value="{{ tool.chart }}" hint-placeholder-val="{{ false }}"><rect x="-17" y="-15" width="34" height="30" rx="3" fill="#ffffff" stroke="#2b2d33" stroke-width="2.5"></rect><rect x="-11" y="2" width="5" height="8" fill="#d6d6d6"></rect><rect x="-3" y="-4" width="5" height="14" fill="#d6d6d6"></rect><rect x="5" y="-10" width="5" height="20" fill="#ff6b1a"></rect></sc-if>
+      </g>
+    </sc-if>
   </g>
 </svg>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"mood":{"editor":"enum","options":["happy","calm","cheer"],"default":"happy"},"tool":{"editor":"enum","options":["memo","pin","camera","bubble","sign","megaphone","target","chart"],"default":"memo"},"$preview":{"width":160,"height":160}}'>
+<script type="text/x-dc" data-dc-script data-props='{"mood":{"editor":"enum","options":["happy","perk","hint","stamp","cheer"],"default":"happy"},"tool":{"editor":"enum","options":["memo","pin","camera","bubble","sign","megaphone","target","chart"],"default":"memo"},"$preview":{"width":160,"height":160}}'>
 class Component extends DCLogic {
   renderVals() {
     var mood = this.props.mood || 'happy';
     var t = this.props.tool || 'memo';
-    var cheer = mood === 'cheer';
     var TOOLS = ['memo', 'pin', 'camera', 'bubble', 'sign', 'megaphone', 'target', 'chart'];
     var tool = {};
     TOOLS.forEach(function (k) { tool[k] = k === t; });
-    if (!TOOLS.some(function (k) { return k === t; })) tool.memo = true;
+    if (TOOLS.indexOf(t) < 0) tool.memo = true;
     var NAMES = { memo: '주문 메모지', pin: '지도 핀', camera: '카메라', bubble: '말풍선 메모지', sign: '작은 간판', megaphone: '확성기', target: '과녁', chart: '막대그래프' };
-    var FACE = { happy: '웃는', calm: '차분한', cheer: '신나게 축하하는' };
+    var ALT = {
+      happy: '앞치마를 입고 주문 메모지를 든 고양이 코치 마코',
+      perk: '정답에 귀를 쫑긋 세운 고양이 코치 마코',
+      hint: '메모지를 내밀며 힌트를 주는 고양이 코치 마코',
+      stamp: '앞발로 체크 도장을 찍는 고양이 코치 마코',
+      cheer: (NAMES[t] || NAMES.memo) + '를 들고 축하하는 고양이 코치 마코'
+    };
+    var cheer = mood === 'cheer';
     return {
-      cheer: cheer, calm: mood === 'calm', happy: mood === 'happy', eyesOpen: mood !== 'cheer' && mood !== 'calm',
-      tool: tool,
-      motionClass: cheer ? 'maco-coach-cheer' : 'maco-coach-idle',
-      leftArm: cheer ? 'M22 78Q8 62 12 44' : 'M22 86Q10 94 16 104',
-      rightArm: cheer ? 'M102 76Q116 58 112 40' : 'M102 86Q112 88 112 96',
-      toolTransform: cheer ? 'translate(112 26) rotate(-12)' : 'translate(114 98) rotate(8)',
-      alt: '앞치마를 입고 ' + (NAMES[t] || NAMES.memo) + '를 든 ' + (FACE[mood] || FACE.happy) + ' 가게 코치 마코'
+      cheer: cheer, hint: mood === 'hint', stamp: mood === 'stamp', tool: tool,
+      memoHold: mood === 'happy' || mood === 'perk',
+      pawsDown: !cheer,
+      eyesRound: mood === 'happy' || mood === 'hint' || mood === 'perk',
+      eyesHappy: cheer || mood === 'stamp',
+      mouthSmile: mood === 'happy' || mood === 'stamp',
+      mouthOpen: cheer || mood === 'perk',
+      mouthO: mood === 'hint',
+      bodyClass: cheer ? 'mc-cheer' : 'mc-idle',
+      earsClass: 'mc-ears' + (mood === 'perk' || cheer ? ' mc-ears-perk' : ''),
+      alt: ALT[mood] || ALT.happy
     };
   }
 }

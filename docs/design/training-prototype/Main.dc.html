@@ -15,135 +15,137 @@ body{margin:0}
 button,textarea{font:inherit;color:inherit}
 button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 button:disabled{cursor:not-allowed}
-a{color:#111111}a:hover{color:#4d4d4d}
-:focus-visible{outline:3px solid #6e4fe0;outline-offset:2px}
+a{color:#a594ff}a:hover{color:#c4b8ff}
+:focus-visible{outline:3px solid #a594ff;outline-offset:2px}
 .maco-scroll{scrollbar-width:none}
 .maco-scroll::-webkit-scrollbar{display:none}
 .maco-press{transition:transform .15s ease-out}
-.maco-press:active{transform:translateY(3px) scale(.98)}
-.maco-tag .maco-tag-face{transition:transform .15s ease-out}
-.maco-tag:active .maco-tag-face{transform:translateY(4px)}
+.maco-press:active{transform:translateY(2px) scale(.98)}
+.maco-tile .maco-face{transition:transform .15s ease-out}
+.maco-tile:active .maco-face{transform:translateY(4px)}
 @keyframes macoRise{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
-@keyframes macoUnfold{from{transform:scaleY(.92);opacity:0}to{transform:none;opacity:1}}
-@keyframes macoPop{0%{transform:scale(.8)}70%{transform:scale(1.08)}100%{transform:scale(1)}}
+@keyframes macoUnfold{from{transform:translateY(-6px) scaleY(.94);opacity:0}to{transform:none;opacity:1}}
+@keyframes macoPop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.12);opacity:1}100%{transform:scale(1)}}
+@keyframes macoRingIn{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
 @keyframes macoDraw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
-@keyframes macoCheck{from{stroke-dashoffset:30}to{stroke-dashoffset:0}}
+@keyframes macoTurnDone{from{fill:#ffffff}to{fill:#ff6b1a}}
 @keyframes macoFly{0%{transform:translate(0,0) scale(1);opacity:0}15%{opacity:1}100%{transform:translate(118px,-372px) scale(.55);opacity:.2}}
 @keyframes macoFade{from{opacity:0}to{opacity:1}}
 .maco-rise{animation:macoRise .2s ease-out}
-.maco-unfold{animation:macoUnfold .2s ease-out;transform-origin:50% 0}
-.maco-pop{animation:macoPop .25s ease-out .35s both}
-.maco-draw{animation:macoDraw .4s ease-out .2s both}
-.maco-check{stroke-dasharray:30;animation:macoCheck .35s ease-out .1s both}
+.maco-unfold{animation:macoUnfold .18s ease-out;transform-origin:50% 0}
+.maco-pop{animation:macoPop .25s ease-out .45s both;transform-box:fill-box;transform-origin:50% 50%}
+.maco-ring-in{animation:macoRingIn .22s ease-out .6s both;transform-box:fill-box;transform-origin:50% 50%}
+.maco-draw{animation:macoDraw .3s ease-out .4s both}
+.maco-turn{animation:macoTurnDone .25s ease-out .2s both}
 .maco-fly{animation:macoFly .65s cubic-bezier(.3,.7,.4,1) forwards}
 .maco-fade{animation:macoFade .2s ease-out}
 .maco-ring{transition:stroke-dasharray .4s ease-out}
 .maco-bar{transition:width .4s ease-out}
-@media (prefers-reduced-motion:reduce){.maco-rise,.maco-unfold,.maco-pop,.maco-draw,.maco-check,.maco-fly,.maco-fade{animation:none}.maco-ring,.maco-bar,.maco-press,.maco-tag .maco-tag-face{transition:none}.maco-fly{display:none}}
+@media (prefers-reduced-motion:reduce){.maco-rise,.maco-unfold,.maco-pop,.maco-ring-in,.maco-draw,.maco-turn,.maco-fly,.maco-fade{animation:none}.maco-ring,.maco-bar,.maco-press,.maco-tile .maco-face{transition:none}.maco-fly{display:none}}
 </style>
 </helmet>
-<div style="width: 390px; height: 844px; position: relative; overflow: hidden; display: flex; flex-direction: column; background: #ffffff; color: #111111; font-family: Pretendard, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; letter-spacing: -0.01em">
+<div style="{{ v.rootStyle }}">
 <div style="flex: 1; min-height: 0; position: relative">
 
 <!-- ───────── S6 트레이닝 로드맵 ───────── -->
 <sc-if value="{{ v.isRoadmap }}" hint-placeholder-val="{{ true }}">
 <div style="display: flex; flex-direction: column; height: 100%; position: relative">
-  <header style="flex: none; padding: 24px 16px 10px 14px; border-bottom: 1px solid #ebebeb; display: flex; align-items: center; gap: 4px; background: #ffffff; z-index: 3">
-    <button type="button" class="maco-press" onClick="{{ v.top.course }}" style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px 0 10px; border: 1px solid #ebebeb; border-radius: 12px; background: #ffffff; font-size: 14px; font-weight: 800">
+  <header style="flex: none; padding: 24px 16px 10px 14px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 4px; background: var(--bar); z-index: 3">
+    <button type="button" class="maco-press" onClick="{{ v.top.course }}" style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px 0 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--soft); color: var(--text); font-size: 14px; font-weight: 800">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.2"></circle><circle cx="18" cy="18" r="2.2"></circle><path d="M8.2 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.8"></path></svg>전체 과정
     </button>
     <span style="flex: 1"></span>
-    <button type="button" class="maco-press" onClick="{{ v.top.streak }}" aria-label="{{ v.top.streakLabel }}" style="display: inline-flex; align-items: center; gap: 3px; height: 44px; min-width: 44px; padding: 0 8px; border: 0; border-radius: 12px; background: transparent; font-size: 15px; font-weight: 800">
-      <svg viewBox="0 0 24 24" width="21" height="21" fill="{{ v.top.flameColor }}" aria-hidden="true"><path d="M12.4 2.2c.7 3-.5 4.8-2 6.4C8.9 10.2 7 12 7 15a5 5 0 0 0 10 0c0-2-.8-3.6-1.9-4.9-.3 1.3-1.1 2.3-2.1 2.8.5-4-.5-7.6-.6-10.7Z"></path></svg>{{ v.top.streakCount }}
+    <button type="button" role="switch" onClick="{{ v.top.toggleTheme }}" aria-checked="{{ v.top.isDark }}" aria-label="다크 모드" style="height: 44px; padding: 0 6px; margin-right: 2px; border: 0; border-radius: 12px; background: transparent; display: inline-flex; align-items: center">
+      <span style="{{ v.top.trackStyle }}">
+        <span style="{{ v.top.knobStyle }}">
+          <sc-if value="{{ v.top.isDark }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="13" height="13" fill="#1d1f23" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"></path></svg></sc-if>
+          <sc-if value="{{ v.top.isLight }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#1d1f23" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"></path></svg></sc-if>
+        </span>
+      </span>
     </button>
-    <button type="button" class="maco-press" onClick="{{ v.top.xp }}" aria-label="{{ v.top.xpLabel }}" style="display: inline-flex; align-items: center; gap: 4px; height: 44px; min-width: 44px; padding: 0 8px; border: 0; border-radius: 12px; background: transparent; font-size: 15px; font-weight: 800">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="#ff6b1a" aria-hidden="true"><path d="M13.5 2 4.8 13.1c-.3.4 0 .9.4.9H11l-1.3 7.4c-.1.5.6.8.9.4l8.6-11.1c.3-.4 0-.9-.4-.9H13l1.4-7.4c.1-.5-.6-.8-.9-.4Z"></path></svg>{{ v.top.xpShown }} XP
+    <button type="button" class="maco-press" onClick="{{ v.top.streak }}" aria-label="{{ v.top.streakLabel }}" style="display: inline-flex; align-items: center; gap: 3px; height: 44px; min-width: 44px; padding: 0 8px; border: 0; border-radius: 12px; background: transparent; color: var(--text); font-size: 15px; font-weight: 800">
+      <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" style="{{ v.top.flameStyle }}"><path d="M12.4 2.2c.7 3-.5 4.8-2 6.4C8.9 10.2 7 12 7 15a5 5 0 0 0 10 0c0-2-.8-3.6-1.9-4.9-.3 1.3-1.1 2.3-2.1 2.8.5-4-.5-7.6-.6-10.7Z"></path></svg>{{ v.top.streakCount }}
+    </button>
+    <button type="button" class="maco-press" onClick="{{ v.top.xp }}" aria-label="{{ v.top.xpLabel }}" style="display: inline-flex; align-items: center; gap: 4px; height: 44px; min-width: 44px; padding: 0 8px; border: 0; border-radius: 12px; background: transparent; color: var(--text); font-size: 15px; font-weight: 800">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="fill: var(--done)"><path d="M13.5 2 4.8 13.1c-.3.4 0 .9.4.9H11l-1.3 7.4c-.1.5.6.8.9.4l8.6-11.1c.3-.4 0-.9-.4-.9H13l1.4-7.4c.1-.5-.6-.8-.9-.4Z"></path></svg>{{ v.top.xpShown }} XP
     </button>
     <button type="button" class="maco-press" onClick="{{ v.top.goal }}" aria-label="{{ v.top.goalLabel }}" style="width: 44px; height: 44px; border: 0; border-radius: 12px; background: transparent; display: inline-flex; align-items: center; justify-content: center; padding: 0">
-      <svg viewBox="0 0 34 34" width="34" height="34" aria-hidden="true" style="transform: rotate(-90deg)"><circle cx="17" cy="17" r="13" fill="none" stroke="#ebebeb" stroke-width="4.5"></circle><circle class="maco-ring" cx="17" cy="17" r="13" fill="none" stroke="#ff6b1a" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="{{ v.top.ringDash }}"></circle></svg>
+      <svg viewBox="0 0 34 34" width="34" height="34" aria-hidden="true" style="transform: rotate(-90deg)"><circle cx="17" cy="17" r="13" fill="none" stroke-width="4.5" style="stroke: var(--track)"></circle><circle class="maco-ring" cx="17" cy="17" r="13" fill="none" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="{{ v.top.ringDash }}" style="stroke: var(--done)"></circle></svg>
     </button>
   </header>
 
-  <div id="roadmap-scroll" class="maco-scroll" style="flex: 1; overflow-y: auto; padding: 0 20px 36px; position: relative">
+  <div id="roadmap-scroll" class="maco-scroll" style="flex: 1; overflow-y: auto; overflow-anchor: none; padding: 0 20px 40px; position: relative; background: var(--bg)">
     <sc-for list="{{ v.sections }}" as="sec" hint-placeholder-count="2">
-      <section id="{{ sec.anchor }}" aria-label="{{ sec.aria }}" style="padding-top: 20px">
+      <section id="{{ sec.anchor }}" data-unit-key="{{ sec.firstKey }}" aria-label="{{ sec.aria }}" style="padding-top: 22px">
         <div style="{{ sec.headStyle }}">
-          <div style="display: flex; align-items: center; gap: 8px">
+          <div style="display: flex; align-items: center; gap: 10px">
             <span style="{{ sec.badgeStyle }}">{{ sec.no }}</span>
-            <p style="margin: 0; flex: 1; font-size: 12px; font-weight: 800; color: #4d4d4d">섹션 {{ sec.no }} · {{ sec.progressText }}</p>
-            <sc-if value="{{ sec.isDone }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#ff6b1a" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-label="섹션 완료"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg></sc-if>
-            <sc-if value="{{ sec.isLocked }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="15" height="15" fill="#767676" aria-label="잠김"><path d="M7 10V8a5 5 0 0 1 10 0v2h.5A1.5 1.5 0 0 1 19 11.5v8A1.5 1.5 0 0 1 17.5 21h-11A1.5 1.5 0 0 1 5 19.5v-8A1.5 1.5 0 0 1 6.5 10H7Zm2 0h6V8a3 3 0 0 0-6 0v2Z"></path></svg></sc-if>
+            <span style="flex: 1; min-width: 0">
+              <span style="display: block; font-size: 12px; font-weight: 800; color: var(--sub)">섹션 {{ sec.no }} · {{ sec.progressText }}</span>
+              <span style="display: block; margin-top: 1px; font-size: 17px; line-height: 1.35; font-weight: 800; color: var(--text)">{{ sec.title }}</span>
+            </span>
+            <sc-if value="{{ sec.isDone }}" hint-placeholder-val="{{ false }}"><span style="flex: none; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--done)" role="img" aria-label="섹션 완료"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="stroke: var(--on-done)"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg></span></sc-if>
+            <sc-if value="{{ sec.isLocked }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="16" height="16" role="img" aria-label="잠긴 섹션" style="flex: none; fill: var(--muted)"><path d="M7 10V8a5 5 0 0 1 10 0v2h.5A1.5 1.5 0 0 1 19 11.5v8A1.5 1.5 0 0 1 17.5 21h-11A1.5 1.5 0 0 1 5 19.5v-8A1.5 1.5 0 0 1 6.5 10H7Zm2 0h6V8a3 3 0 0 0-6 0v2Z"></path></svg></sc-if>
           </div>
-          <h2 style="margin: 6px 0 0; font-size: 18px; line-height: 1.35; font-weight: 800">{{ sec.title }}</h2>
-          <p style="margin: 3px 0 0; font-size: 14px; line-height: 1.5; color: #4d4d4d">{{ sec.goal }}</p>
-          <div style="margin-top: 10px; height: 6px; border-radius: 99px; background: #f5f5f5; overflow: hidden"><div class="maco-bar" style="{{ sec.fillStyle }}"></div></div>
-          <sc-if value="{{ sec.isLocked }}" hint-placeholder-val="{{ false }}"><p style="margin: 8px 0 0; font-size: 12px; color: #4d4d4d">{{ sec.lockText }}</p></sc-if>
+          <p style="margin: 8px 0 0; font-size: 13px; line-height: 1.5; color: var(--sub)">{{ sec.goal }}</p>
+          <div style="margin-top: 10px; height: 6px; border-radius: 99px; background: var(--track); overflow: hidden"><div class="maco-bar" style="{{ sec.fillStyle }}"></div></div>
         </div>
-        <ol style="list-style: none; margin: 0; padding: 0">
+        <ol style="list-style: none; margin: 0; padding: 6px 0 0">
           <sc-for list="{{ sec.rows }}" as="row" hint-placeholder-count="5">
             <li id="{{ row.anchor }}">
-              <div style="position: relative; height: 150px">
+              <div style="position: relative; height: 104px">
                 <sc-if value="{{ row.hasConn }}" hint-placeholder-val="{{ true }}">
-                  <svg width="350" height="150" aria-hidden="true" style="position: absolute; left: 0; top: -54px; z-index: 0; overflow: visible"><line x1="{{ row.x1 }}" y1="0" x2="{{ row.x2 }}" y2="150" stroke="#e2e2e2" stroke-width="3" stroke-linecap="round" stroke-dasharray="{{ row.baseDash }}"></line><sc-if value="{{ row.connOn }}" hint-placeholder-val="{{ false }}"><line class="{{ row.connClass }}" x1="{{ row.x1 }}" y1="0" x2="{{ row.x2 }}" y2="150" stroke="#ff6b1a" stroke-width="3" stroke-linecap="round" stroke-dasharray="{{ row.connLen }}" style="{{ row.connVar }}"></line></sc-if></svg>
+                  <svg width="350" height="104" aria-hidden="true" style="position: absolute; left: 0; top: -52px; z-index: 0; overflow: visible"><line x1="{{ row.x1 }}" y1="0" x2="{{ row.x2 }}" y2="104" stroke-width="3" stroke-linecap="round" stroke-dasharray="{{ row.baseDash }}" style="stroke: var(--path)"></line><sc-if value="{{ row.connOn }}" hint-placeholder-val="{{ false }}"><line class="{{ row.connClass }}" x1="{{ row.x1 }}" y1="0" x2="{{ row.x2 }}" y2="104" stroke-width="3" stroke-linecap="round" stroke-dasharray="{{ row.connLen }}" style="{{ row.connStyle }}"></line></sc-if></svg>
                 </sc-if>
-                <div style="{{ row.chipWrap }}"><span style="{{ row.chipStyle }}">유닛 {{ row.no }} · {{ row.unit }}</span></div>
-                <div style="{{ row.tagWrap }}">
-                  <button type="button" class="maco-tag" onClick="{{ row.tap }}" aria-expanded="{{ row.expanded }}" aria-label="{{ row.aria }}" style="{{ row.tagBtn }}">
-                    <span class="{{ row.faceClass }}" style="position: relative; display: block; width: 100%; height: 100%">
+                <div style="{{ row.tileWrap }}">
+                  <button type="button" id="{{ row.tileId }}" class="maco-tile" onClick="{{ row.tap }}" aria-expanded="{{ row.expanded }}" aria-label="{{ row.aria }}" style="width: 100%; height: 100%; padding: 0; border: 0; background: transparent; display: block">
+                    <span class="maco-face" style="position: relative; display: block; width: 100%; height: 100%">
                       <svg viewBox="0 0 64 76" width="100%" height="100%" aria-hidden="true" style="position: absolute; inset: 0; overflow: visible">
-                        <path d="M10 20L32 3L54 20Q58 23 58 28V64Q58 71 51 71H13Q6 71 6 64V28Q6 23 10 20Z" transform="translate(0 4)" fill="{{ row.shadow }}"></path>
-                        <path d="M10 20L32 3L54 20Q58 23 58 28V64Q58 71 51 71H13Q6 71 6 64V28Q6 23 10 20Z" fill="{{ row.fill }}" stroke="{{ row.stroke }}" stroke-width="2"></path>
-                        <circle cx="32" cy="16" r="4.5" fill="#ffffff" stroke="{{ row.stroke }}" stroke-width="2"></circle>
+                        <sc-if value="{{ row.isOpenNow }}" hint-placeholder-val="{{ false }}">
+                          <path class="{{ row.ringClass }}" d="M10 20L32 3L54 20Q58 23 58 28V64Q58 71 51 71H13Q6 71 6 64V28Q6 23 10 20Z" transform="translate(32 38) scale(1.24) translate(-32 -38)" fill="none" stroke-width="2.2" style="stroke: var(--accent)"></path>
+                        </sc-if>
+                        <path d="M10 20L32 3L54 20Q58 23 58 28V64Q58 71 51 71H13Q6 71 6 64V28Q6 23 10 20Z" transform="translate(0 4)" style="{{ row.shadowStyle }}"></path>
+                        <path class="{{ row.fillClass }}" d="M10 20L32 3L54 20Q58 23 58 28V64Q58 71 51 71H13Q6 71 6 64V28Q6 23 10 20Z" stroke-width="1.6" style="{{ row.faceStyle }}"></path>
+                        <circle cx="32" cy="15" r="4" stroke-width="1.6" style="{{ row.holeStyle }}"></circle>
                       </svg>
-                      <span style="{{ row.iconBox }}">
-                        <sc-if value="{{ row.icon.s1 }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.7-6.5-11a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.4"></circle></svg></sc-if>
-                        <sc-if value="{{ row.icon.s2 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4Z"></path><circle cx="12" cy="13" r="3.5"></circle></svg></sc-if>
-                        <sc-if value="{{ row.icon.s3 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H10l-5 4v-4H4Z"></path><path d="m12 7.6 1 2 2.1.3-1.5 1.5.4 2.1-2-1-1.9 1 .4-2.1-1.5-1.5 2.1-.3Z"></path></svg></sc-if>
-                        <sc-if value="{{ row.icon.s4 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="10" rx="2"></rect><path d="M8 15v5M16 15v5M8 10h8"></path></svg></sc-if>
-                        <sc-if value="{{ row.icon.s5 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10v4h3l7 4V6L7 10H4Z"></path><path d="M18 9a4 4 0 0 1 0 6"></path></svg></sc-if>
-                        <sc-if value="{{ row.icon.s6 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1" fill="currentColor"></circle></svg></sc-if>
-                        <sc-if value="{{ row.icon.s7 }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"></path><rect x="6" y="11" width="3" height="7"></rect><rect x="11" y="7" width="3" height="11"></rect><rect x="16" y="13" width="3" height="5"></rect></svg></sc-if>
+                      <span style="position: absolute; left: 0; right: 0; top: 24px; bottom: 6px; display: flex; align-items: center; justify-content: center">
+                        <sc-if value="{{ row.isDone }}" hint-placeholder-val="{{ false }}"><svg class="{{ row.checkClass }}" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="stroke: var(--on-done)"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg></sc-if>
+                        <sc-if value="{{ row.isOpenNow }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" style="fill: var(--accent-strong)"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"></path></svg></sc-if>
+                        <sc-if value="{{ row.isLocked }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" style="fill: var(--lock)"><path d="M7 10V8a5 5 0 0 1 10 0v2h.5A1.5 1.5 0 0 1 19 11.5v8A1.5 1.5 0 0 1 17.5 21h-11A1.5 1.5 0 0 1 5 19.5v-8A1.5 1.5 0 0 1 6.5 10H7Zm2 0h6V8a3 3 0 0 0-6 0v2Z"></path></svg></sc-if>
                       </span>
-                      <sc-if value="{{ row.isDone }}" hint-placeholder-val="{{ false }}">
-                        <span aria-hidden="true" style="position: absolute; top: 6px; right: -6px; width: 24px; height: 24px; border-radius: 50%; background: #ff6b1a; border: 2px solid #ffffff; color: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path class="{{ row.checkClass }}" d="m5 12.5 4.5 4.5L19 7.5"></path></svg></span>
-                      </sc-if>
-                      <sc-if value="{{ row.isLocked }}" hint-placeholder-val="{{ false }}">
-                        <span aria-hidden="true" style="position: absolute; bottom: -2px; right: -6px; width: 24px; height: 24px; border-radius: 50%; background: #767676; border: 2px solid #ffffff; color: #ffffff; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h.5A1.5 1.5 0 0 1 19 11.5v8A1.5 1.5 0 0 1 17.5 21h-11A1.5 1.5 0 0 1 5 19.5v-8A1.5 1.5 0 0 1 6.5 10H7Zm2 0h6V8a3 3 0 0 0-6 0v2Z"></path></svg></span>
-                      </sc-if>
                     </span>
                   </button>
                 </div>
-                <div style="{{ row.labelStyle }}">
-                  <sc-if value="{{ row.isCurrent }}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 99px; background: #6e4fe0; color: #ffffff; font-size: 12px; font-weight: 800">지금 할 레슨</span></sc-if>
-                  <span style="{{ row.titleStyle }}">{{ row.lesson }}</span>
-                  <span style="{{ row.stateStyle }}">{{ row.stateText }}</span>
-                </div>
+                <sc-if value="{{ row.showCat }}" hint-placeholder-val="{{ false }}">
+                  <span class="maco-fade" aria-hidden="true" style="{{ row.catStyle }}"><dc-import name="Coach" mood="happy" tool="memo" hint-size="52px,52px"></dc-import></span>
+                </sc-if>
               </div>
 
-              <sc-if value="{{ row.showCoach }}" hint-placeholder-val="{{ false }}">
-                <div class="maco-fade" style="display: flex; align-items: flex-end; gap: 6px; margin: -8px 0 14px">
-                  <span style="width: 60px; height: 60px; flex: none"><dc-import name="Coach" mood="happy" tool="memo" hint-size="60px,60px"></dc-import></span>
-                  <p style="margin: 0 0 8px; position: relative; padding: 10px 12px; border-radius: 14px; border: 1px solid #ebebeb; background: #ffffff; font-size: 14px; line-height: 1.45; font-weight: 600">{{ row.coachLine }}</p>
-                </div>
-              </sc-if>
-
-              <sc-if value="{{ row.showCard }}" hint-placeholder-val="{{ false }}">
-                <div class="maco-unfold" style="position: relative; z-index: 2; margin: 0 0 18px; padding: 16px; border-radius: 18px; background: #ffffff; border: 1px solid #ebebeb; box-shadow: 0 10px 28px rgba(17,17,17,0.08)">
+              <sc-if value="{{ row.expanded }}" hint-placeholder-val="{{ false }}">
+                <div class="maco-unfold" style="position: relative; z-index: 2; margin: 2px 0 16px; padding: 16px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); box-shadow: var(--card-shadow)">
                   <span aria-hidden="true" style="{{ row.caretStyle }}"></span>
-                  <p style="margin: 0; font-size: 12px; font-weight: 800; color: #4d4d4d">{{ row.card.meta }}</p>
-                  <h3 style="margin: 4px 0 0; font-size: 18px; line-height: 1.35; font-weight: 800">{{ row.lesson }}</h3>
-                  <p style="margin: 4px 0 0; font-size: 14px; line-height: 1.55; color: #4d4d4d">{{ row.card.desc }}</p>
-                  <div style="margin-top: 12px; display: flex; align-items: center; gap: 10px">
-                    <span style="flex: none; display: inline-flex; align-items: center; gap: 5px; height: 48px; padding: 0 12px; border-radius: 12px; background: #f5f5f5; font-size: 14px; font-weight: 700">문제 3개</span>
-                    <button type="button" class="maco-press" onClick="{{ row.start }}" style="{{ row.card.btnStyle }}">{{ row.card.btnLabel }}</button>
-                  </div>
-                </div>
-              </sc-if>
-              <sc-if value="{{ row.showLock }}" hint-placeholder-val="{{ false }}">
-                <div class="maco-unfold" role="status" style="position: relative; z-index: 2; margin: 0 0 18px; padding: 14px 16px; border-radius: 16px; background: #f5f5f5; display: flex; gap: 10px; align-items: flex-start">
-                  <span aria-hidden="true" style="{{ row.caretSoft }}"></span>
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="#4d4d4d" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="M7 10V8a5 5 0 0 1 10 0v2h.5A1.5 1.5 0 0 1 19 11.5v8A1.5 1.5 0 0 1 17.5 21h-11A1.5 1.5 0 0 1 5 19.5v-8A1.5 1.5 0 0 1 6.5 10H7Zm2 0h6V8a3 3 0 0 0-6 0v2Z"></path></svg>
-                  <p style="margin: 0; font-size: 14px; line-height: 1.5">{{ row.lockText }}<br><span style="color: #4d4d4d">유닛을 차례로 마치면 자동으로 열려요.</span></p>
+                  <p style="margin: 0; font-size: 12px; font-weight: 800; color: var(--sub)">{{ row.meta }}</p>
+                  <h3 style="margin: 3px 0 0; font-size: 18px; line-height: 1.35; font-weight: 800; color: var(--text)">{{ row.unit }}</h3>
+                  <p style="margin: 4px 0 0; font-size: 14px; line-height: 1.55; color: var(--sub)">{{ row.learn }}</p>
+                  <sc-if value="{{ row.isRecommended }}" hint-placeholder-val="{{ false }}">
+                    <div style="margin-top: 12px; display: flex; align-items: flex-end; gap: 6px">
+                      <span style="width: 54px; height: 54px; flex: none"><dc-import name="Coach" mood="happy" tool="memo" hint-size="54px,54px"></dc-import></span>
+                      <p style="margin: 0 0 6px; padding: 9px 12px; border-radius: 14px; background: var(--soft); font-size: 14px; line-height: 1.45; font-weight: 600; color: var(--text)">{{ row.coachLine }}</p>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ row.isOpenNow }}" hint-placeholder-val="{{ true }}">
+                    <button type="button" class="maco-press" onClick="{{ row.start }}" style="margin-top: 14px; width: 100%; height: 50px; border: 0; border-radius: 14px; background: var(--accent); color: var(--on-accent); font-size: 16px; font-weight: 800">레슨 시작 · 문제 3개</button>
+                  </sc-if>
+                  <sc-if value="{{ row.isDone }}" hint-placeholder-val="{{ false }}">
+                    <p style="margin: 10px 0 0; font-size: 13px; font-weight: 700; color: var(--sub)">{{ row.doneText }}</p>
+                    <button type="button" class="maco-press" onClick="{{ row.start }}" style="margin-top: 10px; width: 100%; height: 50px; border-radius: 14px; border: 2px solid var(--text); background: transparent; color: var(--text); font-size: 16px; font-weight: 800">다시 연습</button>
+                  </sc-if>
+                  <sc-if value="{{ row.isLocked }}" hint-placeholder-val="{{ false }}">
+                    <div role="status" style="margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: var(--soft); display: flex; gap: 8px; align-items: flex-start">
+                      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="flex: none; margin-top: 1px; fill: var(--sub)"><path d="M7 10V8a5 5 0 0 1 10 0v2h.5A1.5 1.5 0 0 1 19 11.5v8A1.5 1.5 0 0 1 17.5 21h-11A1.5 1.5 0 0 1 5 19.5v-8A1.5 1.5 0 0 1 6.5 10H7Zm2 0h6V8a3 3 0 0 0-6 0v2Z"></path></svg>
+                      <p style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--text)">먼저 <b>‘{{ row.prevUnit }}’</b>를 완료해 주세요.</p>
+                    </div>
+                  </sc-if>
                 </div>
               </sc-if>
             </li>
@@ -151,11 +153,11 @@ a{color:#111111}a:hover{color:#4d4d4d}
         </ol>
       </section>
     </sc-for>
-    <p style="margin: 28px 0 0; text-align: center; font-size: 13px; color: #4d4d4d">7개 섹션 · 35개 유닛</p>
+    <p style="margin: 28px 0 0; text-align: center; font-size: 13px; color: var(--muted)">7개 섹션 · 35개 유닛</p>
   </div>
 
   <sc-if value="{{ v.fly.show }}" hint-placeholder-val="{{ false }}">
-    <span class="maco-fly" aria-hidden="true" style="position: absolute; left: 160px; top: 430px; z-index: 6; padding: 8px 14px; border-radius: 99px; background: #ff6b1a; color: #ffffff; font-size: 17px; font-weight: 800; pointer-events: none">+{{ v.fly.xp }} XP</span>
+    <span class="maco-fly" aria-hidden="true" style="position: absolute; left: 160px; top: 430px; z-index: 6; padding: 8px 14px; border-radius: 99px; background: var(--done); color: var(--on-done); font-size: 17px; font-weight: 800; pointer-events: none">+{{ v.fly.xp }} XP</span>
   </sc-if>
 </div>
 </sc-if>
@@ -163,50 +165,54 @@ a{color:#111111}a:hover{color:#4d4d4d}
 <!-- ───────── 전체 과정 ───────── -->
 <sc-if value="{{ v.isCourse }}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; flex-direction: column; height: 100%">
-  <header style="flex: none; padding: 24px 12px 10px; display: flex; align-items: center; border-bottom: 1px solid #ebebeb">
-    <button type="button" onClick="{{ v.back }}" aria-label="로드맵으로 돌아가기" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg></button>
+  <header style="flex: none; padding: 24px 12px 10px; display: flex; align-items: center; border-bottom: 1px solid var(--line); background: var(--bar)">
+    <button type="button" onClick="{{ v.back }}" aria-label="로드맵으로 돌아가기" style="width: 44px; height: 44px; border: 0; background: transparent; color: var(--text); display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg></button>
     <h1 style="flex: 1; margin: 0; text-align: center; font-size: 18px; font-weight: 800">전체 과정</h1>
     <span style="width: 44px"></span>
   </header>
   <div class="maco-scroll" style="flex: 1; overflow-y: auto; padding: 18px 20px 32px; display: flex; flex-direction: column; gap: 12px">
-    <p style="margin: 0 0 4px; font-size: 14px; line-height: 1.55; color: #4d4d4d">유닛 {{ v.course.doneCount }}/35 완료 · 섹션을 누르면 유닛이 펼쳐져요.</p>
+    <p style="margin: 0 0 4px; font-size: 14px; line-height: 1.55; color: var(--sub)">유닛 {{ v.course.doneCount }}/35 완료 · 섹션을 누르면 유닛이 펼쳐져요.</p>
     <sc-for list="{{ v.course.sections }}" as="cs" hint-placeholder-count="7">
       <section aria-label="{{ cs.aria }}" style="{{ cs.cardStyle }}">
-        <button type="button" onClick="{{ cs.toggle }}" aria-expanded="{{ cs.open }}" style="width: 100%; border: 0; background: transparent; padding: 14px 14px 14px 16px; display: flex; align-items: flex-start; gap: 12px; text-align: left">
+        <button type="button" onClick="{{ cs.toggle }}" aria-expanded="{{ cs.open }}" style="width: 100%; border: 0; background: transparent; color: var(--text); padding: 14px 14px 14px 16px; display: flex; align-items: flex-start; gap: 12px; text-align: left">
           <span style="{{ cs.badgeStyle }}">{{ cs.no }}</span>
           <span style="flex: 1; min-width: 0">
             <span style="display: block; font-size: 16px; line-height: 1.35; font-weight: 800">{{ cs.title }}</span>
-            <span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.45; color: #4d4d4d">{{ cs.goal }}</span>
+            <span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.45; color: var(--sub)">{{ cs.goal }}</span>
             <span style="display: flex; align-items: center; gap: 8px; margin-top: 8px">
-              <span style="flex: 1; height: 6px; border-radius: 99px; background: #f5f5f5; overflow: hidden"><span class="maco-bar" style="{{ cs.fillStyle }}"></span></span>
+              <span style="flex: 1; height: 6px; border-radius: 99px; background: var(--track); overflow: hidden"><span class="maco-bar" style="{{ cs.fillStyle }}"></span></span>
               <span style="font-size: 12px; font-weight: 800">{{ cs.progressText }}</span>
             </span>
           </span>
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ cs.chevron }}"><path d="m6 9 6 6 6-6"></path></svg>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ cs.chevron }}"><path d="m6 9 6 6 6-6"></path></svg>
         </button>
         <sc-if value="{{ cs.open }}" hint-placeholder-val="{{ false }}">
           <ol class="maco-unfold" style="list-style: none; margin: 0; padding: 0 14px 14px; display: flex; flex-direction: column; gap: 8px">
             <sc-for list="{{ cs.units }}" as="cu" hint-placeholder-count="5">
               <li style="{{ cu.rowStyle }}">
-                <span style="{{ cu.dotStyle }}">{{ cu.mark }}</span>
-                <span style="flex: 1; min-width: 0">
-                  <span style="display: block; font-size: 14px; line-height: 1.4; font-weight: 800">{{ cu.unit }}</span>
-                  <span style="display: block; font-size: 12px; line-height: 1.4; color: #4d4d4d">{{ cu.sub }}</span>
+                <span style="{{ cu.dotStyle }}" role="img" aria-label="{{ cu.stateLabel }}">
+                  <sc-if value="{{ cu.isDone }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="stroke: var(--on-done)"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg></sc-if>
+                  <sc-if value="{{ cu.isCurrent }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true" style="fill: var(--accent-strong)"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"></path></svg></sc-if>
+                  <sc-if value="{{ cu.isLocked }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" style="fill: var(--lock)"><path d="M7 10V8a5 5 0 0 1 10 0v2h.5A1.5 1.5 0 0 1 19 11.5v8A1.5 1.5 0 0 1 17.5 21h-11A1.5 1.5 0 0 1 5 19.5v-8A1.5 1.5 0 0 1 6.5 10H7Zm2 0h6V8a3 3 0 0 0-6 0v2Z"></path></svg></sc-if>
                 </span>
-                <sc-if value="{{ cu.isCurrent }}" hint-placeholder-val="{{ false }}"><button type="button" class="maco-press" onClick="{{ cu.go }}" style="flex: none; height: 40px; padding: 0 12px; border: 0; border-radius: 10px; background: #6e4fe0; color: #ffffff; font-size: 13px; font-weight: 800">이어서 하기</button></sc-if>
-                <sc-if value="{{ cu.isDone }}" hint-placeholder-val="{{ false }}"><button type="button" class="maco-press" onClick="{{ cu.go }}" style="flex: none; height: 40px; padding: 0 10px; border: 1px solid #d6d6d6; border-radius: 10px; background: #ffffff; font-size: 13px; font-weight: 700">다시 하기</button></sc-if>
+                <span style="flex: 1; min-width: 0">
+                  <span style="display: block; font-size: 14px; line-height: 1.4; font-weight: 800; color: var(--text)">{{ cu.unit }}</span>
+                  <span style="display: block; font-size: 12px; line-height: 1.4; color: var(--sub)">{{ cu.sub }}</span>
+                </span>
+                <sc-if value="{{ cu.isCurrent }}" hint-placeholder-val="{{ false }}"><button type="button" class="maco-press" onClick="{{ cu.go }}" style="flex: none; height: 40px; padding: 0 12px; border: 0; border-radius: 10px; background: var(--accent); color: var(--on-accent); font-size: 13px; font-weight: 800">이어서 하기</button></sc-if>
+                <sc-if value="{{ cu.isDone }}" hint-placeholder-val="{{ false }}"><button type="button" class="maco-press" onClick="{{ cu.go }}" style="flex: none; height: 40px; padding: 0 10px; border: 1px solid var(--line); border-radius: 10px; background: transparent; color: var(--text); font-size: 13px; font-weight: 700">다시 연습</button></sc-if>
               </li>
             </sc-for>
           </ol>
         </sc-if>
       </section>
     </sc-for>
-    <div style="margin-top: 16px; padding: 14px 16px; border-radius: 14px; border: 1px dashed #d6d6d6">
+    <div style="margin-top: 16px; padding: 14px 16px; border-radius: 14px; border: 1px dashed var(--line)">
       <p style="margin: 0; font-size: 13px; font-weight: 800">데모 설정</p>
-      <p style="margin: 3px 0 10px; font-size: 12px; line-height: 1.5; color: #4d4d4d">{{ v.course.storageNote }}</p>
+      <p style="margin: 3px 0 10px; font-size: 12px; line-height: 1.5; color: var(--sub)">{{ v.course.storageNote }}</p>
       <div style="display: flex; gap: 8px; flex-wrap: wrap">
-        <button type="button" onClick="{{ v.course.reset }}" style="height: 40px; padding: 0 12px; border: 1px solid #d6d6d6; border-radius: 10px; background: #ffffff; font-size: 13px; font-weight: 700">처음부터 다시</button>
-        <button type="button" onClick="{{ v.course.jump }}" style="height: 40px; padding: 0 12px; border: 1px solid #d6d6d6; border-radius: 10px; background: #ffffff; font-size: 13px; font-weight: 700">마지막 유닛 직전으로</button>
+        <button type="button" onClick="{{ v.course.reset }}" style="height: 40px; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px; background: transparent; color: var(--text); font-size: 13px; font-weight: 700">처음부터 다시</button>
+        <button type="button" onClick="{{ v.course.jump }}" style="height: 40px; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px; background: transparent; color: var(--text); font-size: 13px; font-weight: 700">마지막 유닛 직전으로</button>
       </div>
     </div>
   </div>
@@ -216,27 +222,27 @@ a{color:#111111}a:hover{color:#4d4d4d}
 <!-- ───────── 연속학습 ───────── -->
 <sc-if value="{{ v.isStreak }}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; flex-direction: column; height: 100%">
-  <header style="flex: none; padding: 24px 12px 10px; display: flex; align-items: center; border-bottom: 1px solid #ebebeb">
-    <button type="button" onClick="{{ v.back }}" aria-label="로드맵으로 돌아가기" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg></button>
+  <header style="flex: none; padding: 24px 12px 10px; display: flex; align-items: center; border-bottom: 1px solid var(--line); background: var(--bar)">
+    <button type="button" onClick="{{ v.back }}" aria-label="로드맵으로 돌아가기" style="width: 44px; height: 44px; border: 0; background: transparent; color: var(--text); display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg></button>
     <h1 style="flex: 1; margin: 0; text-align: center; font-size: 18px; font-weight: 800">연속학습</h1>
     <span style="width: 44px"></span>
   </header>
   <div class="maco-scroll maco-fade" style="flex: 1; overflow-y: auto; padding: 28px 20px 32px; display: flex; flex-direction: column; gap: 16px">
     <div style="display: flex; align-items: center; gap: 14px">
-      <svg viewBox="0 0 24 24" width="56" height="56" fill="{{ v.streak.flameColor }}" aria-hidden="true"><path d="M12.4 2.2c.7 3-.5 4.8-2 6.4C8.9 10.2 7 12 7 15a5 5 0 0 0 10 0c0-2-.8-3.6-1.9-4.9-.3 1.3-1.1 2.3-2.1 2.8.5-4-.5-7.6-.6-10.7Z"></path></svg>
+      <svg viewBox="0 0 24 24" width="56" height="56" aria-hidden="true" style="{{ v.top.flameStyle }}"><path d="M12.4 2.2c.7 3-.5 4.8-2 6.4C8.9 10.2 7 12 7 15a5 5 0 0 0 10 0c0-2-.8-3.6-1.9-4.9-.3 1.3-1.1 2.3-2.1 2.8.5-4-.5-7.6-.6-10.7Z"></path></svg>
       <div>
         <p style="margin: 0; font-size: 34px; line-height: 1.1; font-weight: 800">{{ v.streak.days }}일 연속</p>
-        <p style="margin: 4px 0 0; font-size: 14px; color: #4d4d4d">일일 목표를 채운 날이 이어지고 있어요.</p>
+        <p style="margin: 4px 0 0; font-size: 14px; color: var(--sub)">일일 목표를 채운 날이 이어지고 있어요.</p>
       </div>
     </div>
-    <div style="padding: 16px; border-radius: 16px; border: 1px solid #ebebeb">
+    <div style="padding: 16px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line)">
       <p style="margin: 0 0 12px; font-size: 14px; font-weight: 800">이번 주 학습 달력 · {{ v.streak.range }}</p>
       <ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px">
         <sc-for list="{{ v.streak.week }}" as="d" hint-placeholder-count="7">
           <li style="display: flex; flex-direction: column; align-items: center; gap: 6px" aria-label="{{ d.aria }}">
             <span style="{{ d.labelStyle }}">{{ d.dow }}</span>
             <span style="{{ d.dotStyle }}">
-              <sc-if value="{{ d.done }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg></sc-if>
+              <sc-if value="{{ d.done }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="stroke: var(--on-done)"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg></sc-if>
               <sc-if value="{{ d.notDone }}" hint-placeholder-val="{{ true }}">{{ d.date }}</sc-if>
             </span>
           </li>
@@ -245,10 +251,10 @@ a{color:#111111}a:hover{color:#4d4d4d}
     </div>
     <div style="{{ v.streak.todayStyle }}">
       <p style="margin: 0; font-size: 15px; font-weight: 800">{{ v.streak.todayTitle }}</p>
-      <p style="margin: 3px 0 0; font-size: 14px; line-height: 1.5; color: #4d4d4d">{{ v.streak.todayText }}</p>
+      <p style="margin: 3px 0 0; font-size: 14px; line-height: 1.5; color: var(--sub)">{{ v.streak.todayText }}</p>
     </div>
     <sc-if value="{{ v.streak.needToday }}" hint-placeholder-val="{{ true }}">
-      <button type="button" class="maco-press" onClick="{{ v.startCurrent }}" style="width: 100%; height: 52px; border: 0; border-radius: 14px; background: #6e4fe0; color: #ffffff; font-size: 16px; font-weight: 800">오늘 레슨 하나 하기</button>
+      <button type="button" class="maco-press" onClick="{{ v.startCurrent }}" style="width: 100%; height: 52px; border: 0; border-radius: 14px; background: var(--accent); color: var(--on-accent); font-size: 16px; font-weight: 800">오늘 레슨 하나 하기</button>
     </sc-if>
   </div>
 </div>
@@ -257,36 +263,36 @@ a{color:#111111}a:hover{color:#4d4d4d}
 <!-- ───────── XP 기록 ───────── -->
 <sc-if value="{{ v.isXp }}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; flex-direction: column; height: 100%">
-  <header style="flex: none; padding: 24px 12px 10px; display: flex; align-items: center; border-bottom: 1px solid #ebebeb">
-    <button type="button" onClick="{{ v.back }}" aria-label="로드맵으로 돌아가기" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg></button>
+  <header style="flex: none; padding: 24px 12px 10px; display: flex; align-items: center; border-bottom: 1px solid var(--line); background: var(--bar)">
+    <button type="button" onClick="{{ v.back }}" aria-label="로드맵으로 돌아가기" style="width: 44px; height: 44px; border: 0; background: transparent; color: var(--text); display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg></button>
     <h1 style="flex: 1; margin: 0; text-align: center; font-size: 18px; font-weight: 800">XP 기록</h1>
     <span style="width: 44px"></span>
   </header>
   <div class="maco-scroll maco-fade" style="flex: 1; overflow-y: auto; padding: 24px 20px 32px; display: flex; flex-direction: column; gap: 14px">
     <div>
-      <p style="margin: 0; font-size: 14px; font-weight: 700; color: #4d4d4d">오늘 획득한 XP</p>
+      <p style="margin: 0; font-size: 14px; font-weight: 700; color: var(--sub)">오늘 획득한 XP</p>
       <p style="margin: 2px 0 0; font-size: 36px; font-weight: 800">{{ v.xpPage.total }} <span style="font-size: 18px">XP</span></p>
     </div>
     <sc-if value="{{ v.xpPage.empty }}" hint-placeholder-val="{{ false }}">
-      <div style="padding: 20px 16px; border-radius: 16px; background: #f5f5f5; text-align: center">
+      <div style="padding: 20px 16px; border-radius: 16px; background: var(--panel); text-align: center">
         <p style="margin: 0; font-size: 15px; font-weight: 800">아직 오늘 받은 XP가 없어요</p>
-        <p style="margin: 4px 0 12px; font-size: 13px; color: #4d4d4d">레슨을 하나 마치면 여기에 기록돼요.</p>
-        <button type="button" class="maco-press" onClick="{{ v.startCurrent }}" style="height: 46px; padding: 0 18px; border: 0; border-radius: 12px; background: #6e4fe0; color: #ffffff; font-size: 15px; font-weight: 800">지금 할 레슨 시작</button>
+        <p style="margin: 4px 0 12px; font-size: 13px; color: var(--sub)">레슨을 하나 마치면 여기에 기록돼요.</p>
+        <button type="button" class="maco-press" onClick="{{ v.startCurrent }}" style="height: 46px; padding: 0 18px; border: 0; border-radius: 12px; background: var(--accent); color: var(--on-accent); font-size: 15px; font-weight: 800">지금 할 레슨 시작</button>
       </div>
     </sc-if>
     <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
       <sc-for list="{{ v.xpPage.items }}" as="xi" hint-placeholder-count="2">
-        <li style="padding: 14px 16px; border-radius: 14px; border: 1px solid #ebebeb; display: flex; align-items: center; gap: 12px">
+        <li style="padding: 14px 16px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); display: flex; align-items: center; gap: 12px">
           <span style="flex: 1; min-width: 0">
-            <span style="display: block; font-size: 12px; font-weight: 700; color: #4d4d4d">{{ xi.where }}</span>
+            <span style="display: block; font-size: 12px; font-weight: 700; color: var(--sub)">{{ xi.where }}</span>
             <span style="display: block; font-size: 15px; line-height: 1.4; font-weight: 800">{{ xi.lesson }}</span>
-            <span style="display: block; font-size: 12px; color: #4d4d4d">{{ xi.detail }}</span>
+            <span style="display: block; font-size: 12px; color: var(--sub)">{{ xi.detail }}</span>
           </span>
           <span style="flex: none; font-size: 17px; font-weight: 800">+{{ xi.xp }}</span>
         </li>
       </sc-for>
     </ol>
-    <p style="margin: 0; font-size: 12px; line-height: 1.5; color: #4d4d4d">XP 기준(가정값): 정답 10 · 오답 2 · 레슨 완료 10. 데모 기록이며 서버 기록과 따로 저장돼요.</p>
+    <p style="margin: 0; font-size: 12px; line-height: 1.5; color: var(--muted)">XP 기준(가정값): 정답 10 · 오답 2 · 레슨 완료 10. 데모 기록이며 서버 기록과 따로 저장돼요.</p>
   </div>
 </div>
 </sc-if>
@@ -294,27 +300,54 @@ a{color:#111111}a:hover{color:#4d4d4d}
 <!-- ───────── 오늘의 목표 ───────── -->
 <sc-if value="{{ v.isGoal }}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; flex-direction: column; height: 100%">
-  <header style="flex: none; padding: 24px 12px 10px; display: flex; align-items: center; border-bottom: 1px solid #ebebeb">
-    <button type="button" onClick="{{ v.back }}" aria-label="로드맵으로 돌아가기" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg></button>
+  <header style="flex: none; padding: 24px 12px 10px; display: flex; align-items: center; border-bottom: 1px solid var(--line); background: var(--bar)">
+    <button type="button" onClick="{{ v.back }}" aria-label="로드맵으로 돌아가기" style="width: 44px; height: 44px; border: 0; background: transparent; color: var(--text); display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg></button>
     <h1 style="flex: 1; margin: 0; text-align: center; font-size: 18px; font-weight: 800">오늘의 목표</h1>
     <span style="width: 44px"></span>
   </header>
   <div class="maco-scroll maco-fade" style="flex: 1; overflow-y: auto; padding: 28px 20px 32px; display: flex; flex-direction: column; align-items: center; gap: 18px">
     <div style="position: relative; width: 168px; height: 168px" role="img" aria-label="{{ v.goalPage.aria }}">
-      <svg viewBox="0 0 34 34" width="168" height="168" aria-hidden="true" style="transform: rotate(-90deg)"><circle cx="17" cy="17" r="13" fill="none" stroke="#ebebeb" stroke-width="3.2"></circle><circle class="maco-ring" cx="17" cy="17" r="13" fill="none" stroke="#ff6b1a" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="{{ v.goalPage.ringDash }}"></circle></svg>
+      <svg viewBox="0 0 34 34" width="168" height="168" aria-hidden="true" style="transform: rotate(-90deg)"><circle cx="17" cy="17" r="13" fill="none" stroke-width="3.2" style="stroke: var(--track)"></circle><circle class="maco-ring" cx="17" cy="17" r="13" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="{{ v.goalPage.ringDash }}" style="stroke: var(--done)"></circle></svg>
       <span style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
-        <span style="font-size: 30px; font-weight: 800">{{ v.goalPage.xp }} <span style="font-size: 18px; color: #4d4d4d">/ {{ v.goalPage.goal }}</span></span>
-        <span style="font-size: 13px; font-weight: 700; color: #4d4d4d">XP</span>
+        <span style="font-size: 30px; font-weight: 800">{{ v.goalPage.xp }} <span style="font-size: 18px; color: var(--sub)">/ {{ v.goalPage.goal }}</span></span>
+        <span style="font-size: 13px; font-weight: 700; color: var(--sub)">XP</span>
       </span>
     </div>
     <p style="margin: 0; font-size: 17px; font-weight: 800; text-align: center">{{ v.goalPage.remainText }}</p>
-    <div style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #ebebeb">
-      <p style="margin: 0; font-size: 12px; font-weight: 800; color: #4d4d4d">추천 레슨 · {{ v.goalPage.where }}</p>
+    <div style="width: 100%; padding: 16px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line)">
+      <p style="margin: 0; font-size: 12px; font-weight: 800; color: var(--sub)">추천 레슨 · {{ v.goalPage.where }}</p>
       <p style="margin: 4px 0 0; font-size: 17px; line-height: 1.4; font-weight: 800">{{ v.goalPage.lesson }}</p>
-      <p style="margin: 2px 0 14px; font-size: 13px; color: #4d4d4d">문제 3개 · 약 3분</p>
-      <button type="button" class="maco-press" onClick="{{ v.startCurrent }}" style="width: 100%; height: 52px; border: 0; border-radius: 14px; background: #6e4fe0; color: #ffffff; font-size: 16px; font-weight: 800">추천 레슨 시작</button>
+      <p style="margin: 2px 0 14px; font-size: 13px; color: var(--sub)">문제 3개 · 약 3분</p>
+      <button type="button" class="maco-press" onClick="{{ v.startCurrent }}" style="width: 100%; height: 52px; border: 0; border-radius: 14px; background: var(--accent); color: var(--on-accent); font-size: 16px; font-weight: 800">추천 레슨 시작</button>
     </div>
-    <p style="margin: 0; font-size: 12px; color: #4d4d4d">하루 목표 {{ v.goalPage.goal }} XP (가정값)</p>
+    <p style="margin: 0; font-size: 12px; color: var(--muted)">하루 목표 {{ v.goalPage.goal }} XP (가정값)</p>
+  </div>
+</div>
+</sc-if>
+
+<!-- ───────── 내 정보 (화면 테마) ───────── -->
+<sc-if value="{{ v.isMe }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; height: 100%">
+  <header style="flex: none; padding: 24px 20px 12px; border-bottom: 1px solid var(--line); background: var(--bar)">
+    <h1 style="margin: 0; font-size: 22px; font-weight: 800">내 정보</h1>
+  </header>
+  <div class="maco-scroll maco-fade" style="flex: 1; overflow-y: auto; padding: 20px 20px 32px; display: flex; flex-direction: column; gap: 14px">
+    <section aria-labelledby="theme-title" style="padding: 16px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line)">
+      <h2 id="theme-title" style="margin: 0; font-size: 16px; font-weight: 800">화면 테마</h2>
+      <p style="margin: 3px 0 12px; font-size: 13px; line-height: 1.5; color: var(--sub)">선택한 테마는 앱 전체에 적용되고 다음에 들어와도 유지돼요.</p>
+      <div role="group" aria-label="화면 테마 선택" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+        <button type="button" onClick="{{ v.me.dark }}" aria-pressed="{{ v.me.isDark }}" style="{{ v.me.darkStyle }}">
+          <span aria-hidden="true" style="width: 44px; height: 30px; border-radius: 8px; background: #1d1f23; border: 1px solid #444852; display: flex; align-items: center; justify-content: center; gap: 3px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #ff6b1a"></span><span style="width: 10px; height: 10px; border-radius: 3px; background: #ffffff"></span></span>다크
+        </button>
+        <button type="button" onClick="{{ v.me.light }}" aria-pressed="{{ v.me.isLight }}" style="{{ v.me.lightStyle }}">
+          <span aria-hidden="true" style="width: 44px; height: 30px; border-radius: 8px; background: #f3f1ee; border: 1px solid #cbc5bc; display: flex; align-items: center; justify-content: center; gap: 3px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #ff6b1a"></span><span style="width: 10px; height: 10px; border-radius: 3px; background: #ffffff; border: 1px solid #cbc5bc"></span></span>라이트
+        </button>
+      </div>
+    </section>
+    <div style="padding: 16px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line); display: flex; align-items: center; gap: 12px">
+      <span style="width: 64px; height: 64px; flex: none"><dc-import name="Coach" mood="happy" tool="memo" hint-size="64px,64px"></dc-import></span>
+      <p style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--sub)">학습 기록·성장 리포트는 이 시안에 들어 있지 않아요. 트레이닝 탭에서 플레이해 보세요.</p>
+    </div>
   </div>
 </div>
 </sc-if>
@@ -324,7 +357,7 @@ a{color:#111111}a:hover{color:#4d4d4d}
 <div class="maco-fade" style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px 32px; text-align: center">
   <span style="width: 96px; height: 96px"><dc-import name="Coach" mood="happy" tool="memo" hint-size="96px,96px"></dc-import></span>
   <h1 style="margin: 0; font-size: 20px; font-weight: 800">{{ v.tabName }} 탭</h1>
-  <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #4d4d4d">이 시안에서는 트레이닝 탭만 플레이할 수 있어요.<br>트레이닝으로 돌아가도 학습 기록은 그대로예요.</p>
+  <p style="margin: 0; font-size: 14px; line-height: 1.55; color: var(--sub)">이 시안에서는 트레이닝 탭과 화면 테마만 써 볼 수 있어요.<br>트레이닝으로 돌아가도 학습 기록은 그대로예요.</p>
 </div>
 </sc-if>
 
@@ -332,46 +365,46 @@ a{color:#111111}a:hover{color:#4d4d4d}
 <sc-if value="{{ v.isLesson }}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; flex-direction: column; height: 100%; position: relative">
   <header style="flex: none; padding: 24px 20px 10px 8px; display: flex; align-items: center; gap: 8px">
-    <button type="button" onClick="{{ v.back }}" aria-label="레슨 닫기" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#111111" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
-    <div style="flex: 1; height: 10px; border-radius: 99px; background: #f5f5f5; overflow: hidden" role="progressbar" aria-label="레슨 진행" aria-valuenow="{{ v.ls.pct }}" aria-valuemin="0" aria-valuemax="100"><div class="maco-bar" style="{{ v.ls.fillStyle }}"></div></div>
+    <button type="button" onClick="{{ v.back }}" aria-label="레슨 닫기" style="width: 44px; height: 44px; border: 0; background: transparent; color: var(--text); display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+    <div style="flex: 1; height: 10px; border-radius: 99px; background: var(--track); overflow: hidden" role="progressbar" aria-label="레슨 진행" aria-valuenow="{{ v.ls.pct }}" aria-valuemin="0" aria-valuemax="100"><div class="maco-bar" style="{{ v.ls.fillStyle }}"></div></div>
     <span style="min-width: 32px; text-align: right; font-size: 14px; font-weight: 800">{{ v.ls.counter }}</span>
   </header>
 
   <div class="maco-scroll" style="{{ v.ls.bodyStyle }}">
     <sc-if value="{{ v.ls.isConcept }}" hint-placeholder-val="{{ false }}">
       <div class="maco-fade" style="display: flex; flex-direction: column; gap: 14px">
-        <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 99px; background: #f5f5f5; font-size: 13px; font-weight: 700"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2M9.5 2.5h5"></path></svg>30초 개념 카드</span>
-        <p style="margin: 0; font-size: 13px; font-weight: 700; color: #4d4d4d">{{ v.ls.where }}</p>
+        <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 99px; background: var(--soft); font-size: 13px; font-weight: 700"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2M9.5 2.5h5"></path></svg>30초 개념 카드</span>
+        <p style="margin: 0; font-size: 13px; font-weight: 700; color: var(--sub)">{{ v.ls.where }}</p>
         <h1 style="margin: -8px 0 0; font-size: 24px; line-height: 1.38; font-weight: 800">{{ v.ls.conceptTitle }}</h1>
-        <p style="margin: 0; font-size: 16px; line-height: 1.65; color: #4d4d4d">{{ v.ls.conceptBody }}</p>
+        <p style="margin: 0; font-size: 16px; line-height: 1.65; color: var(--sub)">{{ v.ls.conceptBody }}</p>
         <div style="display: flex; align-items: flex-end; gap: 8px; margin-top: 6px">
-          <span style="width: 76px; height: 76px; flex: none"><dc-import name="Coach" mood="happy" tool="{{ v.ls.tool }}" hint-size="76px,76px"></dc-import></span>
-          <p style="margin: 0 0 10px; padding: 10px 12px; border-radius: 14px; border: 1px solid #ebebeb; font-size: 14px; line-height: 1.45; font-weight: 600">문제 3개로 바로 연습해 봐요.</p>
+          <span style="width: 76px; height: 76px; flex: none"><dc-import name="Coach" mood="happy" tool="memo" hint-size="76px,76px"></dc-import></span>
+          <p style="margin: 0 0 10px; padding: 10px 12px; border-radius: 14px; background: var(--panel); font-size: 14px; line-height: 1.45; font-weight: 600">문제 3개로 바로 연습해 봐요.</p>
         </div>
       </div>
     </sc-if>
 
     <sc-if value="{{ v.ls.isQuestion }}" hint-placeholder-val="{{ true }}">
       <div class="maco-fade" style="display: flex; flex-direction: column; gap: 14px">
-        <p style="margin: 0; font-size: 13px; font-weight: 700; color: #4d4d4d">{{ v.q.typeLabel }}</p>
+        <p style="margin: 0; font-size: 13px; font-weight: 700; color: var(--sub)">{{ v.q.typeLabel }}</p>
         <h1 style="margin: -8px 0 0; font-size: 20px; line-height: 1.42; font-weight: 800">{{ v.q.prompt }}</h1>
 
         <sc-if value="{{ v.q.hasReview }}" hint-placeholder-val="{{ false }}">
-          <div style="padding: 14px 16px; border-radius: 14px; border: 1px solid #ebebeb">
+          <div style="padding: 14px 16px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line)">
             <div style="display: flex; align-items: center; gap: 8px; font-size: 13px">
               <b>{{ v.q.review.name }}</b>
-              <span aria-label="{{ v.q.review.starsLabel }}" style="color: #e0550b; letter-spacing: 1px">{{ v.q.review.stars }}</span>
-              <span style="margin-left: auto; color: #767676">{{ v.q.review.date }}</span>
+              <span aria-label="{{ v.q.review.starsLabel }}" style="color: var(--done); letter-spacing: 1px">{{ v.q.review.stars }}</span>
+              <span style="margin-left: auto; color: var(--muted)">{{ v.q.review.date }}</span>
             </div>
             <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.55">{{ v.q.review.text }}</p>
           </div>
         </sc-if>
 
         <sc-if value="{{ v.q.hasTable }}" hint-placeholder-val="{{ false }}">
-          <div style="padding: 6px 14px; border-radius: 14px; border: 1px solid #ebebeb">
-            <p style="margin: 8px 0 4px; font-size: 12px; font-weight: 800; color: #4d4d4d">{{ v.q.tableTitle }}</p>
+          <div style="padding: 6px 14px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line)">
+            <p style="margin: 8px 0 4px; font-size: 12px; font-weight: 800; color: var(--sub)">{{ v.q.tableTitle }}</p>
             <sc-for list="{{ v.q.table }}" as="tr" hint-placeholder-count="3">
-              <div style="display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid #f0f0f0; font-size: 15px"><span style="color: #4d4d4d">{{ tr.k }}</span><b>{{ tr.v }}</b></div>
+              <div style="display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 15px"><span style="color: var(--sub)">{{ tr.k }}</span><b>{{ tr.v }}</b></div>
             </sc-for>
           </div>
         </sc-if>
@@ -388,19 +421,19 @@ a{color:#111111}a:hover{color:#4d4d4d}
         </sc-if>
 
         <sc-if value="{{ v.q.isSpot }}" hint-placeholder-val="{{ false }}">
-          <div style="border-radius: 16px; border: 1px solid #ebebeb; overflow: hidden">
-            <div style="padding: 12px 16px; background: #f5f5f5; display: flex; align-items: center; gap: 8px">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.7-6.5-11a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+          <div style="border-radius: 16px; border: 1px solid var(--line); overflow: hidden; background: var(--panel)">
+            <div style="padding: 12px 16px; background: var(--soft); display: flex; align-items: center; gap: 8px">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.7-6.5-11a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
               <b style="font-size: 14px">{{ v.q.spotTitle }}</b>
             </div>
             <sc-for list="{{ v.q.rows }}" as="sr" hint-placeholder-count="4">
               <button type="button" onClick="{{ sr.pick }}" aria-pressed="{{ sr.selected }}" style="{{ sr.style }}">
-                <span style="flex: none; width: 84px; font-size: 13px; color: #4d4d4d; text-align: left">{{ sr.k }}</span>
+                <span style="flex: none; width: 84px; font-size: 13px; color: var(--sub); text-align: left">{{ sr.k }}</span>
                 <span style="flex: 1; font-size: 15px; font-weight: 700; text-align: left">{{ sr.v }}</span>
               </button>
             </sc-for>
           </div>
-          <p style="margin: 0; font-size: 13px; color: #4d4d4d">문제가 있는 줄을 눌러 주세요.</p>
+          <p style="margin: 0; font-size: 13px; color: var(--sub)">문제가 있는 줄을 눌러 주세요.</p>
         </sc-if>
 
         <sc-if value="{{ v.q.isPhoto }}" hint-placeholder-val="{{ false }}">
@@ -412,7 +445,7 @@ a{color:#111111}a:hover{color:#4d4d4d}
               </button>
             </sc-for>
           </div>
-          <p style="margin: 0; font-size: 13px; color: #4d4d4d">밝기·구도·배경 중 무엇이 다른지 비교해 보세요.</p>
+          <p style="margin: 0; font-size: 13px; color: var(--sub)">밝기·구도·배경 중 무엇이 다른지 비교해 보세요.</p>
         </sc-if>
 
         <sc-if value="{{ v.q.isPspot }}" hint-placeholder-val="{{ false }}">
@@ -422,18 +455,18 @@ a{color:#111111}a:hover{color:#4d4d4d}
               <button type="button" onClick="{{ sp.pick }}" aria-pressed="{{ sp.selected }}" aria-label="{{ sp.label }}" style="{{ sp.style }}"></button>
             </sc-for>
           </div>
-          <p style="margin: 0; font-size: 13px; color: #4d4d4d">사진에서 한 곳을 눌러 주세요.</p>
+          <p style="margin: 0; font-size: 13px; color: var(--sub)">사진에서 한 곳을 눌러 주세요.</p>
         </sc-if>
 
         <sc-if value="{{ v.q.isRewrite }}" hint-placeholder-val="{{ false }}">
-          <div style="padding: 12px 14px; border-radius: 12px; background: #f5f5f5">
-            <p style="margin: 0; font-size: 12px; font-weight: 800; color: #4d4d4d">지금 문장</p>
+          <div style="padding: 12px 14px; border-radius: 12px; background: var(--panel)">
+            <p style="margin: 0; font-size: 12px; font-weight: 800; color: var(--sub)">지금 문장</p>
             <p style="margin: 4px 0 0; font-size: 15px; line-height: 1.5">{{ v.q.orig }}</p>
           </div>
           <label for="rewrite-input" style="font-size: 14px; font-weight: 800; margin-bottom: -6px">고쳐 쓴 문장</label>
-          <textarea id="rewrite-input" value="{{ v.q.text }}" onChange="{{ v.q.onText }}" readOnly="{{ v.q.locked }}" rows="4" style="width: 100%; resize: none; padding: 12px 14px; border-radius: 12px; border: 2px solid #ebebeb; font-size: 16px; line-height: 1.55"></textarea>
+          <textarea id="rewrite-input" value="{{ v.q.text }}" onChange="{{ v.q.onText }}" readOnly="{{ v.q.locked }}" rows="4" style="width: 100%; resize: none; padding: 12px 14px; border-radius: 12px; border: 2px solid var(--line); background: var(--card); color: var(--text); font-size: 16px; line-height: 1.55"></textarea>
           <div style="display: flex; flex-wrap: wrap; gap: 6px" aria-label="확인할 기준">
-            <sc-for list="{{ v.q.critNames }}" as="cn" hint-placeholder-count="3"><span style="font-size: 12px; font-weight: 700; padding: 5px 9px; border-radius: 8px; border: 1px solid #ebebeb">{{ cn }}</span></sc-for>
+            <sc-for list="{{ v.q.critNames }}" as="cn" hint-placeholder-count="3"><span style="font-size: 12px; font-weight: 700; padding: 5px 9px; border-radius: 8px; border: 1px solid var(--line)">{{ cn }}</span></sc-for>
           </div>
         </sc-if>
       </div>
@@ -441,7 +474,7 @@ a{color:#111111}a:hover{color:#4d4d4d}
   </div>
 
   <sc-if value="{{ v.ls.showAction }}" hint-placeholder-val="{{ true }}">
-    <div style="flex: none; padding: 12px 20px 26px; border-top: 1px solid #ebebeb; background: #ffffff">
+    <div style="flex: none; padding: 12px 20px 26px; border-top: 1px solid var(--line); background: var(--bar)">
       <button type="button" class="maco-press" onClick="{{ v.ls.action }}" disabled="{{ v.ls.disabled }}" style="{{ v.ls.actionStyle }}">{{ v.ls.actionLabel }}</button>
     </div>
   </sc-if>
@@ -449,50 +482,47 @@ a{color:#111111}a:hover{color:#4d4d4d}
   <sc-if value="{{ v.fb.show }}" hint-placeholder-val="{{ false }}">
     <div class="maco-rise maco-scroll" role="status" style="{{ v.fb.sheetStyle }}">
       <div style="display: flex; align-items: center; gap: 10px">
-        <sc-if value="{{ v.fb.isCorrect }}" hint-placeholder-val="{{ true }}">
-          <span style="flex: none; width: 34px; height: 34px; border-radius: 50%; background: #1f9d55; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="maco-check" d="m5 12.5 4.5 4.5L19 7.5"></path></svg></span>
-        </sc-if>
-        <sc-if value="{{ v.fb.isWrong }}" hint-placeholder-val="{{ false }}">
-          <span style="flex: none; width: 52px; height: 52px; margin: -8px 0 -4px -4px"><dc-import name="Coach" mood="calm" tool="memo" hint-size="52px,52px"></dc-import></span>
-        </sc-if>
+        <span style="flex: none; width: 58px; height: 58px; margin: -10px 0 -6px -6px">
+          <sc-if value="{{ v.fb.isCorrect }}" hint-placeholder-val="{{ true }}"><dc-import name="Coach" mood="perk" tool="memo" hint-size="58px,58px"></dc-import></sc-if>
+          <sc-if value="{{ v.fb.isWrong }}" hint-placeholder-val="{{ false }}"><dc-import name="Coach" mood="hint" tool="memo" hint-size="58px,58px"></dc-import></sc-if>
+          <sc-if value="{{ v.fb.isRewriteMiss }}" hint-placeholder-val="{{ false }}"><dc-import name="Coach" mood="hint" tool="memo" hint-size="58px,58px"></dc-import></sc-if>
+        </span>
         <h2 style="{{ v.fb.titleStyle }}">{{ v.fb.title }}</h2>
       </div>
       <p style="margin: 0; font-size: 15px; line-height: 1.55">{{ v.fb.reason }}</p>
 
       <sc-if value="{{ v.fb.isWrong }}" hint-placeholder-val="{{ false }}">
-        <div style="padding: 12px 14px; border-radius: 14px; background: #ffffff; border: 2px solid #111111">
-          <p style="margin: 0; font-size: 12px; font-weight: 800">고칠 점 하나</p>
+        <div style="padding: 12px 14px; border-radius: 14px; background: var(--card); border: 2px solid var(--text)">
+          <p style="margin: 0; font-size: 12px; font-weight: 800">힌트 · 고칠 점 하나</p>
           <p style="margin: 3px 0 0; font-size: 15px; line-height: 1.5; font-weight: 600">{{ v.fb.fix }}</p>
         </div>
-        <sc-if value="{{ v.fb.canWhy }}" hint-placeholder-val="{{ true }}">
-          <button type="button" onClick="{{ v.fb.toggleWhy }}" aria-expanded="{{ v.fb.whyOpen }}" style="align-self: flex-start; height: 36px; padding: 0 2px; border: 0; background: transparent; font-size: 15px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; text-decoration: underline; text-underline-offset: 3px">왜 틀렸어요?<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ v.fb.chevron }}"><path d="m6 9 6 6 6-6"></path></svg></button>
-          <sc-if value="{{ v.fb.whyOpen }}" hint-placeholder-val="{{ false }}">
-            <div class="maco-unfold" style="margin-top: -6px; padding: 12px 14px; border-radius: 14px; background: #ffffff">
-              <p style="margin: 0; font-size: 12px; font-weight: 800; color: #6e4fe0">MACO 코치 설명</p>
-              <p style="margin: 3px 0 0; font-size: 14px; line-height: 1.6">{{ v.fb.why }}</p>
-            </div>
-          </sc-if>
+        <button type="button" onClick="{{ v.fb.toggleWhy }}" aria-expanded="{{ v.fb.whyOpen }}" style="align-self: flex-start; height: 36px; padding: 0 2px; border: 0; background: transparent; color: var(--text); font-size: 15px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; text-decoration: underline; text-underline-offset: 3px">왜 틀렸어요?<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ v.fb.chevron }}"><path d="m6 9 6 6 6-6"></path></svg></button>
+        <sc-if value="{{ v.fb.whyOpen }}" hint-placeholder-val="{{ false }}">
+          <div class="maco-unfold" style="margin-top: -6px; padding: 12px 14px; border-radius: 14px; background: var(--card)">
+            <p style="margin: 0; font-size: 12px; font-weight: 800; color: var(--accent-strong)">MACO 코치 설명</p>
+            <p style="margin: 3px 0 0; font-size: 14px; line-height: 1.6">{{ v.fb.why }}</p>
+          </div>
         </sc-if>
       </sc-if>
 
       <sc-if value="{{ v.fb.isRewrite }}" hint-placeholder-val="{{ false }}">
-        <ul style="list-style: none; margin: 0; padding: 12px 14px; border-radius: 14px; background: #ffffff; display: flex; flex-direction: column; gap: 8px">
+        <ul style="list-style: none; margin: 0; padding: 12px 14px; border-radius: 14px; background: var(--card); display: flex; flex-direction: column; gap: 8px">
           <sc-for list="{{ v.fb.crit }}" as="cr" hint-placeholder-count="3">
             <li style="display: flex; gap: 8px; align-items: flex-start; font-size: 14px; line-height: 1.45">
-              <sc-if value="{{ cr.ok }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#1f9d55" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg></sc-if>
-              <sc-if value="{{ cr.miss }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#d93b3b" stroke-width="3" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="M7 7l10 10M17 7 7 17"></path></svg></sc-if>
+              <sc-if value="{{ cr.ok }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-label="들어 있음" style="flex: none; margin-top: 1px; stroke: var(--good)"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg></sc-if>
+              <sc-if value="{{ cr.miss }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="3" stroke-linecap="round" aria-label="빠짐" style="flex: none; margin-top: 1px; stroke: var(--bad)"><path d="M7 7l10 10M17 7 7 17"></path></svg></sc-if>
               <span><b>{{ cr.n }}</b> · {{ cr.note }}</span>
             </li>
           </sc-for>
         </ul>
-        <div style="padding: 12px 14px; border-radius: 14px; background: #ffffff">
-          <p style="margin: 0; font-size: 12px; font-weight: 800; color: #4d4d4d">예시 답안</p>
+        <div style="padding: 12px 14px; border-radius: 14px; background: var(--card)">
+          <p style="margin: 0; font-size: 12px; font-weight: 800; color: var(--sub)">예시 답안</p>
           <p style="margin: 3px 0 0; font-size: 14px; line-height: 1.6">{{ v.fb.example }}</p>
         </div>
-        <p style="margin: 0; font-size: 12px; color: #4d4d4d">AI 채점 연결 전이라 준비한 기준으로 확인했어요.</p>
+        <p style="margin: 0; font-size: 12px; color: var(--sub)">AI 채점 연결 전이라 준비한 기준으로 확인했어요.</p>
       </sc-if>
 
-      <button type="button" class="maco-press" onClick="{{ v.fb.next }}" style="margin-top: 2px; width: 100%; min-height: 54px; border: 0; border-radius: 14px; background: #111111; color: #ffffff; font-size: 17px; font-weight: 800">{{ v.fb.nextLabel }}</button>
+      <button type="button" class="maco-press" onClick="{{ v.fb.next }}" style="margin-top: 2px; width: 100%; min-height: 54px; border: 0; border-radius: 14px; background: var(--text); color: var(--bg); font-size: 17px; font-weight: 800">{{ v.fb.nextLabel }}</button>
     </div>
   </sc-if>
 </div>
@@ -504,35 +534,35 @@ a{color:#111111}a:hover{color:#4d4d4d}
   <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px">
     <sc-if value="{{ v.res.sectionDone }}" hint-placeholder-val="{{ false }}">
       <span style="width: 150px; height: 150px"><dc-import name="Coach" mood="cheer" tool="{{ v.res.tool }}" hint-size="150px,150px"></dc-import></span>
-      <p style="margin: 0; font-size: 14px; font-weight: 800; color: #4d4d4d">섹션 {{ v.res.secNo }} 완료</p>
+      <p style="margin: 0; font-size: 14px; font-weight: 800; color: var(--sub)">섹션 {{ v.res.secNo }} 완료</p>
       <h1 style="margin: 0; font-size: 24px; line-height: 1.35; font-weight: 800">{{ v.res.secTitle }}</h1>
     </sc-if>
     <sc-if value="{{ v.res.lessonOnly }}" hint-placeholder-val="{{ true }}">
-      <span style="width: 88px; height: 88px; border-radius: 28px; background: #ff6b1a; color: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 0 #e0550b"><svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="maco-check" d="m5 12.5 4.5 4.5L19 7.5"></path></svg></span>
-      <h1 style="margin: 10px 0 0; font-size: 26px; font-weight: 800">레슨 완료!</h1>
+      <span style="width: 140px; height: 140px"><dc-import name="Coach" mood="stamp" tool="memo" hint-size="140px,140px"></dc-import></span>
+      <h1 style="margin: 4px 0 0; font-size: 26px; font-weight: 800">레슨 완료!</h1>
     </sc-if>
-    <p style="margin: 0; font-size: 15px; color: #4d4d4d">{{ v.res.lesson }}</p>
+    <p style="margin: 0; font-size: 15px; color: var(--sub)">{{ v.res.lesson }}</p>
   </div>
   <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
-    <div style="padding: 14px 16px; border-radius: 16px; border: 1px solid #ebebeb">
-      <p style="margin: 0; font-size: 13px; font-weight: 700; color: #4d4d4d">적립 XP</p>
-      <p style="margin: 2px 0 0; font-size: 28px; font-weight: 800; color: #e0550b">+{{ v.res.xp }}</p>
+    <div style="padding: 14px 16px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line)">
+      <p style="margin: 0; font-size: 13px; font-weight: 700; color: var(--sub)">적립 XP</p>
+      <p style="margin: 2px 0 0; font-size: 28px; font-weight: 800; color: var(--done-text)">+{{ v.res.xp }}</p>
     </div>
-    <div style="padding: 14px 16px; border-radius: 16px; border: 1px solid #ebebeb">
-      <p style="margin: 0; font-size: 13px; font-weight: 700; color: #4d4d4d">맞힌 문제</p>
-      <p style="margin: 2px 0 0; font-size: 28px; font-weight: 800">{{ v.res.correct }}<span style="font-size: 16px; color: #4d4d4d">/3</span></p>
+    <div style="padding: 14px 16px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line)">
+      <p style="margin: 0; font-size: 13px; font-weight: 700; color: var(--sub)">맞힌 문제</p>
+      <p style="margin: 2px 0 0; font-size: 28px; font-weight: 800">{{ v.res.correct }}<span style="font-size: 16px; color: var(--sub)">/3</span></p>
     </div>
   </div>
-  <div style="margin-top: 10px; padding: 14px 16px; border-radius: 16px; background: #f5f5f5">
+  <div style="margin-top: 10px; padding: 14px 16px; border-radius: 16px; background: var(--panel)">
     <p style="margin: 0; font-size: 13px; font-weight: 800">이번에 보완할 점</p>
     <p style="margin: 3px 0 0; font-size: 15px; line-height: 1.55">{{ v.res.improve }}</p>
   </div>
-  <div style="margin-top: 10px; padding: 14px 16px; border-radius: 16px; border: 1px solid #ebebeb">
+  <div style="margin-top: 10px; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--line)">
     <p style="margin: 0; font-size: 13px; font-weight: 800">{{ v.res.nextTitle }}</p>
     <p style="margin: 3px 0 0; font-size: 15px; line-height: 1.5">{{ v.res.nextText }}</p>
   </div>
   <span style="flex: 1; min-height: 16px"></span>
-  <button type="button" class="maco-press" onClick="{{ v.res.back }}" style="margin-top: 16px; width: 100%; height: 56px; border: 0; border-radius: 14px; background: #6e4fe0; color: #ffffff; font-size: 17px; font-weight: 800">로드맵으로 돌아가기</button>
+  <button type="button" class="maco-press" onClick="{{ v.res.back }}" style="margin-top: 16px; width: 100%; height: 56px; border: 0; border-radius: 14px; background: var(--accent); color: var(--on-accent); font-size: 17px; font-weight: 800">로드맵으로 돌아가기</button>
 </div>
 </sc-if>
 
@@ -540,26 +570,26 @@ a{color:#111111}a:hover{color:#4d4d4d}
 <sc-if value="{{ v.isAllDone }}" hint-placeholder-val="{{ false }}">
 <div class="maco-scroll maco-fade" style="display: flex; flex-direction: column; align-items: center; height: 100%; overflow-y: auto; padding: 40px 20px 26px; text-align: center">
   <span style="width: 170px; height: 170px"><dc-import name="Coach" mood="cheer" tool="memo" hint-size="170px,170px"></dc-import></span>
-  <p style="margin: 8px 0 0; font-size: 14px; font-weight: 800; color: #4d4d4d">7개 섹션 · 35개 유닛</p>
+  <p style="margin: 8px 0 0; font-size: 14px; font-weight: 800; color: var(--sub)">7개 섹션 · 35개 유닛</p>
   <h1 style="margin: 4px 0 0; font-size: 28px; font-weight: 800">전체 과정 완료!</h1>
-  <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.6; color: #4d4d4d">가게를 찾기 쉽게 만드는 것부터 숫자로 다음 홍보를 고치는 것까지 모두 연습했어요.</p>
+  <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.6; color: var(--sub)">가게를 찾기 쉽게 만드는 것부터 숫자로 다음 홍보를 고치는 것까지 모두 연습했어요.</p>
   <div style="margin-top: 20px; width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; text-align: left">
-    <div style="padding: 14px 16px; border-radius: 16px; border: 1px solid #ebebeb"><p style="margin: 0; font-size: 13px; color: #4d4d4d; font-weight: 700">맞힌 문제</p><p style="margin: 2px 0 0; font-size: 24px; font-weight: 800">{{ v.all.correct }}<span style="font-size: 15px; color: #4d4d4d">/105</span></p></div>
-    <div style="padding: 14px 16px; border-radius: 16px; border: 1px solid #ebebeb"><p style="margin: 0; font-size: 13px; color: #4d4d4d; font-weight: 700">오늘 XP</p><p style="margin: 2px 0 0; font-size: 24px; font-weight: 800">{{ v.all.xp }}</p></div>
+    <div style="padding: 14px 16px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line)"><p style="margin: 0; font-size: 13px; color: var(--sub); font-weight: 700">맞힌 문제</p><p style="margin: 2px 0 0; font-size: 24px; font-weight: 800">{{ v.all.correct }}<span style="font-size: 15px; color: var(--sub)">/105</span></p></div>
+    <div style="padding: 14px 16px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line)"><p style="margin: 0; font-size: 13px; color: var(--sub); font-weight: 700">오늘 XP</p><p style="margin: 2px 0 0; font-size: 24px; font-weight: 800">{{ v.all.xp }}</p></div>
   </div>
   <span style="flex: 1; min-height: 20px"></span>
-  <button type="button" class="maco-press" onClick="{{ v.all.review }}" style="width: 100%; height: 54px; border: 0; border-radius: 14px; background: #6e4fe0; color: #ffffff; font-size: 16px; font-weight: 800">배운 유닛 다시 연습하기</button>
-  <button type="button" class="maco-press" onClick="{{ v.all.roadmap }}" style="margin-top: 10px; width: 100%; height: 50px; border: 1px solid #d6d6d6; border-radius: 14px; background: #ffffff; font-size: 15px; font-weight: 700">로드맵 보기</button>
+  <button type="button" class="maco-press" onClick="{{ v.all.review }}" style="width: 100%; height: 54px; border: 0; border-radius: 14px; background: var(--accent); color: var(--on-accent); font-size: 16px; font-weight: 800">배운 유닛 다시 연습하기</button>
+  <button type="button" class="maco-press" onClick="{{ v.all.roadmap }}" style="margin-top: 10px; width: 100%; height: 50px; border: 1px solid var(--line); border-radius: 14px; background: transparent; color: var(--text); font-size: 15px; font-weight: 700">로드맵 보기</button>
 </div>
 </sc-if>
 
 </div>
 
 <sc-if value="{{ v.showTabs }}" hint-placeholder-val="{{ true }}">
-  <nav aria-label="탭" style="flex: none; height: 64px; border-top: 1px solid #ebebeb; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); background: #ffffff">
+  <nav aria-label="탭" style="flex: none; height: 64px; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); background: var(--bar)">
     <sc-for list="{{ v.tabs }}" as="tb" hint-placeholder-count="5">
       <button type="button" onClick="{{ tb.go }}" aria-current="{{ tb.current }}" style="{{ tb.style }}">
-        <sc-if value="{{ tb.on }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position: absolute; top: -1px; left: 24%; right: 24%; height: 3px; border-radius: 0 0 3px 3px; background: #111111"></span></sc-if>
+        <sc-if value="{{ tb.on }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position: absolute; top: -1px; left: 24%; right: 24%; height: 3px; border-radius: 0 0 3px 3px; background: var(--text)"></span></sc-if>
         <sc-if value="{{ tb.i.t }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5Z"></path><path d="M12 6v13.5"></path></svg></sc-if>
         <sc-if value="{{ tb.i.e }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"></rect><path d="M9 3.5h6v3H9z"></path><path d="m9 13 2 2 4-4"></path></svg></sc-if>
         <sc-if value="{{ tb.i.s }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9 5.5 4h13L20 9"></path><path d="M4 9h16v1.5a2.7 2.7 0 0 1-5.3 0 2.7 2.7 0 0 1-5.4 0 2.7 2.7 0 0 1-5.3 0Z"></path><path d="M5.5 12.5V20h13v-7.5"></path><path d="M10 20v-4h4v4"></path></svg></sc-if>
@@ -572,11 +602,34 @@ a{color:#111111}a:hover{color:#4d4d4d}
 </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"start":{"editor":"enum","options":["roadmap","detail","course","streak","xp","goal","concept","question","wrong","rewrite","complete","after","alldone"],"default":"roadmap"},"mode":{"editor":"enum","options":["입문 모드","내 가게 모드"],"default":"입문 모드"},"$preview":{"width":390,"height":844}}'>
+<script type="text/x-dc" data-dc-script data-props='{"start":{"editor":"enum","options":["roadmap","detail","course","streak","xp","goal","me","concept","question","wrong","rewrite","complete","after","alldone"],"default":"roadmap"},"theme":{"editor":"enum","options":["auto","dark","light"],"default":"auto"},"mode":{"editor":"enum","options":["입문 모드","내 가게 모드"],"default":"입문 모드"},"$preview":{"width":390,"height":844}}'>
 var GOAL_XP = 50; // 가정값: 하루 목표 XP
 var XP_RULE = { correct: 10, wrong: 2, lesson: 10 }; // 가정값 (docs/01 5-2)
 var STORE_KEY = 'maco-training-demo-v2'; // 데모 기록 (서버 기록과 분리)
+var THEME_KEY = 'maco-theme-v2'; // 화면 테마 (다크 기본, 저장된 값이 없으면 다크)
 var STREAK_BEFORE = 3; // 데모: 어제까지 연속 3일
+
+// 화면 테마: 다크(기본) / 라이트. 앱 전체가 CSS 변수로 이 값을 쓴다
+var THEMES = {
+  dark: { bg: '#1d1f23', bar: '#26282d', panel: '#2e3137', card: '#383b43', line: '#444852', text: '#f3f2ef', sub: '#c2c3c7', muted: '#9a9ca3', soft: '#33363d', track: '#3a3d44', path: '#4a4e57',
+    accent: '#a594ff', 'accent-strong': '#a594ff', 'on-accent': '#17181c', 'accent-soft': '#322d4f',
+    done: '#ff6b1a', 'done-deep': '#c9530f', 'done-text': '#ff8a4c', 'on-done': '#1d1f23',
+    tile: '#ffffff', 'tile-line': '#ffffff', 'tile-shadow': '#a9a7a2', lock: '#6b6e75',
+    good: '#4fd18b', bad: '#ff7b7b', 'good-soft': '#1d3a2b', 'bad-soft': '#43282a', 'hint-soft': '#3a342a', 'good-text': '#6fe0a1', 'bad-text': '#ff9a9a',
+    'card-shadow': '0 12px 30px rgba(0,0,0,0.35)' },
+  light: { bg: '#f3f1ee', bar: '#ffffff', panel: '#ffffff', card: '#ffffff', line: '#e2ded8', text: '#161616', sub: '#4d4b47', muted: '#6c6964', soft: '#ebe8e3', track: '#e6e2dc', path: '#d6d1c9',
+    accent: '#6e4fe0', 'accent-strong': '#6e4fe0', 'on-accent': '#ffffff', 'accent-soft': '#ece7fd',
+    done: '#ff6b1a', 'done-deep': '#e0550b', 'done-text': '#c94a06', 'on-done': '#1d1f23',
+    tile: '#ffffff', 'tile-line': '#c9c3ba', 'tile-shadow': '#d9d4cc', lock: '#77736d',
+    good: '#1f9d55', bad: '#d93b3b', 'good-soft': '#e6f5ec', 'bad-soft': '#fcebea', 'hint-soft': '#fbf3e7', 'good-text': '#17773f', 'bad-text': '#b42828',
+    'card-shadow': '0 10px 26px rgba(40,30,20,0.10)' }
+};
+// 섹션 포인트 컬러: 헤더의 번호 표시와 아이콘에만 쓴다 (주황은 완료 표시 전용)
+var SEC_COLOR = {
+  dark: ['#6ea0ff', '#3cc7b4', '#f27ab0', '#b3a4ff', '#f2c94c', '#6cc570', '#5ec4ec'],
+  light: ['#2f6fdc', '#13806f', '#c23c7a', '#6e4fe0', '#8a6d00', '#2f8a35', '#1f7fae']
+};
+var SEC_TINT = { light: ['#e8effc', '#e1f4f1', '#fbe7f0', '#eeeafd', '#f8f1d6', '#e5f3e6', '#e0f1f8'] };
 var WEEK = [
   { dow: '월', date: 23, done: false }, { dow: '화', date: 24, done: false }, { dow: '수', date: 25, done: true },
   { dow: '목', date: 26, done: true }, { dow: '금', date: 27, done: true }, { dow: '토', date: 28, today: true }, { dow: '일', date: 29, future: true }
@@ -782,11 +835,12 @@ function reduced() { try { return window.matchMedia('(prefers-reduced-motion: re
 class Component extends DCLogic {
   live() { return !this.props.start || this.props.start === 'roadmap'; }
   blank() {
-    return { init: true, screen: 'roadmap', tab: 'training', done: {}, xpLog: [], todayXp: 0, displayXp: null, fly: null,
-      selected: null, openSecs: null, lesson: null, result: null, justDone: null, justOpened: null, scrollTo: null, restore: null, saved: 0 };
+    return { init: true, screen: 'roadmap', tab: 'training', theme: 'dark', done: {}, xpLog: [], todayXp: 0, displayXp: null, fly: null,
+      selected: null, openSecs: null, lesson: null, result: null, justDone: null, justOpened: null, scrollTo: null, restore: null };
   }
   load() {
     var s = this.blank();
+    try { var t = window.localStorage.getItem(THEME_KEY); if (t === 'light' || t === 'dark') s.theme = t; } catch (e) {}
     if (!this.live()) return s;
     try {
       var raw = window.localStorage.getItem(STORE_KEY);
@@ -806,9 +860,10 @@ class Component extends DCLogic {
     if (name === 'streak') { this.fill(s, 6, 30); s.screen = 'streak'; }
     if (name === 'xp') { this.fill(s, 6, 30); s.xpLog = [{ id: '2-1', xp: 30, correct: 2, total: 3 }]; s.screen = 'xp'; }
     if (name === 'goal') { this.fill(s, 6, 30); s.screen = 'goal'; }
+    if (name === 'me') { this.fill(s, 6, 30); s.screen = 'tab'; s.tab = 'me'; }
     if (name === 'concept') { this.fill(s, 6, 30); s.screen = 'lesson'; s.lesson = this.newLesson('2-2'); }
     if (name === 'question') { this.fill(s, 1, 0); s.screen = 'lesson'; s.lesson = Object.assign(this.newLesson('1-2'), { step: 'q', answer: null }); }
-    if (name === 'wrong') { this.fill(s, 6, 30); s.screen = 'lesson'; s.lesson = Object.assign(this.newLesson('2-2'), { step: 'q', answer: 0, checked: true, why: true, results: [{ qi: 0, correct: false }] }); }
+    if (name === 'wrong') { this.fill(s, 6, 30); s.screen = 'lesson'; s.lesson = Object.assign(this.newLesson('2-2'), { step: 'q', answer: 0, checked: true, why: false, results: [{ qi: 0, correct: false }] }); }
     if (name === 'rewrite') { this.fill(s, 13, 30); s.screen = 'lesson'; s.lesson = Object.assign(this.newLesson('3-4'), { step: 'q', q: 2, checked: true, text: '오래 기다리시게 해서 답답하셨겠어요. 정말 죄송합니다. 다음에 또 와 주세요.', results: [{ qi: 0, correct: true }, { qi: 1, correct: true }, { qi: 2, correct: true }] }); }
     if (name === 'complete') { this.fill(s, 9, 30); s.screen = 'complete'; s.result = this.makeResult(s, '2-5', [{ qi: 0, correct: true }, { qi: 1, correct: true }, { qi: 2, correct: false }]); }
     if (name === 'after') { this.fill(s, 6, 0); s = this.applyFinish(s, this.makeResult(s, '2-2', [{ qi: 0, correct: true }, { qi: 1, correct: true }, { qi: 2, correct: true }])); s.fly = null; s.displayXp = null; }
@@ -817,27 +872,41 @@ class Component extends DCLogic {
   }
   cur() { if (this.state && this.state.init) return this.state; return this.live() ? this.load() : this.preset(this.props.start); }
   set(patch) { this.setState(Object.assign({}, this.cur(), patch)); }
+  themeName(s) { var p = this.props.theme; if (p === 'dark' || p === 'light') return p; return s.theme === 'light' ? 'light' : 'dark'; }
   componentDidMount() { var s = this.cur(); if (s.scrollTo) this.setState(Object.assign({}, s)); }
   componentDidUpdate() {
     var self = this, s = this.state;
     if (!s) return;
+    if (this._anchor) {
+      var a = this._anchor; this._anchor = null;
+      var el = document.getElementById(a.id), sc = document.getElementById('roadmap-scroll');
+      if (el && sc && a.top != null) {
+        var d = el.getBoundingClientRect().top - a.top;
+        if (Math.abs(d) > 1) sc.scrollTop += d;
+        var li = el.closest('li');
+        if (li && s.selected) setTimeout(function () { li.scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' }); }, 30);
+      }
+    }
     if (s.scrollTo) {
       var id = s.scrollTo; this.setState({ scrollTo: null });
-      setTimeout(function () { var el = document.getElementById(id); if (el) el.scrollIntoView({ block: 'center', behavior: reduced() ? 'auto' : 'smooth' }); }, 40);
+      setTimeout(function () { var e2 = document.getElementById(id); if (e2) e2.scrollIntoView({ block: 'center', behavior: reduced() ? 'auto' : 'smooth' }); }, 40);
     }
     if (s.restore != null && s.screen === 'roadmap') {
       var top = s.restore; this.setState({ restore: null });
-      setTimeout(function () { var el = document.getElementById('roadmap-scroll'); if (el) el.scrollTop = top; }, 0);
+      setTimeout(function () { var e3 = document.getElementById('roadmap-scroll'); if (e3) e3.scrollTop = top; }, 0);
     }
     if (s.fly && !this._flyTimer) {
       this._flyTimer = setTimeout(function () { self._flyTimer = null; self.setState({ fly: null, displayXp: null }); }, reduced() ? 0 : 650);
     }
-    if (this.live()) {
-      try {
+    try {
+      if (!this.props.theme || this.props.theme === 'auto') {
+        if (s.theme !== this._lastTheme) { window.localStorage.setItem(THEME_KEY, s.theme); this._lastTheme = s.theme; }
+      }
+      if (this.live()) {
         var data = JSON.stringify({ demo: true, done: s.done, xpLog: s.xpLog, todayXp: s.todayXp });
         if (data !== this._lastSaved) { window.localStorage.setItem(STORE_KEY, data); this._lastSaved = data; }
-      } catch (e) {}
-    }
+      }
+    } catch (e) {}
   }
 
   newLesson(id) { return { id: id, step: 'concept', q: 0, answer: null, checked: false, why: false, text: '', results: [] }; }
@@ -846,7 +915,7 @@ class Component extends DCLogic {
   saveScroll() { try { var el = document.getElementById('roadmap-scroll'); return el ? el.scrollTop : null; } catch (e) { return null; } }
   leave(patch) { var s = this.cur(); var keep = s.screen === 'roadmap' ? this.saveScroll() : s.keepScroll; this.set(Object.assign({ keepScroll: keep }, patch)); }
   backToRoadmap(extra) { var s = this.cur(); this.set(Object.assign({ screen: 'roadmap', tab: 'training', lesson: null, restore: s.keepScroll != null ? s.keepScroll : null }, extra || {})); }
-  startLesson(id) { this.leave({ screen: 'lesson', lesson: this.newLesson(id), selected: null }); }
+  startLesson(id) { this.leave({ screen: 'lesson', lesson: this.newLesson(id) }); }
 
   makeResult(s, id, results) {
     var U = unitOf(id);
@@ -874,13 +943,18 @@ class Component extends DCLogic {
   renderVals() {
     var self = this;
     var s = this.cur();
+    var themeName = this.themeName(s);
+    var T = THEMES[themeName];
+    var vars = Object.keys(T).map(function (k) { return '--' + k + ': ' + T[k]; }).join('; ');
     var curId = this.currentId(s);
     var shownXp = s.displayXp != null ? s.displayXp : s.todayXp;
     var studied = s.todayXp > 0;
     var streak = STREAK_BEFORE + (studied ? 1 : 0);
+    var isMe = s.screen === 'tab' && s.tab === 'me';
     var v = {
+      rootStyle: 'width: 390px; height: 844px; position: relative; overflow: hidden; display: flex; flex-direction: column; background: var(--bg); color: var(--text); font-family: Pretendard, -apple-system, \'Apple SD Gothic Neo\', \'Malgun Gothic\', sans-serif; letter-spacing: -0.01em; color-scheme: ' + themeName + '; ' + vars,
       isRoadmap: s.screen === 'roadmap', isCourse: s.screen === 'course', isStreak: s.screen === 'streak', isXp: s.screen === 'xp', isGoal: s.screen === 'goal',
-      isTab: s.screen === 'tab', isLesson: s.screen === 'lesson', isComplete: s.screen === 'complete', isAllDone: s.screen === 'alldone'
+      isMe: isMe, isTab: s.screen === 'tab' && !isMe, isLesson: s.screen === 'lesson', isComplete: s.screen === 'complete', isAllDone: s.screen === 'alldone'
     };
     v.showTabs = !v.isLesson && !v.isComplete && !v.isAllDone;
     v.back = function () { self.backToRoadmap(); };
@@ -890,89 +964,91 @@ class Component extends DCLogic {
       streak: function () { self.leave({ screen: 'streak' }); },
       xp: function () { self.leave({ screen: 'xp' }); },
       goal: function () { self.leave({ screen: 'goal' }); },
-      streak: streak, streakLabel: '연속학습 ' + streak + '일, 자세히 보기', flameColor: studied ? '#ff6b1a' : '#c9c9c9',
+      streakCount: streak, streakLabel: '연속학습 ' + streak + '일, 자세히 보기',
+      flameStyle: studied ? 'fill: var(--done)' : 'fill: var(--muted)',
       xpShown: shownXp, xpLabel: '오늘 ' + s.todayXp + ' XP, XP 기록 보기',
-      ringDash: ringDash(shownXp), goalLabel: '오늘의 목표 ' + s.todayXp + '/' + GOAL_XP + ' XP, 자세히 보기'
+      ringDash: ringDash(shownXp), goalLabel: '오늘의 목표 ' + s.todayXp + '/' + GOAL_XP + ' XP, 자세히 보기',
+      isDark: themeName === 'dark', isLight: themeName === 'light',
+      themeLabel: themeName === 'dark' ? '라이트 모드로 바꾸기' : '다크 모드로 바꾸기',
+      toggleTheme: function () { self.set({ theme: themeName === 'dark' ? 'light' : 'dark' }); },
+      trackStyle: 'position: relative; display: block; width: 44px; height: 26px; border-radius: 13px; transition: background .2s ease-out; border: 1px solid var(--line); background: ' + (themeName === 'dark' ? 'var(--accent)' : 'var(--track)'),
+      knobStyle: 'position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; transition: transform .2s ease-out; transform: translateX(' + (themeName === 'dark' ? '18px' : '0') + ')'
     };
-    v.top.streak = function () { self.leave({ screen: 'streak' }); };
-    v.top.streakCount = streak;
     v.fly = { show: !!s.fly && v.isRoadmap, xp: s.fly ? s.fly.xp : 0 };
 
-    // 탭
+    // 하단 5탭
     var storeLabel = this.props.mode === '내 가게 모드' ? '내 가게' : '연습 가게';
     v.tabs = TABS.map(function (t) {
       var on = (s.screen === 'tab' ? s.tab : 'training') === t.k;
       var i = { t: t.i === 't', e: t.i === 'e', s: t.i === 's', r: t.i === 'r', m: t.i === 'm' };
       return { label: t.k === 'store' ? storeLabel : t.label, on: on, current: on ? 'page' : 'false', i: i,
-        style: 'position: relative; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11px; font-weight: ' + (on ? '800' : '600') + '; color: ' + (on ? '#111111' : '#767676'),
+        style: 'position: relative; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11px; font-weight: ' + (on ? '800' : '600') + '; color: ' + (on ? 'var(--text)' : 'var(--muted)'),
         go: function () { if (t.k === 'training') self.backToRoadmap(); else self.leave({ screen: 'tab', tab: t.k }); } };
     });
-    v.tabName = (TABS.filter(function (t) { return t.k === s.tab; })[0] || TABS[0]).label;
-    if (s.tab === 'store') v.tabName = storeLabel;
+    v.tabName = s.tab === 'store' ? storeLabel : (TABS.filter(function (t) { return t.k === s.tab; })[0] || TABS[0]).label;
+
+    // 내 정보 → 화면 테마
+    var seg = function (on) { return 'min-height: 56px; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 12px; font-size: 15px; font-weight: 800; color: var(--text); background: ' + (on ? 'var(--accent-soft)' : 'transparent') + '; border: ' + (on ? '2px solid var(--accent)' : '1px solid var(--line)'); };
+    v.me = { isDark: themeName === 'dark', isLight: themeName === 'light', darkStyle: seg(themeName === 'dark'), lightStyle: seg(themeName === 'light'),
+      dark: function () { self.set({ theme: 'dark' }); }, light: function () { self.set({ theme: 'light' }); } };
 
     // 로드맵
+    var secColor = SEC_COLOR[themeName];
     v.sections = SECTIONS.map(function (S, si) {
       var ids = S.units.map(function (u, ui) { return (si + 1) + '-' + (ui + 1); });
       var doneN = ids.filter(function (id) { return s.done[id]; }).length;
       var open = self.isOpen(s, ids[0]);
+      var color = secColor[si];
       var prevX = null, prevExpanded = false, prevState = null;
       var rows = S.units.map(function (U, ui) {
         var id = ids[ui];
-        var st = s.done[id] ? 'done' : id === curId ? 'current' : self.isOpen(s, id) ? 'current' : 'locked';
+        var st = s.done[id] ? 'done' : self.isOpen(s, id) ? 'open' : 'locked';
         var x = 175 + OFFSETS[ui];
         var expanded = s.selected === id;
-        var big = st === 'current';
-        var w = big ? 74 : 62, h = big ? 88 : 74;
-        var labelRight = x < 175;
-        var gap = w / 2 + 14;
-        var prevId = ORDER[idxOf(id) - 1];
+        var prev = ORDER[idxOf(id) - 1];
         var opened = s.justOpened === id;
-        var len = Math.round(Math.sqrt(Math.pow(x - (prevX || x), 2) + 150 * 150));
-        var colors = st === 'current' ? { fill: '#6e4fe0', stroke: '#4f37ad', shadow: '#4f37ad', icon: '#ffffff' } : st === 'done' ? { fill: '#ffffff', stroke: '#d6d6d6', shadow: '#e2e2e2', icon: '#111111' } : { fill: '#f5f5f5', stroke: '#e2e2e2', shadow: '#e6e6e6', icon: '#a3a3a3' };
-        var icon = {}; for (var k = 1; k <= 7; k++) icon['s' + k] = k === si + 1;
+        var len = Math.round(Math.sqrt(Math.pow(x - (prevX == null ? x : prevX), 2) + 104 * 104));
+        var tileId = 'tile-' + id;
+        var white = { face: 'fill: var(--tile); stroke: var(--tile-line)', shadow: 'fill: var(--tile-shadow)', hole: 'fill: var(--bg); stroke: var(--tile-line)' };
+        var orange = { face: 'fill: var(--done); stroke: var(--done-deep)', shadow: 'fill: var(--done-deep)', hole: 'fill: var(--bg); stroke: var(--done-deep)' };
+        var look = st === 'done' ? orange : white;
         var row = {
-          anchor: 'row-' + id, no: ui + 1, unit: U.n, lesson: U.l, icon: icon,
-          isDone: st === 'done', isLocked: st === 'locked', isCurrent: st === 'current', expanded: expanded,
-          fill: colors.fill, stroke: colors.stroke, shadow: colors.shadow,
+          anchor: 'row-' + id, tileId: tileId, unit: U.n, learn: U.k, coachLine: U.c,
+          meta: '섹션 ' + (si + 1) + ' · 유닛 ' + (ui + 1) + (st === 'done' ? ' · 완료' : st === 'open' ? ' · 시작 가능' : ' · 잠김'),
+          isDone: st === 'done', isOpenNow: st === 'open', isLocked: st === 'locked', expanded: expanded,
+          isRecommended: st === 'open' && id === curId,
+          doneText: st === 'done' ? '완료 · 정답 ' + s.done[id].correct + '/3 · 다시 연습해도 기록이 남아요' : '',
+          prevUnit: prev ? unitOf(prev.id).n : '',
           hasConn: prevX !== null && !prevExpanded, x1: prevX, x2: x,
           baseDash: st === 'locked' ? '2 8' : '',
-          connOn: prevState === 'done' && st !== 'locked', connLen: len, connVar: '--len: ' + len,
+          connOn: prevState === 'done' && st !== 'locked', connLen: len, connStyle: 'stroke: var(--done); --len: ' + len,
           connClass: opened ? 'maco-draw' : '',
-          faceClass: 'maco-tag-face' + (opened ? ' maco-pop' : ''),
-          checkClass: s.justDone === id ? 'maco-check' : '',
-          chipWrap: 'position: absolute; left: 0; right: 0; top: 4px; z-index: 1; display: flex; justify-content: center; padding-left: ' + Math.max(0, 2 * (x - 175)) + 'px; padding-right: ' + Math.max(0, 2 * (175 - x)) + 'px',
-          chipStyle: 'max-width: 100%; padding: 5px 11px; border-radius: 99px; background: #ffffff; border: 1px solid ' + (st === 'locked' ? '#ebebeb' : '#d6d6d6') + '; font-size: 12.5px; line-height: 1.35; font-weight: 700; text-align: center; color: ' + (st === 'locked' ? '#767676' : '#111111'),
-          tagWrap: 'position: absolute; left: ' + (x - w / 2) + 'px; top: ' + (big ? 50 : 58) + 'px; width: ' + w + 'px; height: ' + h + 'px; z-index: 1',
-          tagBtn: 'width: 100%; height: 100%; padding: 0; border: 0; background: transparent; display: block',
-          iconBox: 'position: absolute; left: 0; right: 0; top: ' + (big ? 30 : 24) + 'px; bottom: 6px; display: flex; align-items: center; justify-content: center; color: ' + colors.icon,
-          labelStyle: labelRight
-            ? 'position: absolute; left: ' + (x + gap) + 'px; right: 0; top: 54px; height: 86px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 3px; text-align: left'
-            : 'position: absolute; left: 0; width: ' + (x - gap) + 'px; top: 54px; height: 86px; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; gap: 3px; text-align: right',
-          titleStyle: 'font-size: 15px; line-height: 1.35; font-weight: ' + (st === 'locked' ? '600' : '800') + '; color: ' + (st === 'locked' ? '#767676' : '#111111'),
-          stateText: st === 'done' ? (s.justDone === id ? '방금 완료 · +' + s.done[id].xp + ' XP' : '완료 · 정답 ' + s.done[id].correct + '/3') : st === 'current' ? '문제 3개 · 약 3분' : '이전 유닛을 끝내면 열려요',
-          stateStyle: 'font-size: 12px; line-height: 1.35; font-weight: 600; color: ' + (st === 'locked' ? '#767676' : '#4d4d4d'),
-          aria: U.l + ', 유닛 ' + (ui + 1) + ' ' + U.n + ', ' + (st === 'done' ? '완료' : st === 'current' ? '지금 할 레슨' : '잠김'),
-          showCoach: st === 'current' && id === curId && !expanded, coachLine: U.c,
-          showCard: expanded && st !== 'locked', showLock: expanded && st === 'locked',
-          lockText: prevId ? '‘' + unitOf(prevId.id).n + '’ 유닛을 끝내면 열려요.' : '',
-          caretStyle: 'position: absolute; top: -8px; left: ' + (x - 8) + 'px; width: 16px; height: 16px; background: #ffffff; border-left: 1px solid #ebebeb; border-top: 1px solid #ebebeb; transform: rotate(45deg)',
-          caretSoft: 'position: absolute; top: -7px; left: ' + (x - 7) + 'px; width: 14px; height: 14px; background: #f5f5f5; transform: rotate(45deg)',
-          tap: function () { self.set({ selected: expanded ? null : id }); },
-          start: function () { self.startLesson(id); },
-          card: { meta: '섹션 ' + (si + 1) + ' · 유닛 ' + (ui + 1) + ' · ' + U.n, desc: U.k,
-            btnLabel: st === 'done' ? '다시 하기' : '레슨 시작',
-            btnStyle: 'flex: 1; height: 48px; border-radius: 14px; font-size: 16px; font-weight: 800; ' + (st === 'done' ? 'border: 2px solid #111111; background: #ffffff; color: #111111' : 'border: 0; background: #6e4fe0; color: #ffffff') }
+          faceStyle: look.face, shadowStyle: look.shadow, holeStyle: look.hole,
+          fillClass: s.justDone === id ? 'maco-turn' : '',
+          checkClass: s.justDone === id ? 'maco-pop' : '',
+          ringClass: opened ? 'maco-ring-in' : '',
+          tileWrap: 'position: absolute; left: ' + (x - 32) + 'px; top: 14px; width: 64px; height: 76px; z-index: 1',
+          showCat: st === 'open' && id === curId && !expanded,
+          catStyle: 'position: absolute; top: 30px; width: 52px; height: 52px; z-index: 1; left: ' + (x < 175 ? x + 46 : x - 46 - 52) + 'px',
+          aria: '유닛 ' + (ui + 1) + ' ' + U.n + ', ' + (st === 'done' ? '완료, 다시 연습 가능' : st === 'open' ? '시작 가능' : '잠김') + (expanded ? ', 상세 열림' : ''),
+          caretStyle: 'position: absolute; top: -8px; left: ' + (x - 8) + 'px; width: 16px; height: 16px; background: var(--card); border-left: 1px solid var(--line); border-top: 1px solid var(--line); transform: rotate(45deg)',
+          tap: function () {
+            var el = document.getElementById(tileId);
+            self._anchor = { id: tileId, top: el ? el.getBoundingClientRect().top : null };
+            self.set({ selected: expanded ? null : id });
+          },
+          start: function () { self.startLesson(id); }
         };
-        prevX = x; prevExpanded = expanded || row.showCoach; prevState = st;
+        prevX = x; prevExpanded = expanded; prevState = st;
         return row;
       });
       var pct = Math.round(doneN / 5 * 100);
-      return { anchor: 'sec-' + (si + 1), no: si + 1, title: S.title, goal: S.goal, aria: '섹션 ' + (si + 1) + ' ' + S.title,
-        progressText: '유닛 ' + doneN + '/5 완료', isDone: doneN === 5, isLocked: !open,
-        lockText: si > 0 ? '섹션 ' + si + '을 마치면 열려요. 학습 목표와 유닛은 미리 볼 수 있어요.' : '',
-        headStyle: 'padding: 16px; border-radius: 18px; ' + (open ? 'border: 1px solid #ebebeb; background: #ffffff' : 'border: 1px dashed #d6d6d6; background: #fafafa'),
-        badgeStyle: 'width: 26px; height: 26px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; ' + (open ? 'background: #111111; color: #ffffff' : 'background: #ebebeb; color: #4d4d4d'),
-        fillStyle: 'height: 100%; border-radius: 99px; background: #ff6b1a; width: ' + pct + '%', rows: rows };
+      var headBg = themeName === 'light' ? SEC_TINT.light[si] : 'var(--panel)';
+      return { anchor: 'sec-' + (si + 1), firstKey: ids[0], no: si + 1, title: S.title, goal: S.goal, aria: '섹션 ' + (si + 1) + ' ' + S.title,
+        progressText: open ? '유닛 ' + doneN + '/5 완료' : '앞 섹션을 마치면 열려요', isDone: doneN === 5, isLocked: !open,
+        headStyle: 'padding: 14px 16px 16px 18px; border-radius: 18px; background: ' + headBg + '; border: 1px solid var(--line); box-shadow: inset 5px 0 0 ' + color,
+        badgeStyle: 'flex: none; width: 34px; height: 34px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; background: ' + color + '; color: ' + (themeName === 'dark' ? '#1d1f23' : '#ffffff'),
+        fillStyle: 'height: 100%; border-radius: 99px; background: var(--done); width: ' + pct + '%', rows: rows };
     });
 
     // 전체 과정
@@ -981,51 +1057,52 @@ class Component extends DCLogic {
     var doneCount = ORDER.filter(function (o) { return s.done[o.id]; }).length;
     v.course = { doneCount: doneCount,
       storageNote: this.live() ? '데모 기록은 서버 기록과 분리해 이 브라우저에만 저장돼요. 새로고침해도 유지돼요.' : '이 보드는 정해진 상태를 보여 주는 시안이라 기록을 저장하지 않아요.',
-      reset: function () { self.set(Object.assign(self.blank(), { screen: 'course' })); },
-      jump: function () { var n = self.blank(); self.fill(n, 34, 0); n.screen = 'course'; n.openSecs = { 6: true }; self.set(n); },
+      reset: function () { self.set(Object.assign(self.blank(), { screen: 'course', theme: self.cur().theme })); },
+      jump: function () { var n = self.blank(); n.theme = self.cur().theme; self.fill(n, 34, 0); n.screen = 'course'; n.openSecs = { 6: true }; self.set(n); },
       sections: SECTIONS.map(function (S, si) {
         var ids = S.units.map(function (u, ui) { return (si + 1) + '-' + (ui + 1); });
         var doneN = ids.filter(function (id) { return s.done[id]; }).length;
         var isOpenSec = !!openSecs[si];
         var isCur = si === curSec && doneN < 5;
         var pct = Math.round(doneN / 5 * 100);
+        var color = secColor[si];
         return { no: si + 1, title: S.title, goal: S.goal, aria: '섹션 ' + (si + 1) + ' ' + S.title, open: isOpenSec, progressText: '유닛 ' + doneN + '/5 완료',
-          fillStyle: 'display: block; height: 100%; border-radius: 99px; background: #ff6b1a; width: ' + pct + '%',
-          cardStyle: 'border-radius: 18px; ' + (isCur ? 'border: 2px solid #6e4fe0' : 'border: 1px solid #ebebeb') + '; background: #ffffff',
-          badgeStyle: 'flex: none; width: 30px; height: 30px; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; ' + (doneN === 5 ? 'background: #ff6b1a; color: #ffffff' : self.isOpen(s, ids[0]) ? 'background: #111111; color: #ffffff' : 'background: #ebebeb; color: #4d4d4d'),
+          fillStyle: 'display: block; height: 100%; border-radius: 99px; background: var(--done); width: ' + pct + '%',
+          cardStyle: 'border-radius: 18px; background: ' + (themeName === 'light' ? SEC_TINT.light[si] : 'var(--panel)') + '; border: ' + (isCur ? '2px solid var(--accent)' : '1px solid var(--line)') + '; box-shadow: inset 5px 0 0 ' + color,
+          badgeStyle: 'flex: none; width: 32px; height: 32px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; background: ' + color + '; color: ' + (themeName === 'dark' ? '#1d1f23' : '#ffffff'),
           chevron: isOpenSec ? 'flex: none; margin-top: 4px; transform: rotate(180deg); transition: transform .2s' : 'flex: none; margin-top: 4px; transition: transform .2s',
           toggle: function () { var o = Object.assign({}, openSecs); o[si] = !o[si]; self.set({ openSecs: o }); },
           units: S.units.map(function (U, ui) {
             var id = ids[ui];
-            var st = s.done[id] ? 'done' : id === curId ? 'current' : 'locked';
+            var st = s.done[id] ? 'done' : self.isOpen(s, id) ? 'open' : 'locked';
             var prev = ORDER[idxOf(id) - 1];
-            return { unit: (ui + 1) + '. ' + U.n, sub: st === 'done' ? '완료 · ' + U.l : st === 'current' ? '지금 할 레슨 · ' + U.l : (prev ? '‘' + unitOf(prev.id).n + '’를 끝내면 열려요' : ''),
-              isCurrent: st === 'current', isDone: st === 'done', mark: st === 'done' ? '✓' : st === 'current' ? '→' : '•',
-              rowStyle: 'display: flex; align-items: center; gap: 10px; padding: 10px 10px 10px 12px; border-radius: 12px; ' + (st === 'current' ? 'background: #f0ecfd' : 'background: #fafafa'),
-              dotStyle: 'flex: none; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; ' + (st === 'done' ? 'background: #ff6b1a; color: #ffffff' : st === 'current' ? 'background: #6e4fe0; color: #ffffff' : 'background: #ebebeb; color: #767676'),
+            return { unit: (ui + 1) + '. ' + U.n,
+              sub: st === 'done' ? '완료 · ' + U.l : st === 'open' ? '시작 가능 · ' + U.l : (prev ? '‘' + unitOf(prev.id).n + '’를 완료하면 열려요' : ''),
+              isCurrent: st === 'open', isDone: st === 'done', isLocked: st === 'locked', stateLabel: st === 'done' ? '완료' : st === 'open' ? '시작 가능' : '잠김',
+              rowStyle: 'display: flex; align-items: center; gap: 10px; padding: 10px 10px 10px 12px; border-radius: 12px; background: ' + (st === 'open' ? 'var(--accent-soft)' : 'var(--bg)'),
+              dotStyle: 'flex: none; width: 26px; height: 26px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; ' + (st === 'done' ? 'background: var(--done)' : 'background: var(--tile); border: 1px solid var(--tile-line)'),
               go: function () { self.startLesson(id); } };
           }) };
       }) };
 
     // 연속학습
-    v.streak = { days: streak, flameColor: studied ? '#ff6b1a' : '#c9c9c9', range: '11월 23일~29일 (데모)', needToday: !studied,
+    v.streak = { days: streak, range: '11월 23일~29일 (데모)', needToday: !studied,
       todayTitle: studied ? '오늘도 학습했어요' : '오늘은 아직 학습하지 않았어요',
       todayText: studied ? '내일도 레슨 하나로 연속 기록을 이어 가요.' : '레슨 하나를 마치면 오늘이 채워지고 ' + (STREAK_BEFORE + 1) + '일 연속이 돼요.',
-      todayStyle: 'padding: 14px 16px; border-radius: 16px; ' + (studied ? 'background: #fff4ec; border: 1px solid #ffd9c2' : 'background: #f5f5f5'),
+      todayStyle: 'padding: 14px 16px; border-radius: 16px; background: var(--panel); border: 1px solid ' + (studied ? 'var(--done)' : 'var(--line)'),
       week: WEEK.map(function (d) {
         var done = d.done || (d.today && studied);
         return { dow: d.dow, date: d.date, done: done, notDone: !done,
           aria: '11월 ' + d.date + '일 ' + d.dow + '요일, ' + (done ? '학습함' : d.future ? '아직 오지 않음' : d.today ? '오늘, 아직 학습 전' : '학습 안 함'),
-          labelStyle: 'font-size: 12px; font-weight: ' + (d.today ? '800' : '600') + '; color: ' + (d.today ? '#111111' : '#4d4d4d'),
-          dotStyle: 'width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; ' + (done ? 'background: #ff6b1a; color: #ffffff' : d.today ? 'border: 2px solid #111111; color: #111111' : d.future ? 'color: #a3a3a3' : 'background: #f5f5f5; color: #4d4d4d') };
+          labelStyle: 'font-size: 12px; font-weight: ' + (d.today ? '800' : '600') + '; color: ' + (d.today ? 'var(--text)' : 'var(--sub)'),
+          dotStyle: 'width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; ' + (done ? 'background: var(--done); color: var(--on-done)' : d.today ? 'border: 2px solid var(--text); color: var(--text)' : d.future ? 'color: var(--muted)' : 'background: var(--soft); color: var(--sub)') };
       }) };
 
     // XP 기록
     v.xpPage = { total: s.todayXp, empty: s.xpLog.length === 0,
       items: s.xpLog.slice().reverse().map(function (e) {
         var U = unitOf(e.id);
-        return { where: '섹션 ' + e.id.split('-')[0] + ' · 유닛 ' + e.id.split('-')[1], lesson: U.l, xp: e.xp,
-          detail: '정답 ' + e.correct + '/' + e.total + ' · 레슨 완료 +' + XP_RULE.lesson };
+        return { where: '섹션 ' + e.id.split('-')[0] + ' · 유닛 ' + e.id.split('-')[1], lesson: U.l, xp: e.xp, detail: '정답 ' + e.correct + '/' + e.total + ' · 레슨 완료 +' + XP_RULE.lesson };
       }) };
 
     // 오늘의 목표
@@ -1039,7 +1116,7 @@ class Component extends DCLogic {
     v.ls = { isConcept: false, isQuestion: false, showAction: false };
     v.q = {}; v.fb = { show: false };
     if (L) {
-      var U = unitOf(L.id), S = secOf(L.id);
+      var U = unitOf(L.id);
       var isConcept = L.step === 'concept';
       var Q = U.q[L.q];
       var shown = isConcept ? 0 : L.q + 1;
@@ -1049,12 +1126,12 @@ class Component extends DCLogic {
       var correct = !isConcept && L.checked ? (g ? g.correct : L.answer === Q.a) : false;
       var canCheck = isConcept || (Q.t === 'rewrite' ? (L.text || '').trim().length >= 5 : L.answer !== null);
       v.ls = { isConcept: isConcept, isQuestion: !isConcept, counter: shown + '/3', pct: pct,
-        fillStyle: 'height: 100%; border-radius: 99px; background: #ff6b1a; width: ' + Math.max(pct, 3) + '%',
-        where: '섹션 ' + L.id.split('-')[0] + ' · ' + U.n, conceptTitle: U.k, conceptBody: U.b, tool: S.tool,
+        fillStyle: 'height: 100%; border-radius: 99px; background: var(--done); width: ' + Math.max(pct, 3) + '%',
+        where: '섹션 ' + L.id.split('-')[0] + ' · ' + U.n, conceptTitle: U.k, conceptBody: U.b,
         bodyStyle: 'flex: 1; overflow-y: auto; padding: 6px 20px ' + (L.checked ? '460px' : '24px'),
         showAction: isConcept || !L.checked, disabled: !canCheck,
         actionLabel: isConcept ? '문제 풀기' : Q.t === 'rewrite' ? '기준 확인하기' : '확인',
-        actionStyle: 'width: 100%; height: 54px; border: 0; border-radius: 14px; font-size: 17px; font-weight: 800; color: #ffffff; background: ' + (canCheck ? '#6e4fe0' : '#d6d6d6'),
+        actionStyle: 'width: 100%; height: 54px; border: 0; border-radius: 14px; font-size: 17px; font-weight: 800; ' + (canCheck ? 'background: var(--accent); color: var(--on-accent)' : 'background: var(--soft); color: var(--muted)'),
         action: function () {
           if (isConcept) { self.set({ lesson: Object.assign({}, L, { step: 'q', q: 0, text: U.q[0].orig || '' }) }); return; }
           var ok = Q.t === 'rewrite' ? gradeText(Q, L.text).correct : L.answer === Q.a;
@@ -1070,38 +1147,39 @@ class Component extends DCLogic {
           orig: Q.orig || '', text: L.text, locked: L.checked, critNames: (Q.crit || []).map(function (c) { return c.n; }),
           onText: function (e) { self.set({ lesson: Object.assign({}, L, { text: e.target.value }) }); } };
         var mark = function (i, sel) { return L.checked ? (i === Q.a ? 'ok' : sel ? 'bad' : '') : (sel ? 'sel' : ''); };
+        var border = function (m, thin) { return m === 'ok' ? '2px solid var(--good)' : m === 'bad' ? '2px solid var(--bad)' : m === 'sel' ? '2px solid var(--accent)' : (thin || '1px solid var(--line)'); };
         if (Q.t === 'choice') v.q.options = Q.o.map(function (o, i) {
           var sel = L.answer === i, m = mark(i, sel);
           return { key: KEYS[i], text: o, selected: sel, pick: pick(i),
-            style: 'display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 12px 14px; border-radius: 14px; background: ' + (m === 'sel' ? '#f0ecfd' : '#ffffff') + '; border: ' + (m === 'ok' ? '2px solid #1f9d55' : m === 'bad' ? '2px solid #d93b3b' : m === 'sel' ? '2px solid #6e4fe0' : '1px solid #ebebeb'),
-            keyStyle: 'flex: none; width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; ' + (m === 'ok' ? 'background: #1f9d55; color: #ffffff' : m === 'bad' ? 'background: #d93b3b; color: #ffffff' : m === 'sel' ? 'background: #6e4fe0; color: #ffffff' : 'border: 1px solid #ebebeb') };
+            style: 'display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 12px 14px; border-radius: 14px; color: var(--text); background: ' + (m === 'sel' ? 'var(--accent-soft)' : 'var(--panel)') + '; border: ' + border(m),
+            keyStyle: 'flex: none; width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; ' + (m === 'ok' ? 'background: var(--good); color: var(--bg)' : m === 'bad' ? 'background: var(--bad); color: var(--bg)' : m === 'sel' ? 'background: var(--accent); color: var(--on-accent)' : 'border: 1px solid var(--line)') };
         });
         if (Q.t === 'spot') { v.q.spotTitle = vis.title; v.q.rows = vis.rows.map(function (r, i) {
           var sel = L.answer === i, m = mark(i, sel);
           return { k: r[0], v: r[1], selected: sel, pick: pick(i),
-            style: 'width: 100%; display: flex; align-items: center; gap: 8px; min-height: 52px; padding: 10px 16px; border: 0; border-top: 1px solid #f0f0f0; ' + (m === 'ok' ? 'background: #e8f6ee; box-shadow: inset 4px 0 0 #1f9d55' : m === 'bad' ? 'background: #fdeceb; box-shadow: inset 4px 0 0 #d93b3b' : m === 'sel' ? 'background: #f0ecfd; box-shadow: inset 4px 0 0 #6e4fe0' : 'background: #ffffff') };
+            style: 'width: 100%; display: flex; align-items: center; gap: 8px; min-height: 52px; padding: 10px 16px; border: 0; border-top: 1px solid var(--line); color: var(--text); ' + (m === 'ok' ? 'background: var(--good-soft); box-shadow: inset 4px 0 0 var(--good)' : m === 'bad' ? 'background: var(--bad-soft); box-shadow: inset 4px 0 0 var(--bad)' : m === 'sel' ? 'background: var(--accent-soft); box-shadow: inset 4px 0 0 var(--accent)' : 'background: transparent') };
         }); }
         if (Q.t === 'photo') v.q.photos = Q.o.map(function (kind, i) {
           var sel = L.answer === i, m = mark(i, sel);
           return { key: KEYS[i], kind: kind, selected: sel, aria: '사진 ' + KEYS[i], pick: pick(i),
-            style: 'padding: 6px 6px 0; border-radius: 14px; text-align: center; background: ' + (m === 'sel' ? '#f0ecfd' : '#ffffff') + '; border: ' + (m === 'ok' ? '3px solid #1f9d55' : m === 'bad' ? '3px solid #d93b3b' : m === 'sel' ? '3px solid #6e4fe0' : '2px solid #ebebeb') };
+            style: 'padding: 6px 6px 0; border-radius: 14px; text-align: center; color: var(--text); background: ' + (m === 'sel' ? 'var(--accent-soft)' : 'var(--panel)') + '; border: ' + border(m, '2px solid var(--line)') };
         });
         if (Q.t === 'pspot') v.q.spots = SPOTS.map(function (sp) {
           var sel = L.answer === sp.key, isAns = sp.key === Q.a;
-          var ring = L.checked ? (isAns ? 'border: 3px dashed #1f9d55; background: rgba(31,157,85,0.14);' : sel ? 'border: 3px solid #d93b3b; background: rgba(217,59,59,0.12);' : 'border: 0; background: transparent;') : (sel ? 'border: 3px solid #6e4fe0; background: rgba(110,79,224,0.16);' : 'border: 0; background: transparent;');
+          var ring = L.checked ? (isAns ? 'border: 3px dashed #1f9d55; background: rgba(31,157,85,0.18);' : sel ? 'border: 3px solid #d93b3b; background: rgba(217,59,59,0.16);' : 'border: 0; background: transparent;') : (sel ? 'border: 3px solid #6e4fe0; background: rgba(110,79,224,0.2);' : 'border: 0; background: transparent;');
           return { label: sp.label, selected: sel, pick: pick(sp.key), style: 'position: absolute; ' + sp.pos + '; border-radius: 12px; padding: 0; ' + ring };
         });
         if (L.checked) {
-          v.fb = { show: true, isCorrect: correct, isWrong: !correct && !g, isRewrite: !!g,
-            title: g ? (correct ? '좋아요, 기준을 잘 담았어요!' : '기준을 조금 더 담아 볼까요?') : (correct ? '정답이에요!' : '괜찮아요, 하나만 고쳐 봐요'),
+          v.fb = { show: true, isCorrect: correct, isWrong: !correct && !g, isRewrite: !!g, isRewriteMiss: !!g && !correct,
+            title: g ? (correct ? '좋아요, 기준을 잘 담았어요!' : '기준을 조금 더 담아 볼까요?') : (correct ? '정답이에요!' : '괜찮아요, 힌트 하나 드릴게요'),
             reason: g ? '기준 ' + g.rows.length + '개 중 ' + g.passed + '개를 담았어요.' : Q.r,
-            fix: Q.f || '', canWhy: !correct && !g, whyOpen: !!L.why,
+            fix: Q.f || '', whyOpen: !!L.why,
             why: g ? '' : '정답은 ' + answerText(Q) + '예요. ' + Q.r + ' ' + (Q.f || ''),
             chevron: L.why ? 'transform: rotate(180deg)' : '',
             toggleWhy: function () { self.set({ lesson: Object.assign({}, L, { why: !L.why }) }); },
             crit: g ? g.rows : [], example: Q.ex || '',
-            sheetStyle: 'position: absolute; left: 0; right: 0; bottom: 0; max-height: 80%; overflow-y: auto; z-index: 5; padding: 20px 20px 26px; border-radius: 22px 22px 0 0; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 -10px 30px rgba(17,17,17,0.10); background: ' + (correct ? '#e8f6ee' : g ? '#f5f5f5' : '#fdeceb'),
-            titleStyle: 'margin: 0; font-size: 20px; font-weight: 800; color: ' + (correct ? '#17773f' : g ? '#111111' : '#b42828'),
+            sheetStyle: 'position: absolute; left: 0; right: 0; bottom: 0; max-height: 80%; overflow-y: auto; z-index: 5; padding: 20px 20px 26px; border-radius: 22px 22px 0 0; display: flex; flex-direction: column; gap: 12px; color: var(--text); box-shadow: 0 -10px 30px rgba(0,0,0,0.25); background: ' + (correct ? 'var(--good-soft)' : g ? 'var(--panel)' : 'var(--hint-soft)'),
+            titleStyle: 'margin: 0; font-size: 20px; font-weight: 800; color: ' + (correct ? 'var(--good-text)' : 'var(--text)'),
             nextLabel: isLast ? '레슨 마치기' : '다음 문제',
             next: function () {
               if (!isLast) { var nq = U.q[L.q + 1]; self.set({ lesson: Object.assign({}, L, { q: L.q + 1, answer: null, checked: false, why: false, text: nq.orig || '' }) }); }
