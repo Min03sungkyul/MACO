@@ -1,110 +1,162 @@
 import Link from 'next/link';
-import type { ReactNode } from 'react';
-import type { PathNode, PathUnit } from '@/lib/types/training';
+import { Fragment, type ReactNode } from 'react';
+import type { PathNode } from '@/lib/types/training';
+import { GATE_STYLE, type GateStyle, type TrainingSection, type TrainingUnit } from './sections';
 
 /** 돌다리 가로 위치(px). 가운데 → 오른쪽 → 가운데 → 왼쪽으로 물결처럼 반복한다. 375px에서도 화면 안에 들어오는 폭 */
 const OFFSET = [0, 44, 60, 44, 0, -44, -60, -44];
 
-type GateStyle = { label: string; banner: string; stone: string; bubble: string };
-
-/** 관문별 색 (tokens.css의 gate 색). Tailwind가 클래스를 찾을 수 있게 전체 이름으로 적는다 */
-const GATE: Record<string, GateStyle> = {
-  FIND: {
-    label: '찾게',
-    banner: 'bg-gate-find shadow-[0_4px_0_var(--color-gate-find-deep)]',
-    stone: 'bg-gate-find shadow-[0_6px_0_var(--color-gate-find-deep)]',
-    bubble: 'text-gate-find',
-  },
-  TRUST: {
-    label: '믿게',
-    banner: 'bg-gate-trust shadow-[0_4px_0_var(--color-gate-trust-deep)]',
-    stone: 'bg-gate-trust shadow-[0_6px_0_var(--color-gate-trust-deep)]',
-    bubble: 'text-gate-trust',
-  },
-  NOTIFY: {
-    label: '알리게',
-    banner: 'bg-gate-notify shadow-[0_4px_0_var(--color-gate-notify-deep)]',
-    stone: 'bg-gate-notify shadow-[0_6px_0_var(--color-gate-notify-deep)]',
-    bubble: 'text-gate-notify',
-  },
-};
-
 const LOCKED_STONE = 'bg-off shadow-[0_6px_0_var(--color-off-deep)]';
 const TROPHY_DONE = 'bg-achieve shadow-[0_6px_0_var(--color-achieve-text)]';
 
-/** S6 유닛 하나: 관문 색 띠 + 지그재그 돌다리 (레슨마다 돌 하나, 끝에 유닛 완료 트로피) */
-export function LessonPath({ unit, no }: { unit: PathUnit; no: number }) {
-  const gate = GATE[unit.gate] ?? GATE.FIND;
-  const ready = unit.ready && unit.nodes.length > 0;
-  const allDone = ready && unit.nodes.every((n) => n.status === 'DONE');
+type Props = {
+  section: TrainingSection;
+  /** 말풍선 카드가 열린 돌 (`유닛key:레슨id`) */
+  selected: string | null;
+  onSelect: (key: string | null) => void;
+};
+
+/** S6 섹션 하나: 섹션 머리 + 유닛 1~6 + 지그재그 돌다리 + 섹션 끝 트로피 */
+export function SectionPath({ section, selected, onSelect }: Props) {
+  const gate = GATE_STYLE[section.gate];
+  const allDone = section.lessonCount > 0 && section.doneCount === section.lessonCount;
+  let step = 0; // 섹션 안에서 이어지는 돌 순서 (지그재그 위치)
 
   return (
-    <section aria-label={`유닛 ${no} ${unit.name}`} className="flex flex-col gap-6">
-      <div className={`rounded-card p-4 ${ready ? `${gate.banner} text-bg` : 'bg-soft text-sub'}`}>
-        <p className="text-xs font-semibold opacity-90">유닛 {no} · {gate.label} 관문</p>
-        <h2 className="mt-0.5 text-lg font-bold">{unit.name}</h2>
-        <p className="mt-0.5 text-sm opacity-90">{ready ? `지금 Lv ${unit.skillLevel}` : '준비 중이에요. 곧 레슨이 열려요.'}</p>
+    <section id={`section-${section.no}`} data-unit-key={section.units[0]?.key} aria-label={`섹션 ${section.no} ${section.name}`} className="scroll-mt-40">
+      <div className="rounded-card border border-line bg-bg p-4">
+        <p className={`text-xs font-bold ${gate.text}`}>섹션 {section.no} · {section.name} 관문</p>
+        <p className="mt-1 text-sm text-body">{section.goal}</p>
+        <p className="mt-2 text-xs text-sub">레슨 {section.doneCount}/{section.lessonCount} 완료 · 유닛 {section.units.length}개</p>
       </div>
 
-      {ready && (
-        <ol className="flex flex-col items-center gap-7 pb-2">
-          {unit.nodes.map((n, i) => (
-            <li key={n.lessonId} style={{ transform: `translateX(${OFFSET[i % OFFSET.length]}px)` }} className={n.status === 'OPEN' ? 'mt-8' : ''}>
-              <Stone node={n} gate={gate} />
-            </li>
-          ))}
-          <li style={{ transform: `translateX(${OFFSET[unit.nodes.length % OFFSET.length]}px)` }}>
-            <div className="flex flex-col items-center" aria-label={allDone ? '유닛 완료' : '유닛 완료 (아직)'}>
-              <span className={`flex h-16 w-16 items-center justify-center rounded-full text-bg ${allDone ? TROPHY_DONE : LOCKED_STONE}`}>
-                <TrophyIcon />
-              </span>
-              <span className={`mt-2 text-xs font-semibold ${allDone ? 'text-achieve-text' : 'text-sub'}`}>유닛 완료</span>
-            </div>
-          </li>
-        </ol>
-      )}
+      {section.units.map((unit) => {
+        const stones = unit.ready ? unit.nodes : [null];
+        return (
+          <div key={unit.key} data-unit-key={unit.key} className="pt-6">
+            <UnitDivider unit={unit} />
+            <ol className="flex flex-col items-center gap-7 pt-6">
+              {stones.map((node, i) => {
+                const x = OFFSET[step++ % OFFSET.length];
+                const key = `${unit.key}:${node?.lessonId ?? 'soon'}`;
+                const open = selected === key;
+                return (
+                  <Fragment key={key}>
+                    <li style={{ transform: `translateX(${x}px)` }}>
+                      <Stone node={node} gate={gate} unit={unit} expanded={open} onClick={() => onSelect(open ? null : key)} />
+                    </li>
+                    {open && (
+                      <li className="w-full">
+                        <StoneCard node={node} gate={gate} unit={unit} index={i} offset={x} />
+                      </li>
+                    )}
+                  </Fragment>
+                );
+              })}
+            </ol>
+          </div>
+        );
+      })}
+
+      <div className="flex flex-col items-center pt-8" style={{ transform: `translateX(${OFFSET[step % OFFSET.length]}px)` }}>
+        <span className={`flex h-16 w-16 items-center justify-center rounded-full text-bg ${allDone ? TROPHY_DONE : LOCKED_STONE}`}>
+          <TrophyIcon />
+        </span>
+        <span className={`mt-2 text-xs font-semibold ${allDone ? 'text-achieve-text' : 'text-sub'}`}>{section.name} 관문 통과</span>
+      </div>
     </section>
   );
 }
 
-function Stone({ node, gate }: { node: PathNode; gate: GateStyle }) {
-  const label = `Lv${node.level} ${node.title}`;
-
-  if (node.status === 'LOCKED') {
-    return (
-      <div className="flex flex-col items-center" aria-label={`${label} · 잠김`}>
-        <span className={`flex h-16 w-16 items-center justify-center rounded-full text-bg ${LOCKED_STONE}`}><LockIcon /></span>
-        <Caption muted>{label}</Caption>
-      </div>
-    );
-  }
-
-  const open = node.status === 'OPEN';
+function UnitDivider({ unit }: { unit: TrainingUnit }) {
   return (
-    <Link
-      href={`/training/lesson/${node.lessonId}`}
-      aria-label={`${label} · ${open ? '시작하기' : '다시 하기'}`}
-      className="group relative flex flex-col items-center"
-    >
-      {open && (
-        <span className={`absolute -top-10 whitespace-nowrap rounded-option border-2 border-line bg-bg px-3 py-1 text-sm font-bold motion-safe:animate-bounce ${gate.bubble}`}>
-          시작
-        </span>
-      )}
-      <span
-        className={`flex items-center justify-center rounded-full text-bg transition group-active:translate-y-1 group-active:shadow-none ${gate.stone} ${
-          open ? 'h-[76px] w-[76px] ring-4 ring-line ring-offset-4 ring-offset-bg' : 'h-16 w-16'
-        }`}
-      >
-        {open ? <StarIcon /> : <CheckIcon />}
-      </span>
-      <Caption>{label}</Caption>
-    </Link>
+    <div className="flex items-center gap-3 text-xs font-semibold text-sub">
+      <span className="h-px flex-1 bg-line" />
+      <span className="max-w-[70%] text-center">유닛 {unit.no} · {unit.title}</span>
+      <span className="h-px flex-1 bg-line" />
+    </div>
   );
 }
 
-function Caption({ children, muted = false }: { children: ReactNode; muted?: boolean }) {
-  return <span className={`mt-2.5 max-w-32 text-center text-xs font-semibold ${muted ? 'text-sub' : 'text-body'}`}>{children}</span>;
+function Stone({ node, gate, unit, expanded, onClick }: {
+  node: PathNode | null; gate: GateStyle; unit: TrainingUnit; expanded: boolean; onClick: () => void;
+}) {
+  const status = node?.status ?? 'LOCKED';
+  const isOpen = status === 'OPEN';
+  const label = node ? `Lv${node.level} ${node.title}` : `${unit.skillName} 준비 중`;
+  const stoneClass = status === 'LOCKED' ? LOCKED_STONE : gate.stone;
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-expanded={expanded}
+      aria-label={`${label} · ${status === 'DONE' ? '완료' : isOpen ? '지금 할 레슨' : '잠김'}`}
+      className="group relative flex flex-col items-center"
+    >
+      {isOpen && !expanded && (
+        <span className={`absolute -top-11 z-[1] whitespace-nowrap rounded-option border-2 border-line bg-bg px-3 py-1 text-sm font-bold motion-safe:animate-bounce ${gate.text}`}>
+          시작
+        </span>
+      )}
+      <span className="relative flex h-[92px] w-[92px] items-center justify-center">
+        {isOpen && <ProgressRing unit={unit} gate={gate} />}
+        <span
+          className={`flex h-16 w-16 items-center justify-center rounded-full text-bg transition group-active:translate-y-1 group-active:shadow-none ${stoneClass}`}
+        >
+          {status === 'DONE' ? <CheckIcon /> : isOpen ? <StarIcon /> : <LockIcon />}
+        </span>
+      </span>
+      <span className={`mt-1 max-w-32 text-center text-xs font-semibold ${status === 'LOCKED' ? 'text-sub' : 'text-body'}`}>{label}</span>
+    </button>
+  );
+}
+
+/** 지금 할 돌 둘레: 이 유닛에서 끝낸 레슨 비율 */
+function ProgressRing({ unit, gate }: { unit: TrainingUnit; gate: GateStyle }) {
+  const done = unit.nodes.filter((n) => n.status === 'DONE').length;
+  const ratio = unit.nodes.length ? done / unit.nodes.length : 0;
+  const r = 42;
+  const c = 2 * Math.PI * r;
+  return (
+    <svg viewBox="0 0 92 92" className="absolute inset-0 -rotate-90" aria-hidden="true">
+      <circle cx="46" cy="46" r={r} fill="none" strokeWidth="7" className="stroke-line" />
+      <circle cx="46" cy="46" r={r} fill="none" strokeWidth="7" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - Math.max(ratio, 0.04))} className={gate.ring} />
+    </svg>
+  );
+}
+
+/** 돌을 누르면 열리는 카드: 레슨 이름, 유닛 안 순서, 시작 버튼 */
+function StoneCard({ node, gate, unit, index, offset }: { node: PathNode | null; gate: GateStyle; unit: TrainingUnit; index: number; offset: number }) {
+  const status = node?.status ?? 'LOCKED';
+  const locked = status === 'LOCKED';
+  return (
+    <div className={`relative rounded-card p-4 ${locked ? 'border border-line bg-soft text-body' : `${gate.bg} text-bg`}`}>
+      {/* 돌을 가리키는 작은 꼬리 */}
+      <span
+        aria-hidden="true"
+        className={`absolute -top-1.5 left-1/2 h-3 w-3 rotate-45 ${locked ? 'border-l border-t border-line bg-soft' : gate.bg}`}
+        style={{ marginLeft: offset - 6 }}
+      />
+      <p className="text-xs font-semibold opacity-90">섹션 {unit.sectionNo}, 유닛 {unit.no} · {unit.skillName}</p>
+      <h3 className="mt-1 text-lg font-bold">{node ? node.title : unit.title}</h3>
+      <p className="text-sm opacity-90">
+        {!node
+          ? '준비 중이에요. 곧 레슨이 열려요.'
+          : locked
+            ? '앞 레슨을 끝내면 열려요.'
+            : `레슨 ${index + 1}/${unit.nodes.length}${node.bestAccuracy != null ? ` · 최고 정답률 ${node.bestAccuracy}%` : ''}`}
+      </p>
+      {node && !locked && (
+        <Link
+          href={`/training/lesson/${node.lessonId}`}
+          className={`mt-3 flex min-h-12 w-full items-center justify-center rounded-button bg-bg text-base font-bold shadow-[0_4px_0_var(--color-line)] active:translate-y-1 active:shadow-none ${gate.text}`}
+        >
+          {status === 'DONE' ? '다시 하기' : '시작하기'}
+        </Link>
+      )}
+    </div>
+  );
 }
 
 function Svg({ children }: { children: ReactNode }) {
