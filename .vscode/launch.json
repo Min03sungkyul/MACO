@@ -7,7 +7,7 @@
       "request": "launch",
       "command": "npm run dev:mock",
       "cwd": "${workspaceFolder}/frontend",
-      "preLaunchTask": "화면 패키지 설치",
+      "preLaunchTask": "화면 준비",
       "serverReadyAction": {
         "pattern": "Local:\\s+(https?://\\S+)",
         "uriFormat": "%s/training",
@@ -20,7 +20,7 @@
       "request": "launch",
       "command": "npm run dev",
       "cwd": "${workspaceFolder}/frontend",
-      "preLaunchTask": "화면 패키지 설치",
+      "preLaunchTask": "화면 준비",
       "serverReadyAction": {
         "pattern": "Local:\\s+(https?://\\S+)",
         "uriFormat": "%s",
@@ -47,7 +47,10 @@
   "compounds": [
     {
       "name": "★ 전체 실행 (DB + 서버 + 화면)",
-      "configurations": ["③ 서버 - Spring Boot (DB 필요)", "② 화면 - 실제 서버 연결"],
+      "configurations": [
+        "③ 서버 - Spring Boot (DB 필요)",
+        "② 화면 - 실제 서버 연결"
+      ],
       "stopAll": true
     }
   ]
